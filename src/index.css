@@ -183,7 +183,7 @@ button {
   transition:
     transform 0.25s ease,
     filter 0.25s ease;
-  animation: treasureFloat 3.2s ease-in-out infinite;
+  animation: treasureFloat 4.2s ease-in-out infinite;
 }
 
 .project-box:hover {
@@ -273,33 +273,39 @@ button {
 }
 
 .box-one {
-  top: 9.5%;
-  left: 47%;
+  top: 15.5%;
+  left: 65%;
+  animation-delay: 0s;
 }
 
 .box-two {
   top: 20.5%;
   left: 33%;
+  animation-delay: 0.45s;
 }
 
 .box-three {
   top: 32.5%;
   left: 51%;
+  animation-delay: 0.9s;
 }
 
 .box-four {
   top: 45.5%;
   left: 40%;
+  animation-delay: 1.35s;
 }
 
 .box-five {
   top: 61%;
   left: 54%;
+  animation-delay: 1.8s;
 }
 
 .box-six {
   top: 78%;
   left: 43%;
+  animation-delay: 2.25s;
 }
 
 .footer {
