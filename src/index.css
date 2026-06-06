@@ -115,8 +115,8 @@ button {
 .project-box {
   position: absolute;
   z-index: 10;
-  width: clamp(68px, 8vw, 112px);
-  height: clamp(58px, 7vw, 96px);
+  width: clamp(100px, 8vw, 112px);
+  height: clamp(200px, 7vw, 96px);
   border: 0;
   padding: 0;
   background: transparent;
@@ -196,8 +196,8 @@ button {
 }
 
 .box-one {
-  top: 9.5%;
-  left: 47%;
+  top: 15.5%;
+  left: 65%;
 }
 
 .box-two {
