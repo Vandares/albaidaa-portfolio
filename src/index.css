@@ -24,6 +24,7 @@ button {
     linear-gradient(180deg, #c7833e 0%, #8f5528 100%);
 }
 
+/* Header / Logo */
 .map-hero {
   position: fixed;
   top: 0;
@@ -77,6 +78,7 @@ button {
   animation: pulse 1.5s infinite ease-in-out;
 }
 
+/* Map */
 .map-section {
   position: relative;
   width: min(100vw, 980px);
@@ -170,6 +172,7 @@ button {
   animation: sandParticlesTwo 24s linear infinite;
 }
 
+/* Treasure boxes */
 .project-box {
   position: absolute;
   z-index: 10;
@@ -272,6 +275,7 @@ button {
   pointer-events: none;
 }
 
+/* Treasure box positions */
 .box-one {
   top: 15.5%;
   left: 65%;
@@ -308,6 +312,7 @@ button {
   animation-delay: 2.25s;
 }
 
+/* Footer */
 .footer {
   position: relative;
   z-index: 5;
@@ -326,6 +331,7 @@ button {
   margin: 0;
 }
 
+/* Modal */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -460,6 +466,7 @@ button {
   text-transform: none;
 }
 
+/* Animations */
 @keyframes dustMoveOne {
   from {
     transform: translate3d(-24px, -16px, 0) scale(1);
@@ -573,6 +580,7 @@ button {
   }
 }
 
+/* Tablet */
 @media (max-width: 900px) {
   .logo-wrap {
     width: min(210px, calc(100vw - 32px));
@@ -580,6 +588,7 @@ button {
   }
 }
 
+/* Mobile */
 @media (max-width: 760px) {
   .map-hero {
     position: fixed;
@@ -630,19 +639,35 @@ button {
     font-size: 9px;
   }
 
-  .footer {
-    flex-direction: column;
-    padding: 24px;
+  .modal-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
   }
 
   .project-modal {
-    width: calc(100vw - 24px);
-    max-height: 88vh;
+    width: min(92vw, 390px);
+    max-height: 82vh;
+    margin: 0 auto;
     border-radius: 24px;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .project-modal > img {
-    height: 240px;
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    float: none;
+    margin: 0;
+    z-index: 5;
   }
 
   .modal-content {
@@ -650,16 +675,20 @@ button {
   }
 
   .modal-content h2 {
-    font-size: 32px;
+    font-size: 34px;
+    line-height: 1.05;
   }
 
   .modal-content > span {
-    font-size: 16px;
+    font-size: 17px;
+    line-height: 1.7;
   }
 
   .works-section {
+    width: 100%;
     margin-top: 26px;
     padding-top: 22px;
+    text-align: center;
   }
 
   .works-section h3 {
@@ -668,21 +697,30 @@ button {
   }
 
   .works-grid {
-    grid-template-columns: 1fr;
-    justify-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 16px;
   }
 
-  .work-card {
-    width: 100%;
-    max-width: 320px;
-    margin: 0 auto;
-  }
+.work-card {
+  width: 92%;
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  .work-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
+.work-card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+  .footer {
+    flex-direction: column;
+    padding: 24px;
   }
 
   .dust-layer-one {
@@ -702,6 +740,7 @@ button {
   }
 }
 
+/* Small phones */
 @media (max-width: 420px) {
   .logo-wrap {
     width: 105px;
@@ -711,118 +750,21 @@ button {
     padding: 9px 12px;
     font-size: 11px;
   }
-}
-
-
-@media (max-width: 760px) {
-  .project-modal .works-section {
-    width: 100%;
-    text-align: center;
-  }
-
-  .project-modal .works-grid {
-    width: 100%;
-    display: flex !important;
-    flex-direction: column;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  .project-modal .work-card {
-    width: 70% !important;
-    max-width: 150px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  .project-modal .work-card img {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-  }
-}
-
-@media (max-width: 760px) {
-  .modal-overlay {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 18px !important;
-  }
 
   .project-modal {
-    width: min(92vw, 390px) !important;
-    max-height: 82vh !important;
-    margin: 0 auto !important;
-    border-radius: 24px !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
+    width: 90vw;
+    max-height: 80vh;
   }
 
   .project-modal > img {
-    width: 100% !important;
-    height: 260px !important;
-    object-fit: cover !important;
-  }
-
-  .close-button {
-    position: absolute !important;
-    top: 18px !important;
-    right: 18px !important;
-    float: none !important;
-    margin: 0 !important;
-    z-index: 5 !important;
+    height: 235px;
   }
 
   .modal-content {
-    padding: 24px !important;
+    padding: 22px;
   }
 
   .modal-content h2 {
-    font-size: 34px !important;
-    line-height: 1.05 !important;
+    font-size: 31px;
   }
-
-  .modal-content > span {
-    font-size: 17px !important;
-    line-height: 1.7 !important;
-  }
-
-  .works-section {
-    width: 100% !important;
-    text-align: center !important;
-  }
-
-  .works-grid {
-    width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  .work-card {
-    width: min(100%, 310px) !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-}
-
-@media (max-width: 420px) {
-  .project-modal {
-    width: 90vw !important;
-    max-height: 80vh !important;
-  }
-
-  .project-modal > img {
-    height: 235px !important;
-  }
-
-  .modal-content {
-    padding: 22px !important;
-  }
-
-  .modal-content h2 {
-    font-size: 31px !important;
-  }
-}
+}س
