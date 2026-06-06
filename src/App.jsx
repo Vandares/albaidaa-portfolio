@@ -87,6 +87,10 @@ function App() {
           alt="Albaidaa desert map"
         />
 
+        <div className="dust-layer dust-layer-one"></div>
+        <div className="dust-layer dust-layer-two"></div>
+        <div className="sand-particles sand-particles-one"></div>
+        <div className="sand-particles sand-particles-two"></div>
         <div className="map-overlay"></div>
 
         {projects.map((project) => (
