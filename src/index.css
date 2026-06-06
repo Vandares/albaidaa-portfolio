@@ -767,4 +767,34 @@ button {
   .modal-content h2 {
     font-size: 31px;
   }
-}س
+}
+
+@media (max-width: 760px) {
+  .close-button {
+    position: sticky !important;
+    top: 12px !important;
+    right: 12px !important;
+    float: right !important;
+    z-index: 10 !important;
+
+    width: 36px !important;
+    height: 36px !important;
+    margin: 12px 12px -48px 0 !important;
+
+    font-size: 24px !important;
+    line-height: 1 !important;
+    background: rgba(255, 245, 225, 0.94) !important;
+    box-shadow: 0 8px 18px rgba(47, 25, 10, 0.2) !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .close-button {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 22px !important;
+    top: 10px !important;
+    right: 10px !important;
+    margin: 10px 10px -44px 0 !important;
+  }
+}
