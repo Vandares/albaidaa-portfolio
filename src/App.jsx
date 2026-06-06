@@ -8,9 +8,26 @@ const projects = [
     category: 'Branding',
     description:
       'A complete visual identity project including logo direction, colors, typography, and brand applications.',
-    image:
-      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
+    image: '/work-brand-1.jpg',
     position: 'box-one',
+    works: [
+      {
+        title: 'Logo Direction',
+        image: '/work-brand-1.jpg',
+      },
+      {
+        title: 'Brand Colors',
+        image: '/work-brand-2.jpg',
+      },
+      {
+        title: 'Social Media Identity',
+        image: '/work-brand-3.jpg',
+      },
+      {
+        title: 'Brand Applications',
+        image: '/work-brand-4.jpg',
+      },
+    ],
   },
   {
     id: 2,
@@ -130,6 +147,21 @@ function App() {
               <p>{selectedProject.category}</p>
               <h2>{selectedProject.title}</h2>
               <span>{selectedProject.description}</span>
+
+              {selectedProject.works && selectedProject.works.length > 0 && (
+                <div className="works-section">
+                  <h3>Our Work</h3>
+
+                  <div className="works-grid">
+                    {selectedProject.works.map((work, index) => (
+                      <div className="work-card" key={index}>
+                        <img src={work.image} alt={work.title} />
+                        <p>{work.title}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </article>
         </div>
