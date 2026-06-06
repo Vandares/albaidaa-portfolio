@@ -33,40 +33,21 @@ button {
   pointer-events: none;
 }
 
-.brand-panel {
-  width: min(420px, calc(100vw - 40px));
-  margin: 28px;
-  padding: 26px;
-  border: 1px solid rgba(74, 42, 18, 0.2);
-  border-radius: 30px;
-  background: rgba(255, 231, 184, 0.72);
-  box-shadow: 0 26px 80px rgba(63, 34, 13, 0.22);
-  backdrop-filter: blur(16px);
+.logo-wrap {
+  width: min(260px, calc(100vw - 40px));
+  margin: 26px;
   pointer-events: auto;
 }
 
-.eyebrow {
-  margin: 0 0 14px;
-  color: #7a4b24;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.brand-panel h1 {
-  margin: 0;
-  color: #26170c;
-  font-size: clamp(48px, 7vw, 86px);
-  line-height: 0.9;
-  letter-spacing: -5px;
-}
-
-.brand-panel p:last-child {
-  margin: 18px 0 0;
-  color: #5c371c;
-  font-size: 16px;
-  line-height: 1.7;
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 12px 22px rgba(48, 25, 9, 0.36))
+    drop-shadow(0 0 18px rgba(255, 220, 150, 0.18));
+  user-select: none;
 }
 
 .scroll-hint {
@@ -357,27 +338,13 @@ button {
   }
 }
 
-/* Tablet */
 @media (max-width: 900px) {
-  .brand-panel {
-    width: min(360px, calc(100vw - 32px));
+  .logo-wrap {
+    width: min(210px, calc(100vw - 32px));
     margin: 18px;
-    padding: 20px;
-    border-radius: 24px;
-  }
-
-  .brand-panel h1 {
-    font-size: 54px;
-    letter-spacing: -3px;
-  }
-
-  .brand-panel p:last-child {
-    font-size: 14px;
-    line-height: 1.55;
   }
 }
 
-/* Mobile */
 @media (max-width: 760px) {
   .map-hero {
     position: fixed;
@@ -387,32 +354,15 @@ button {
     width: auto;
   }
 
-  .brand-panel {
-    width: auto;
-    max-width: 270px;
+  .logo-wrap {
+    width: 120px;
     margin: 0;
-    padding: 12px 14px;
-    border-radius: 18px;
-    background: rgba(255, 231, 184, 0.78);
-    box-shadow: 0 14px 38px rgba(63, 34, 13, 0.22);
-    backdrop-filter: blur(12px);
   }
 
-  .eyebrow {
-    margin-bottom: 6px;
-    font-size: 8px;
-    line-height: 1.25;
-    letter-spacing: 2px;
-  }
-
-  .brand-panel h1 {
-    font-size: 36px;
-    line-height: 0.95;
-    letter-spacing: -2px;
-  }
-
-  .brand-panel p:last-child {
-    display: none;
+  .brand-logo {
+    filter:
+      drop-shadow(0 8px 14px rgba(48, 25, 9, 0.4))
+      drop-shadow(0 0 12px rgba(255, 220, 150, 0.16));
   }
 
   .scroll-hint {
@@ -471,22 +421,9 @@ button {
   }
 }
 
-/* Very small phones */
 @media (max-width: 420px) {
-  .brand-panel {
-    max-width: 235px;
-    padding: 10px 12px;
-    border-radius: 16px;
-  }
-
-  .eyebrow {
-    font-size: 7px;
-    letter-spacing: 1.8px;
-  }
-
-  .brand-panel h1 {
-    font-size: 31px;
-    letter-spacing: -1.5px;
+  .logo-wrap {
+    width: 105px;
   }
 
   .scroll-hint {

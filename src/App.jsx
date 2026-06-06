@@ -70,13 +70,8 @@ function App() {
   return (
     <main className="page">
       <section className="map-hero">
-        <div className="brand-panel">
-          <p className="eyebrow">Marketing & Graphic Design Studio</p>
-          <h1>Albaidaa</h1>
-          <p>
-            A desert journey through our creative projects. Follow the path and
-            open the hidden treasure boxes.
-          </p>
+        <div className="logo-wrap">
+          <img className="brand-logo" src="/albaidaa-logo.png" alt="Albaidaa" />
         </div>
 
         <div className="scroll-hint">
@@ -102,11 +97,7 @@ function App() {
             onClick={() => setSelectedProject(project)}
             aria-label={`Open ${project.title}`}
           >
-            <img
-              className="treasure-image"
-              src="/treasure-chest.png"
-              alt=""
-            />
+            <img className="treasure-image" src="/treasure-chest.png" alt="" />
             <span className="treasure-number">0{project.id}</span>
           </button>
         ))}
