@@ -712,3 +712,32 @@ button {
     font-size: 11px;
   }
 }
+
+
+@media (max-width: 760px) {
+  .project-modal .works-section {
+    width: 100%;
+    text-align: center;
+  }
+
+  .project-modal .works-grid {
+    width: 100%;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .project-modal .work-card {
+    width: 82% !important;
+    max-width: 280px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .project-modal .work-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+  }
+}
