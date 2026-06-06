@@ -729,8 +729,8 @@ button {
   }
 
   .project-modal .work-card {
-    width: 82% !important;
-    max-width: 280px !important;
+    width: 70% !important;
+    max-width: 150px !important;
     margin-left: auto !important;
     margin-right: auto !important;
   }
