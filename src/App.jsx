@@ -13,19 +13,19 @@ const projects = [
     works: [
       {
         title: 'Logo Direction',
-        image: '/work-brand-1.jpg',
+        image: 'https://i.ibb.co/7dNQGCk7/Chat-GPT-Image-M343434ay-18-2026-11-37-25-PM.png',
       },
       {
         title: 'Brand Colors',
-        image: '/work-brand-2.jpg',
+        image: 'https://i.ibb.co/7dNQGCk7/Chat-GPT-Image-M343434ay-18-2026-11-37-25-PM.png',
       },
       {
         title: 'Social Media Identity',
-        image: '/work-brand-3.jpg',
+        image: 'https://i.ibb.co/7dNQGCk7/Chat-GPT-Image-M343434ay-18-2026-11-37-25-PM.png',
       },
       {
         title: 'Brand Applications',
-        image: '/work-brand-4.jpg',
+        image: 'https://i.ibb.co/7dNQGCk7/Chat-GPT-Image-M343434ay-18-2026-11-37-25-PM.png',
       },
     ],
   },
