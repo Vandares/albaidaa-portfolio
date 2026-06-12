@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 const projects = [
@@ -13,19 +13,19 @@ const projects = [
     works: [
       {
         title: 'Logo Direction',
-        image: 'https://i.ibb.co/7dNQGCk7/Chat-GPT-Image-M343434ay-18-2026-11-37-25-PM.png',
+        image: '/work-brand-1.jpg',
       },
       {
         title: 'Brand Colors',
-        image: 'https://i.ibb.co/7dNQGCk7/Chat-GPT-Image-M343434ay-18-2026-11-37-25-PM.png',
+        image: '/work-brand-2.jpg',
       },
       {
         title: 'Social Media Identity',
-        image: 'https://i.ibb.co/7dNQGCk7/Chat-GPT-Image-M343434ay-18-2026-11-37-25-PM.png',
+        image: '/work-brand-3.jpg',
       },
       {
         title: 'Brand Applications',
-        image: 'https://i.ibb.co/7dNQGCk7/Chat-GPT-Image-M343434ay-18-2026-11-37-25-PM.png',
+        image: '/work-brand-4.jpg',
       },
     ],
   },
@@ -81,14 +81,59 @@ const projects = [
   },
 ]
 
+const preloadedImages = new Set()
+
+function preloadProjectImages(project) {
+  const images = [
+    project.image,
+    ...(project.works ? project.works.map((work) => work.image) : []),
+  ]
+
+  images.forEach((src) => {
+    if (!src || preloadedImages.has(src)) return
+
+    const img = new Image()
+    img.src = src
+    preloadedImages.add(src)
+  })
+}
+
 function App() {
   const [selectedProject, setSelectedProject] = useState(null)
+
+  useEffect(() => {
+    if (!selectedProject) return
+
+    const originalOverflow = document.body.style.overflow
+
+    document.body.style.overflow = 'hidden'
+
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        setSelectedProject(null)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = originalOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [selectedProject])
 
   return (
     <main className="page">
       <section className="map-hero">
         <div className="logo-wrap">
-          <img className="brand-logo" src="/albaidaa-logo.png" alt="Albaidaa" />
+          <img
+            className="brand-logo"
+            src="/albaidaa-logo.png"
+            alt="Albaidaa"
+            decoding="async"
+            fetchPriority="high"
+            draggable="false"
+          />
         </div>
 
         <div className="scroll-hint">
@@ -102,6 +147,9 @@ function App() {
           className="desert-map-image"
           src="/desert-map.png"
           alt="Albaidaa desert map"
+          decoding="async"
+          fetchPriority="high"
+          draggable="false"
         />
 
         <div className="dust-layer dust-layer-one"></div>
@@ -115,11 +163,23 @@ function App() {
             key={project.id}
             type="button"
             className={`project-box ${project.position}`}
+            onPointerEnter={() => preloadProjectImages(project)}
+            onFocus={() => preloadProjectImages(project)}
+            onTouchStart={() => preloadProjectImages(project)}
             onClick={() => setSelectedProject(project)}
             aria-label={`Open ${project.title}`}
           >
-            <img className="treasure-image" src="/treasure-chest.png" alt="" />
-            <span className="treasure-number">0{project.id}</span>
+            <img
+              className="treasure-image"
+              src="/treasure-chest.png"
+              alt=""
+              loading="eager"
+              decoding="async"
+              draggable="false"
+            />
+            <span className="treasure-number">
+              {String(project.id).padStart(2, '0')}
+            </span>
           </button>
         ))}
       </section>
@@ -131,7 +191,13 @@ function App() {
 
       {selectedProject && (
         <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
-          <article className="project-modal" onClick={(event) => event.stopPropagation()}>
+          <article
+            className="project-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`project-title-${selectedProject.id}`}
+            onClick={(event) => event.stopPropagation()}
+          >
             <button
               className="close-button"
               type="button"
@@ -141,11 +207,18 @@ function App() {
               ×
             </button>
 
-            <img src={selectedProject.image} alt={selectedProject.title} />
+            <img
+              src={selectedProject.image}
+              alt={selectedProject.title}
+              loading="eager"
+              decoding="async"
+            />
 
             <div className="modal-content">
               <p>{selectedProject.category}</p>
-              <h2>{selectedProject.title}</h2>
+              <h2 id={`project-title-${selectedProject.id}`}>
+                {selectedProject.title}
+              </h2>
               <span>{selectedProject.description}</span>
 
               {selectedProject.works && selectedProject.works.length > 0 && (
@@ -154,8 +227,13 @@ function App() {
 
                   <div className="works-grid">
                     {selectedProject.works.map((work, index) => (
-                      <div className="work-card" key={index}>
-                        <img src={work.image} alt={work.title} />
+                      <div className="work-card" key={`${work.title}-${index}`}>
+                        <img
+                          src={work.image}
+                          alt={work.title}
+                          loading="lazy"
+                          decoding="async"
+                        />
                         <p>{work.title}</p>
                       </div>
                     ))}
