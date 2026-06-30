@@ -1,249 +1,404 @@
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import './App.css'
 
-const projects = [
+const mallData = [
   {
-    id: 1,
-    title: 'Brand Identity',
-    category: 'Branding',
-    description:
-      'A complete visual identity project including logo direction, colors, typography, and brand applications.',
-    image: '/work-brand-1.jpg',
-    position: 'box-one',
-    works: [
-      {
-        title: 'Logo Direction',
-        image: '/work-brand-1.jpg',
-      },
-      {
-        title: 'Brand Colors',
-        image: '/work-brand-2.jpg',
-      },
-      {
-        title: 'Social Media Identity',
-        image: '/work-brand-3.jpg',
-      },
-      {
-        title: 'Brand Applications',
-        image: '/work-brand-4.jpg',
-      },
-    ],
+    id: 'restrooms',
+    nameAr: 'دورات المياه',
+    nameEn: 'Restrooms',
+    type: 'service',
+    floor: 'الدور الأرضي',
+    area: 'منطقة العطور',
+    near: 'بجانب المصعد الرئيسي',
+    directions:
+      'دورات المياه موجودة في الدور الأرضي. من المدخل الرئيسي امشِ للأمام حتى تصل إلى منطقة العطور، ثم اتجه يمينًا. ستجدها بجانب المصعد الرئيسي.',
+    keywords: [
+      'حمام',
+      'حمامات',
+      'دورة مياه',
+      'دورات المياه',
+      'وين الحمام',
+      'فين الحمام',
+      'toilet',
+      'bathroom',
+      'restroom',
+      'restrooms'
+    ]
   },
   {
-    id: 2,
-    title: 'Marketing Campaign',
-    category: 'Marketing',
-    description:
-      'A creative marketing campaign designed to communicate the brand message across digital and printed platforms.',
-    image:
-      'https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&w=1200&q=80',
-    position: 'box-two',
+    id: 'prayer-room',
+    nameAr: 'المصلى',
+    nameEn: 'Prayer Room',
+    type: 'service',
+    floor: 'الدور الأول',
+    area: 'منطقة الخدمات',
+    near: 'بجانب المصعد',
+    directions:
+      'المصلى موجود في الدور الأول. اصعد باستخدام السلم الكهربائي، ثم اتجه يسارًا. ستجد المصلى بجانب المصعد.',
+    keywords: [
+      'مصلى',
+      'الصلاة',
+      'اصلي',
+      'أصلي',
+      'فين اصلي',
+      'وين اصلي',
+      'prayer',
+      'mosque',
+      'pray'
+    ]
   },
   {
-    id: 3,
-    title: 'Social Media Design',
-    category: 'Content Design',
-    description:
-      'A modern social media design system with consistent layouts, colors, typography, and visual direction.',
-    image:
-      'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80',
-    position: 'box-three',
+    id: 'gold-area',
+    nameAr: 'منطقة الذهب',
+    nameEn: 'Gold Shops',
+    type: 'category',
+    floor: 'الدور الأرضي',
+    area: 'وسط المول',
+    near: 'بالقرب من المدخل الرئيسي',
+    directions:
+      'محلات الذهب موجودة في الدور الأرضي بوسط المول. من المدخل الرئيسي امشِ للأمام مباشرة، وستجد منطقة الذهب على الجهتين.',
+    keywords: [
+      'ذهب',
+      'الذهب',
+      'محلات الذهب',
+      'مجوهرات',
+      'jewelry',
+      'gold',
+      'gold shops'
+    ]
   },
   {
-    id: 4,
-    title: 'Packaging Concept',
-    category: 'Packaging',
-    description:
-      'A premium packaging concept inspired by desert tones, minimal luxury, and tactile brand experiences.',
-    image:
-      'https://images.unsplash.com/photo-1608755728617-aefab37d2edd?auto=format&fit=crop&w=1200&q=80',
-    position: 'box-four',
+    id: 'perfume-area',
+    nameAr: 'منطقة العطور',
+    nameEn: 'Perfume Shops',
+    type: 'category',
+    floor: 'الدور الأرضي',
+    area: 'يمين المدخل الرئيسي',
+    near: 'بجانب منطقة الذهب',
+    directions:
+      'محلات العطور موجودة في الدور الأرضي. من المدخل الرئيسي اتجه يمينًا، وستجد محلات العطور بجانب منطقة الذهب.',
+    keywords: [
+      'عطر',
+      'عطور',
+      'محلات العطور',
+      'perfume',
+      'perfumes',
+      'fragrance'
+    ]
   },
   {
-    id: 5,
-    title: 'Event Visuals',
-    category: 'Graphic Design',
-    description:
-      'A visual direction for an event campaign including key visuals, posters, social posts, and digital assets.',
-    image:
-      'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=80',
-    position: 'box-five',
+    id: 'parking',
+    nameAr: 'المواقف',
+    nameEn: 'Parking',
+    type: 'service',
+    floor: 'الخارج',
+    area: 'خارج المول',
+    near: 'عند البوابة الرئيسية',
+    directions:
+      'المواقف موجودة خارج المول بالقرب من البوابة الرئيسية. يمكنك الخروج من المدخل الرئيسي وستجد منطقة المواقف أمامك.',
+    keywords: [
+      'مواقف',
+      'المواقف',
+      'سيارة',
+      'السيارة',
+      'parking',
+      'car',
+      'park'
+    ]
   },
   {
-    id: 6,
-    title: 'Website Design',
-    category: 'Web Experience',
-    description:
-      'A website concept designed to present the brand story, services, portfolio, and contact experience beautifully.',
-    image:
-      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80',
-    position: 'box-six',
-  },
+    id: 'management-office',
+    nameAr: 'مكتب الإدارة',
+    nameEn: 'Management Office',
+    type: 'service',
+    floor: 'الدور الأول',
+    area: 'منطقة الإدارة',
+    near: 'بجانب المصعد الرئيسي',
+    directions:
+      'مكتب الإدارة موجود في الدور الأول. اصعد من السلم الكهربائي، ثم اتجه يمينًا باتجاه منطقة الإدارة.',
+    keywords: [
+      'الإدارة',
+      'الادارة',
+      'مكتب الإدارة',
+      'مكتب الادارة',
+      'management',
+      'office'
+    ]
+  }
 ]
 
-const preloadedImages = new Set()
+const quickQuestions = [
+  'فين دورة المياه؟',
+  'فين المصلى؟',
+  'فين محلات الذهب؟',
+  'فين محلات العطور؟',
+  'فين المواقف؟',
+  'فين مكتب الإدارة؟'
+]
 
-function preloadProjectImages(project) {
-  const images = [
-    project.image,
-    ...(project.works ? project.works.map((work) => work.image) : []),
-  ]
+function normalizeText(text) {
+  return text
+    .toLowerCase()
+    .replace(/[؟?.,!]/g, '')
+    .replace(/[أإآ]/g, 'ا')
+    .replace(/ة/g, 'ه')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
 
-  images.forEach((src) => {
-    if (!src || preloadedImages.has(src)) return
+function findBestLocation(question) {
+  const normalizedQuestion = normalizeText(question)
 
-    const img = new Image()
-    img.src = src
-    preloadedImages.add(src)
+  let bestMatch = null
+  let bestScore = 0
+
+  mallData.forEach((location) => {
+    let score = 0
+
+    location.keywords.forEach((keyword) => {
+      const normalizedKeyword = normalizeText(keyword)
+
+      if (normalizedQuestion.includes(normalizedKeyword)) {
+        score += 5
+      }
+
+      const keywordWords = normalizedKeyword.split(' ')
+      keywordWords.forEach((word) => {
+        if (word.length > 2 && normalizedQuestion.includes(word)) {
+          score += 1
+        }
+      })
+    })
+
+    if (score > bestScore) {
+      bestScore = score
+      bestMatch = location
+    }
   })
+
+  return bestScore > 0 ? bestMatch : null
+}
+
+function createAnswer(question) {
+  const location = findBestLocation(question)
+
+  if (!question.trim()) {
+    return {
+      found: false,
+      text: 'اكتب سؤالك أو اختر أحد الأزرار السريعة.'
+    }
+  }
+
+  if (!location) {
+    return {
+      found: false,
+      text:
+        'عذرًا، لا أملك معلومة مؤكدة عن هذا المكان حاليًا. يمكنك التوجه إلى مكتب الاستعلامات للمساعدة.'
+    }
+  }
+
+  return {
+    found: true,
+    location,
+    text: location.directions
+  }
 }
 
 function App() {
-  const [selectedProject, setSelectedProject] = useState(null)
+  const [question, setQuestion] = useState('')
+  const [answer, setAnswer] = useState(
+    'أهلًا وسهلًا، أنا مرشد Lavert الذكي. اسألني عن أي مكان داخل المول.'
+  )
+  const [activeLocation, setActiveLocation] = useState(null)
+  const [isSpeaking, setIsSpeaking] = useState(false)
 
-  useEffect(() => {
-    if (!selectedProject) return
+  const availableLocations = useMemo(() => mallData, [])
 
-    const originalOverflow = document.body.style.overflow
-
-    document.body.style.overflow = 'hidden'
-
-    function handleKeyDown(event) {
-      if (event.key === 'Escape') {
-        setSelectedProject(null)
-      }
+  function speakText(text) {
+    if (!('speechSynthesis' in window)) {
+      return
     }
 
-    window.addEventListener('keydown', handleKeyDown)
+    window.speechSynthesis.cancel()
 
-    return () => {
-      document.body.style.overflow = originalOverflow
-      window.removeEventListener('keydown', handleKeyDown)
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.lang = 'ar-SA'
+    utterance.rate = 0.9
+    utterance.pitch = 1
+
+    utterance.onstart = () => {
+      setIsSpeaking(true)
     }
-  }, [selectedProject])
+
+    utterance.onend = () => {
+      setIsSpeaking(false)
+    }
+
+    utterance.onerror = () => {
+      setIsSpeaking(false)
+    }
+
+    window.speechSynthesis.speak(utterance)
+  }
+
+  function handleAsk(customQuestion) {
+    const finalQuestion = customQuestion || question
+    const result = createAnswer(finalQuestion)
+
+    setQuestion(finalQuestion)
+    setAnswer(result.text)
+    setActiveLocation(result.location || null)
+    speakText(result.text)
+  }
+
+  function handleStopSpeaking() {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel()
+    }
+    setIsSpeaking(false)
+  }
 
   return (
-    <main className="page">
-      <section className="map-hero">
-        <div className="logo-wrap">
-          <img
-            className="brand-logo"
-            src="/albaidaa-logo.png"
-            alt="Albaidaa"
-            decoding="async"
-            fetchPriority="high"
-            draggable="false"
-          />
+    <main className="app-shell">
+      <section className="hero-section">
+        <div className="hero-content">
+          <div className="brand-badge">LAVERT AI EXPERIENCE</div>
+
+          <h1>
+           مرشد لافيرت الذكي
+            <span> تجربة خاصة</span>
+          </h1>
+
+          <p>
+            تجربة أولية لشاشة تفاعلية تساعد الزوار في معرفة الاتجاهات والخدمات
+            داخل المكان.
+          </p>
         </div>
 
-        <div className="scroll-hint">
-          <span></span>
-          Scroll to explore
+        <div className="status-card">
+          <span className="status-dot"></span>
+          Prototype Running
         </div>
       </section>
 
-      <section className="map-section" aria-label="Albaidaa portfolio desert map">
-        <img
-          className="desert-map-image"
-          src="/desert-map.png"
-          alt="Albaidaa desert map"
-          decoding="async"
-          fetchPriority="high"
-          draggable="false"
-        />
-
-        <div className="dust-layer dust-layer-one"></div>
-        <div className="dust-layer dust-layer-two"></div>
-        <div className="sand-particles sand-particles-one"></div>
-        <div className="sand-particles sand-particles-two"></div>
-        <div className="map-overlay"></div>
-
-        {projects.map((project) => (
-          <button
-            key={project.id}
-            type="button"
-            className={`project-box ${project.position}`}
-            onPointerEnter={() => preloadProjectImages(project)}
-            onFocus={() => preloadProjectImages(project)}
-            onTouchStart={() => preloadProjectImages(project)}
-            onClick={() => setSelectedProject(project)}
-            aria-label={`Open ${project.title}`}
-          >
-            <img
-              className="treasure-image"
-              src="/treasure-chest.png"
-              alt=""
-              loading="eager"
-              decoding="async"
-              draggable="false"
-            />
-            <span className="treasure-number">
-              {String(project.id).padStart(2, '0')}
-            </span>
-          </button>
-        ))}
-      </section>
-
-      <footer className="footer">
-        <p>Albaidaa Studio</p>
-        <span>Marketing • Branding • Graphic Design</span>
-      </footer>
-
-      {selectedProject && (
-        <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
-          <article
-            className="project-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={`project-title-${selectedProject.id}`}
-            onClick={(event) => event.stopPropagation()}
-          >
-            <button
-              className="close-button"
-              type="button"
-              onClick={() => setSelectedProject(null)}
-              aria-label="Close project"
-            >
-              ×
-            </button>
-
-            <img
-              src={selectedProject.image}
-              alt={selectedProject.title}
-              loading="eager"
-              decoding="async"
-            />
-
-            <div className="modal-content">
-              <p>{selectedProject.category}</p>
-              <h2 id={`project-title-${selectedProject.id}`}>
-                {selectedProject.title}
-              </h2>
-              <span>{selectedProject.description}</span>
-
-              {selectedProject.works && selectedProject.works.length > 0 && (
-                <div className="works-section">
-                  <h3>Our Work</h3>
-
-                  <div className="works-grid">
-                    {selectedProject.works.map((work, index) => (
-                      <div className="work-card" key={`${work.title}-${index}`}>
-                        <img
-                          src={work.image}
-                          alt={work.title}
-                          loading="lazy"
-                          decoding="async"
-                        />
-                        <p>{work.title}</p>
-                      </div>
-                    ))}
-                  </div>
+      <section className="assistant-layout">
+        <div className="avatar-card">
+          <div className={`avatar ${isSpeaking ? 'speaking' : ''}`}>
+            <div className="avatar-head">
+              <div className="ghutra"></div>
+              <div className="face">
+                <div className="eyes">
+                  <span></span>
+                  <span></span>
                 </div>
-              )}
+                <div className={`mouth ${isSpeaking ? 'mouth-speaking' : ''}`}></div>
+              </div>
             </div>
-          </article>
+
+            <div className="thobe"></div>
+          </div>
+
+          <div className="voice-wave" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <h2>أهلاً، كيف أقدر أخدمك؟</h2>
+          <p>اسألني عن دورات المياه، المصلى، الذهب، العطور، المواقف أو الإدارة.</p>
         </div>
-      )}
+
+        <div className="chat-card">
+          <div className="input-area">
+            <label htmlFor="question">اكتب سؤال الزائر</label>
+
+            <div className="input-row">
+              <input
+                id="question"
+                type="text"
+                value={question}
+                placeholder="مثال: فين دورة المياه؟"
+                onChange={(event) => setQuestion(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    handleAsk()
+                  }
+                }}
+              />
+
+              <button onClick={() => handleAsk()}>اسأل</button>
+            </div>
+          </div>
+
+          <div className="quick-actions">
+            {quickQuestions.map((item) => (
+              <button key={item} onClick={() => handleAsk(item)}>
+                {item}
+              </button>
+            ))}
+          </div>
+
+          <div className="answer-box">
+            <div className="answer-header">
+              <span>رد المرشد</span>
+
+              {isSpeaking ? (
+                <button className="small-button" onClick={handleStopSpeaking}>
+                  إيقاف الصوت
+                </button>
+              ) : null}
+            </div>
+
+            <p>{answer}</p>
+          </div>
+
+          {activeLocation ? (
+            <div className="location-details">
+              <h3>{activeLocation.nameAr}</h3>
+
+              <div className="details-grid">
+                <div>
+                  <span>الدور</span>
+                  <strong>{activeLocation.floor}</strong>
+                </div>
+
+                <div>
+                  <span>المنطقة</span>
+                  <strong>{activeLocation.area}</strong>
+                </div>
+
+                <div>
+                  <span>قريب من</span>
+                  <strong>{activeLocation.near}</strong>
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      <section className="map-section">
+        <div className="section-title">
+          <span>بيانات المول الحالية</span>
+          <h2>الأماكن المسجلة في التجربة</h2>
+        </div>
+
+        <div className="locations-grid">
+          {availableLocations.map((location) => (
+            <button
+              className={`location-pill ${
+                activeLocation?.id === location.id ? 'active' : ''
+              }`}
+              key={location.id}
+              onClick={() => handleAsk(`فين ${location.nameAr}؟`)}
+            >
+              <span>{location.nameAr}</span>
+              <small>{location.floor}</small>
+            </button>
+          ))}
+        </div>
+      </section>
     </main>
   )
 }
