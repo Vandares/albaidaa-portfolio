@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Raw source assets (web-ready copies live in /public) — originals exceed GitHub's 100MB limit
+ourwork/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

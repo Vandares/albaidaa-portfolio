@@ -1,0 +1,15 @@
+# Raw source assets — not needed for the built site (web-ready copies live in /public)
+ourwork
+Resources
+Skill
+Lavert Visual identity
+brands we worked with
+
+# Tooling / scratch
+.claude/skills
+*.b64
+*.ps1
+
+# Build artifacts (Vercel builds fresh)
+dist
+node_modules
