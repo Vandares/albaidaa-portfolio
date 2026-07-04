@@ -30,7 +30,7 @@ function Half({ hidden }) {
           <img
             src={`/assets/clients/logos/${file}.png`}
             alt={hidden ? "" : name}
-            loading="lazy"
+            loading="eager"
             decoding="async"
           />
         </div>
