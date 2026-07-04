@@ -126,6 +126,7 @@ h4 {
 .section {
   padding-block: var(--section-y);
   position: relative;
+  scroll-margin-top: 72px; /* keep anchored sections clear of the fixed nav */
 }
 
 .eyebrow {
@@ -343,10 +344,8 @@ h4 {
 .hero-pattern {
   position: absolute;
   inset: 0;
-  background-color: var(--purple);
-  -webkit-mask: url("/assets/brand/pattern.png") center / cover no-repeat;
-  mask: url("/assets/brand/pattern.png") center / cover no-repeat;
-  opacity: 0.05;
+  background: url("/assets/brand/pattern-purple.png") center / cover no-repeat;
+  opacity: 0.07;
   z-index: 0;
   pointer-events: none;
 }
@@ -478,10 +477,8 @@ h4 {
 .hero-card .card-pattern {
   position: absolute;
   inset: 0;
-  background-color: var(--white);
-  -webkit-mask: url("/assets/brand/pattern.png") center / cover no-repeat;
-  mask: url("/assets/brand/pattern.png") center / cover no-repeat;
-  opacity: 0.14;
+  background: url("/assets/brand/pattern-white.png") center / cover no-repeat;
+  opacity: 0.13;
 }
 .hero-card .card-tag {
   position: absolute;
@@ -540,35 +537,58 @@ h4 {
    MARQUEE (clients strip)
    ============================================================ */
 .marquee {
-  padding-block: clamp(2rem, 5vw, 3rem);
-  border-top: 1px solid rgba(100, 86, 85, 0.1);
-  border-bottom: 1px solid rgba(100, 86, 85, 0.1);
-  background: var(--cream-2);
   overflow: hidden;
-}
-.marquee-label {
-  text-align: center;
-  font-size: 0.78rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 1.6rem;
-  font-weight: 600;
+  position: relative;
+  /* soft fade at both edges */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 .marquee-track {
   display: flex;
   width: max-content;
-  gap: 0;
-  animation: scroll-x 32s linear infinite;
+  padding-block: 0.5rem;
+  animation: scroll-x 45s linear infinite;
+}
+.marquee-half {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 2vw, 1.2rem);
+  padding-right: clamp(0.8rem, 2vw, 1.2rem);
 }
 .marquee:hover .marquee-track {
   animation-play-state: paused;
 }
-.marquee-track img {
-  height: clamp(56px, 9vw, 78px);
-  width: auto;
-  opacity: 0.65;
+.logo-chip {
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
+  width: clamp(120px, 16vw, 168px);
+  height: clamp(72px, 9vw, 92px);
+  background: var(--white);
+  border: 1px solid rgba(100, 86, 85, 0.08);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  padding: 0.9rem 1.2rem;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.logo-chip:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.logo-chip img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.85;
+  filter: grayscale(20%);
 }
 @keyframes scroll-x {
   to {
@@ -896,10 +916,8 @@ h4 {
 .about-visual .about-pattern {
   position: absolute;
   inset: 0;
-  background-color: var(--purple-deep);
-  -webkit-mask: url("/assets/brand/pattern.png") center / cover no-repeat;
-  mask: url("/assets/brand/pattern.png") center / cover no-repeat;
-  opacity: 0.12;
+  background: url("/assets/brand/pattern-purple.png") center / cover no-repeat;
+  opacity: 0.16;
 }
 .about-visual .est {
   position: absolute;
@@ -1042,10 +1060,8 @@ h4 {
 .stats-pattern {
   position: absolute;
   inset: 0;
-  background-color: var(--white);
-  -webkit-mask: url("/assets/brand/pattern.png") center / cover no-repeat;
-  mask: url("/assets/brand/pattern.png") center / cover no-repeat;
-  opacity: 0.1;
+  background: url("/assets/brand/pattern-white.png") center / cover no-repeat;
+  opacity: 0.08;
 }
 .stats-grid {
   position: relative;
@@ -1275,11 +1291,8 @@ h4 {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-  .hero-visual {
-    order: -1;
-  }
   .hero-card {
-    width: min(78%, 340px);
+    width: min(70%, 320px);
   }
   .services-grid,
   .why-grid {
