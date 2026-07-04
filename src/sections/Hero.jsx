@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Arrow, Sparkle, Camera } from "../lib/icons.jsx";
+import WorkDeck from "../components/WorkDeck.jsx";
+import { Arrow } from "../lib/icons.jsx";
 import { fadeUp, stagger } from "../lib/motion.js";
 
 export default function Hero() {
@@ -61,46 +62,9 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        <motion.div
-          className="hero-visual"
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-        >
-          <motion.div
-            className="hero-card"
-            animate={{ y: [0, -14, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <div className="card-pattern" />
-            <img className="mark" src="/assets/brand/logo-white.svg" alt="Lavert" />
-            <div className="card-tag">
-              <span>CREATIVE BY NATURE</span>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="hero-float top"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <span className="ic">
-              <Sparkle width={18} height={18} />
-            </span>
-            Brand Identity
-          </motion.div>
-
-          <motion.div
-            className="hero-float bottom"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <span className="ic">
-              <Camera width={18} height={18} />
-            </span>
-            Photo &amp; Video
-          </motion.div>
-        </motion.div>
+        <div className="hero-visual">
+          <WorkDeck />
+        </div>
       </div>
     </section>
   );

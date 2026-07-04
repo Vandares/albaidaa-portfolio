@@ -457,80 +457,65 @@ h4 {
   justify-content: center;
   align-items: center;
 }
-.hero-card {
+/* Work Deck — fanned cards of real work */
+.deck-wrap {
+  perspective: 1100px;
+  width: min(100%, 340px);
+  /* the fan spreads up-right; nudge left so it reads centered */
+  margin-right: clamp(1rem, 5vw, 4.5rem);
+}
+.deck {
   position: relative;
-  width: min(100%, 420px);
-  aspect-ratio: 4 / 5;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(155deg, var(--purple) 0%, var(--purple-deep) 100%);
-  box-shadow: var(--shadow-lg);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  aspect-ratio: 3 / 4;
+  transform-style: preserve-3d;
 }
-.hero-card .mark {
-  width: 64%;
-  height: auto;
-  filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.2));
-}
-.hero-card .card-pattern {
+.deck-card {
   position: absolute;
   inset: 0;
-  background: url("/assets/brand/pattern-white.png") center / cover no-repeat;
-  opacity: 0.13;
-}
-.hero-card .card-tag {
-  position: absolute;
-  bottom: 1.4rem;
-  left: 1.4rem;
-  right: 1.4rem;
-  background: rgba(253, 251, 249, 0.14);
-  border: 1px solid rgba(253, 251, 249, 0.2);
-  backdrop-filter: blur(6px);
-  border-radius: 14px;
-  padding: 0.9rem 1.1rem;
-  color: var(--white);
-}
-.hero-card .card-tag strong {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
   display: block;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--sand);
+  border: 5px solid var(--white);
+  box-shadow: var(--shadow-lg);
+  transform-origin: 50% 85%;
+  will-change: transform;
 }
-.hero-card .card-tag span {
-  font-size: 0.78rem;
-  opacity: 0.8;
-  letter-spacing: 0.05em;
+.deck-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
 }
-.hero-float {
+.deck-label {
   position: absolute;
-  background: var(--white);
-  border-radius: 16px;
-  padding: 0.85rem 1.1rem;
-  box-shadow: var(--shadow-md);
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.85rem;
+  left: 0.85rem;
+  bottom: 0.85rem;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  background: rgba(42, 36, 46, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(253, 251, 249, 0.18);
+  border-radius: 12px;
+  padding: 0.5rem 0.85rem;
+  pointer-events: none;
+}
+.deck-label strong {
+  font-family: var(--font-display);
+  color: var(--white);
+  font-size: 1rem;
+  line-height: 1.25;
+}
+.deck-label em {
+  font-style: normal;
+  font-size: 0.68rem;
   font-weight: 600;
-  color: var(--ink);
-}
-.hero-float .ic {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  display: grid;
-  place-items: center;
-  background: var(--cream);
-  color: var(--purple-deep);
-}
-.hero-float.top {
-  top: 8%;
-  left: -6%;
-}
-.hero-float.bottom {
-  bottom: 12%;
-  right: -6%;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--purple-light);
 }
 
 /* ============================================================
@@ -1351,8 +1336,13 @@ h4 {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-  .hero-card {
-    width: min(70%, 320px);
+  .hero-visual {
+    justify-content: flex-start;
+    padding-left: clamp(0.5rem, 6vw, 3rem);
+  }
+  .deck-wrap {
+    width: min(70%, 290px);
+    margin-right: 0;
   }
   .services-grid,
   .why-grid {
@@ -1389,9 +1379,6 @@ h4 {
   }
   .work-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .hero-float {
-    display: none;
   }
 }
 
