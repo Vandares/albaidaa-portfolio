@@ -999,53 +999,114 @@ h4 {
    PROCESS
    ============================================================ */
 .process-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
+  gap: clamp(1rem, 2.5vw, 1.8rem);
+}
+.process-line {
+  position: absolute;
+  top: 23px; /* aligned to circle centers */
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--purple-light),
+    var(--purple) 55%,
+    var(--gold)
+  );
+  transform-origin: left center;
+  z-index: 0;
 }
 .process-step {
   position: relative;
-  padding-top: 2.4rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
-.process-step::before {
-  content: "";
-  position: absolute;
-  top: 20px;
-  left: 44px;
-  right: -8px;
-  height: 2px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--purple-light) 0 8px,
-    transparent 8px 16px
-  );
-}
-.process-step:last-child::before {
-  display: none;
+.process-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .process-num {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  background: var(--purple);
+  background: linear-gradient(150deg, var(--purple), var(--purple-deep));
   color: var(--white);
   display: grid;
   place-items: center;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.1rem;
-  box-shadow: 0 8px 18px rgba(144, 131, 168, 0.4);
+  font-size: 1.15rem;
+  /* cream ring masks the connector line passing behind each circle */
+  box-shadow: 0 8px 18px rgba(144, 131, 168, 0.4), 0 0 0 6px var(--cream);
+  margin-bottom: 1.1rem;
+}
+.process-seg {
+  display: none;
 }
 .process-step h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  margin-bottom: 0.45rem;
 }
 .process-step p {
   font-size: 0.9rem;
   color: var(--ink-soft);
+  max-width: 30ch;
+}
+
+/* Vertical timeline on tablets & phones */
+@media (max-width: 1024px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    max-width: 540px;
+    margin-inline: auto;
+  }
+  .process-line {
+    display: none;
+  }
+  .process-step {
+    flex-direction: row;
+    align-items: stretch;
+    text-align: left;
+    gap: 1.15rem;
+  }
+  .process-rail {
+    flex-shrink: 0;
+  }
+  .process-num {
+    margin-bottom: 0;
+  }
+  .process-seg {
+    display: block;
+    width: 2px;
+    flex: 1;
+    min-height: 36px;
+    margin-block: 7px;
+    background: linear-gradient(
+      180deg,
+      var(--purple-light),
+      rgba(196, 187, 210, 0.35)
+    );
+    transform-origin: top center;
+    border-radius: 2px;
+  }
+  .process-body {
+    padding-top: 7px;
+    padding-bottom: 2.1rem;
+  }
+  .process-step:last-child .process-body {
+    padding-bottom: 0;
+  }
+  .process-step p {
+    max-width: none;
+  }
 }
 
 /* ============================================================
@@ -1296,13 +1357,6 @@ h4 {
   .services-grid,
   .why-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .process-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.8rem 1.2rem;
-  }
-  .process-step::before {
-    display: none;
   }
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
