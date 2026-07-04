@@ -94,6 +94,7 @@ export default function Contact() {
               <input
                 id="name"
                 name="name"
+                autoComplete="name"
                 value={form.name}
                 onChange={update}
                 placeholder="e.g. Sara"
@@ -105,6 +106,7 @@ export default function Contact() {
               <input
                 id="brand"
                 name="brand"
+                autoComplete="organization"
                 value={form.brand}
                 onChange={update}
                 placeholder="e.g. Sol Beach"
