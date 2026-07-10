@@ -1569,6 +1569,14 @@ h4 {
   }
 }
 
+/* The clients marquee is a direction-agnostic image strip; its infinite-loop
+   math assumes LTR flow. In RTL the flex origin flips and the track is shoved
+   off-canvas, so the logos disappear. Force the strip back to LTR (the Arabic
+   heading above it lives in a separate element and stays RTL). */
+[dir="rtl"] .marquee {
+  direction: ltr;
+}
+
 /* Arrow glyph follows reading direction */
 [dir="rtl"] .btn-arrow {
   transform: scaleX(-1);
