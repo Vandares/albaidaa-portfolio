@@ -3,8 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { WORK, CATEGORIES } from "../data/content.jsx";
 import { fadeUp, viewport } from "../lib/motion.js";
 import { Close } from "../lib/icons.jsx";
+import { useLang } from "../i18n/LangProvider.jsx";
 
 export default function Work() {
+  const { t } = useLang();
   const [filter, setFilter] = useState("All");
   const [lightbox, setLightbox] = useState(null);
 
@@ -21,12 +23,9 @@ export default function Work() {
           whileInView="show"
           viewport={viewport}
         >
-          <span className="eyebrow">Our Work</span>
-          <h2 className="section-title">Selected creative projects</h2>
-          <p className="lead">
-            A look at the brands we&apos;ve helped shape — across identity,
-            content, campaigns, and more.
-          </p>
+          <span className="eyebrow">{t.work.eyebrow}</span>
+          <h2 className="section-title">{t.work.title}</h2>
+          <p className="lead">{t.work.lead}</p>
         </motion.div>
 
         <motion.div
@@ -42,7 +41,7 @@ export default function Work() {
               className={`filter-btn ${filter === c ? "active" : ""}`}
               onClick={() => setFilter(c)}
             >
-              {c}
+              {t.work.cat[c]}
             </button>
           ))}
         </motion.div>
@@ -60,12 +59,17 @@ export default function Work() {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 onClick={() => setLightbox(w)}
-                aria-label={`View ${w.title}`}
+                aria-label={`${t.work.view} ${t.work.title_of[w.title]}`}
               >
-                <img src={w.img} alt={w.title} loading="lazy" decoding="async" />
+                <img
+                  src={w.img}
+                  alt={t.work.title_of[w.title]}
+                  loading="lazy"
+                  decoding="async"
+                />
                 <span className="work-overlay">
-                  <span className="cat">{w.cat}</span>
-                  <span className="ttl">{w.title}</span>
+                  <span className="cat">{t.work.cat[w.cat]}</span>
+                  <span className="ttl">{t.work.title_of[w.title]}</span>
                 </span>
               </motion.button>
             ))}
@@ -92,7 +96,7 @@ export default function Work() {
             <motion.img
               className="lightbox-img"
               src={lightbox.img}
-              alt={lightbox.title}
+              alt={t.work.title_of[lightbox.title]}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}

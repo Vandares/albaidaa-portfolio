@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { PROCESS } from "../data/content.jsx";
 import { fadeUp, viewport } from "../lib/motion.js";
+import { useLang } from "../i18n/LangProvider.jsx";
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -34,6 +35,7 @@ const bodyIn = {
 };
 
 export default function Process() {
+  const { t } = useLang();
   return (
     <section className="section" id="process">
       <div className="container">
@@ -44,12 +46,9 @@ export default function Process() {
           whileInView="show"
           viewport={viewport}
         >
-          <span className="eyebrow">Our Process</span>
-          <h2 className="section-title">How we bring brands to life</h2>
-          <p className="lead">
-            A clear, five-step path from understanding your brand to launching
-            polished, professional work.
-          </p>
+          <span className="eyebrow">{t.process.eyebrow}</span>
+          <h2 className="section-title">{t.process.title}</h2>
+          <p className="lead">{t.process.lead}</p>
         </motion.div>
 
         <motion.div
@@ -69,26 +68,29 @@ export default function Process() {
             aria-hidden="true"
           />
 
-          {PROCESS.map((p, i) => (
-            <motion.div className="process-step" key={p.title} variants={stepIn}>
-              <div className="process-rail">
-                <motion.span className="process-num" variants={popIn}>
-                  {i + 1}
-                </motion.span>
-                {i < PROCESS.length - 1 && (
-                  <motion.span
-                    className="process-seg"
-                    variants={growY}
-                    aria-hidden="true"
-                  />
-                )}
-              </div>
-              <motion.div className="process-body" variants={bodyIn}>
-                <h3>{p.title}</h3>
-                <p>{p.text}</p>
+          {PROCESS.map((p, i) => {
+            const item = t.process.items[i];
+            return (
+              <motion.div className="process-step" key={p.title} variants={stepIn}>
+                <div className="process-rail">
+                  <motion.span className="process-num" variants={popIn}>
+                    {i + 1}
+                  </motion.span>
+                  {i < PROCESS.length - 1 && (
+                    <motion.span
+                      className="process-seg"
+                      variants={growY}
+                      aria-hidden="true"
+                    />
+                  )}
+                </div>
+                <motion.div className="process-body" variants={bodyIn}>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          ))}
+            );
+          })}
         </motion.div>
       </div>
     </section>

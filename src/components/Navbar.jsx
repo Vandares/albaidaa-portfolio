@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "./Logo.jsx";
+import LangToggle from "./LangToggle.jsx";
+import { useLang } from "../i18n/LangProvider.jsx";
 import { Menu, Close, Arrow } from "../lib/icons.jsx";
 
-const LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#work" },
-  { label: "Showreel", href: "#showreel" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
-];
-
 export default function Navbar() {
+  const { t } = useLang();
+  const LINKS = t.nav.links;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -49,12 +45,13 @@ export default function Navbar() {
           </nav>
 
           <div className="nav-cta">
+            <LangToggle className="nav-lang" />
             <a href="#contact" className="btn btn-primary">
-              Start a Project <Arrow className="btn-arrow" width={18} height={18} />
+              {t.nav.cta} <Arrow className="btn-arrow" width={18} height={18} />
             </a>
             <button
               className="nav-burger"
-              aria-label="Open menu"
+              aria-label={t.nav.openMenu}
               aria-expanded={open}
               onClick={() => setOpen(true)}
             >
@@ -74,10 +71,9 @@ export default function Navbar() {
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
             <button
-              className="nav-burger"
-              aria-label="Close menu"
+              className="nav-burger mobile-close"
+              aria-label={t.nav.closeMenu}
               onClick={() => setOpen(false)}
-              style={{ position: "absolute", top: "1.4rem", right: "1.4rem" }}
             >
               <Close />
             </button>
@@ -86,13 +82,16 @@ export default function Navbar() {
                 {l.label}
               </a>
             ))}
-            <a
-              href="#contact"
-              className="btn btn-primary"
-              onClick={() => setOpen(false)}
-            >
-              Start a Project <Arrow className="btn-arrow" width={18} height={18} />
-            </a>
+            <div className="mobile-actions">
+              <a
+                href="#contact"
+                className="btn btn-primary"
+                onClick={() => setOpen(false)}
+              >
+                {t.nav.cta} <Arrow className="btn-arrow" width={18} height={18} />
+              </a>
+              <LangToggle className="mobile-lang" onToggle={() => setOpen(false)} />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

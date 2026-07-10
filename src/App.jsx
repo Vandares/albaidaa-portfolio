@@ -12,8 +12,10 @@ import Clients from "./sections/Clients.jsx";
 import Contact from "./sections/Contact.jsx";
 import { CONTACT } from "./data/content.jsx";
 import { WhatsApp } from "./lib/icons.jsx";
+import { useLang } from "./i18n/LangProvider.jsx";
 
 export default function App() {
+  const { t } = useLang();
   return (
     <>
       <Navbar />
@@ -36,7 +38,7 @@ export default function App() {
         href={`https://wa.me/${CONTACT.whatsappNumber}`}
         target="_blank"
         rel="noreferrer"
-        aria-label="Chat on WhatsApp"
+        aria-label={t.aria.whatsappFloat}
       >
         <WhatsApp width={28} height={28} />
       </a>

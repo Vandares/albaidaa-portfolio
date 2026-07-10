@@ -3,20 +3,24 @@ import { motion } from "framer-motion";
 import { CONTACT } from "../data/content.jsx";
 import { fadeUp, viewport } from "../lib/motion.js";
 import { Mail, Pin, Instagram, WhatsApp, Phone, Arrow } from "../lib/icons.jsx";
+import { useLang } from "../i18n/LangProvider.jsx";
 
 export default function Contact() {
+  const { t } = useLang();
+  const c = t.contact;
   const [form, setForm] = useState({ name: "", brand: "", service: "", message: "" });
 
   const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const submit = (e) => {
     e.preventDefault();
+    const w = c.wa;
     const text =
-      `Hello Lavert! I'd like to start a project.\n\n` +
-      `Name: ${form.name || "-"}\n` +
-      `Brand / Business: ${form.brand || "-"}\n` +
-      `Service needed: ${form.service || "-"}\n` +
-      `Details: ${form.message || "-"}`;
+      `${w.greeting}\n\n` +
+      `${w.name}: ${form.name || w.empty}\n` +
+      `${w.brand}: ${form.brand || w.empty}\n` +
+      `${w.service}: ${form.service || w.empty}\n` +
+      `${w.details}: ${form.message || w.empty}`;
     const url = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(
       text
     )}`;
@@ -33,12 +37,9 @@ export default function Contact() {
           whileInView="show"
           viewport={viewport}
         >
-          <span className="eyebrow">Let&apos;s Talk</span>
-          <h2 className="section-title">Start a project with Lavert</h2>
-          <p className="lead">
-            Tell us about your brand and what you need. Send the form straight to
-            our WhatsApp and we&apos;ll get back to you.
-          </p>
+          <span className="eyebrow">{c.eyebrow}</span>
+          <h2 className="section-title">{c.title}</h2>
+          <p className="lead">{c.lead}</p>
 
           <div className="contact-list">
             <a href={`https://wa.me/${CONTACT.whatsappNumber}`} target="_blank" rel="noreferrer">
@@ -46,8 +47,8 @@ export default function Contact() {
                 <WhatsApp width={22} height={22} />
               </span>
               <span>
-                <span className="ci-t">WhatsApp</span>
-                <span className="ci-v">{CONTACT.whatsappDisplay}</span>
+                <span className="ci-t">{c.channels.whatsapp}</span>
+                <span className="ci-v" dir="ltr">{CONTACT.whatsappDisplay}</span>
               </span>
             </a>
             <a href={`mailto:${CONTACT.email}`}>
@@ -55,8 +56,8 @@ export default function Contact() {
                 <Mail width={22} height={22} />
               </span>
               <span>
-                <span className="ci-t">Email</span>
-                <span className="ci-v">{CONTACT.email}</span>
+                <span className="ci-t">{c.channels.email}</span>
+                <span className="ci-v" dir="ltr">{CONTACT.email}</span>
               </span>
             </a>
             <a href={CONTACT.instagramUrl} target="_blank" rel="noreferrer">
@@ -64,8 +65,8 @@ export default function Contact() {
                 <Instagram width={22} height={22} />
               </span>
               <span>
-                <span className="ci-t">Instagram</span>
-                <span className="ci-v">{CONTACT.instagram}</span>
+                <span className="ci-t">{c.channels.instagram}</span>
+                <span className="ci-v" dir="ltr">{CONTACT.instagram}</span>
               </span>
             </a>
             <div className="ci">
@@ -73,8 +74,8 @@ export default function Contact() {
                 <Pin width={22} height={22} />
               </span>
               <span>
-                <span className="ci-t">Location</span>
-                <span className="ci-v">{CONTACT.location}</span>
+                <span className="ci-t">{c.channels.location}</span>
+                <span className="ci-v">{c.locationValue}</span>
               </span>
             </div>
           </div>
@@ -90,58 +91,56 @@ export default function Contact() {
         >
           <div className="form-row">
             <div className="field">
-              <label htmlFor="name">Your Name</label>
+              <label htmlFor="name">{c.form.name}</label>
               <input
                 id="name"
                 name="name"
                 autoComplete="name"
                 value={form.name}
                 onChange={update}
-                placeholder="e.g. Sara"
+                placeholder={c.form.namePh}
                 required
               />
             </div>
             <div className="field">
-              <label htmlFor="brand">Brand / Business</label>
+              <label htmlFor="brand">{c.form.brand}</label>
               <input
                 id="brand"
                 name="brand"
                 autoComplete="organization"
                 value={form.brand}
                 onChange={update}
-                placeholder="e.g. Sol Beach"
+                placeholder={c.form.brandPh}
               />
             </div>
           </div>
 
           <div className="field">
-            <label htmlFor="service">Service Needed</label>
+            <label htmlFor="service">{c.form.service}</label>
             <input
               id="service"
               name="service"
               value={form.service}
               onChange={update}
-              placeholder="Photography, branding, social media…"
+              placeholder={c.form.servicePh}
             />
           </div>
 
           <div className="field">
-            <label htmlFor="message">Project Details</label>
+            <label htmlFor="message">{c.form.message}</label>
             <textarea
               id="message"
               name="message"
               value={form.message}
               onChange={update}
-              placeholder="Tell us a little about your project…"
+              placeholder={c.form.messagePh}
             />
           </div>
 
           <button type="submit" className="btn btn-primary">
-            Send via WhatsApp <Arrow className="btn-arrow" width={18} height={18} />
+            {c.form.submit} <Arrow className="btn-arrow" width={18} height={18} />
           </button>
-          <p className="form-note">
-            Opens WhatsApp with your message ready to send.
-          </p>
+          <p className="form-note">{c.form.note}</p>
         </motion.form>
       </div>
     </section>

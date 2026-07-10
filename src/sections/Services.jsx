@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { SERVICES } from "../data/content.jsx";
 import { fadeUp, staggerFast, viewport } from "../lib/motion.js";
+import { useLang } from "../i18n/LangProvider.jsx";
 
 export default function Services() {
+  const { t } = useLang();
   return (
     <section className="section" id="services">
       <div className="container">
@@ -13,14 +15,9 @@ export default function Services() {
           whileInView="show"
           viewport={viewport}
         >
-          <span className="eyebrow">What We Do</span>
-          <h2 className="section-title">
-            Creative services that make brands look their best
-          </h2>
-          <p className="lead">
-            From identity to content to print — everything your brand needs to
-            communicate clearly and grow with confidence.
-          </p>
+          <span className="eyebrow">{t.services.eyebrow}</span>
+          <h2 className="section-title">{t.services.title}</h2>
+          <p className="lead">{t.services.lead}</p>
         </motion.div>
 
         <motion.div
@@ -32,6 +29,7 @@ export default function Services() {
         >
           {SERVICES.map((s, i) => {
             const Icon = s.icon;
+            const item = t.services.items[i];
             return (
               <motion.article
                 className="service-card"
@@ -44,8 +42,8 @@ export default function Services() {
                 <div className="service-icon">
                   <Icon width={26} height={26} />
                 </div>
-                <h3>{s.title}</h3>
-                <p>{s.text}</p>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
               </motion.article>
             );
           })}

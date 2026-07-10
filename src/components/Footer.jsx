@@ -1,47 +1,44 @@
 import Logo from "./Logo.jsx";
 import { CONTACT } from "../data/content.jsx";
 import { Instagram, WhatsApp, Mail } from "../lib/icons.jsx";
+import { useLang } from "../i18n/LangProvider.jsx";
 
 const YEAR = new Date().getFullYear();
 
 export default function Footer() {
+  const { t } = useLang();
+  const f = t.footer;
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer-top">
           <div>
             <Logo variant="white" />
-            <p className="footer-about">
-              Lavert is a creative marketing agency based in Jeddah, Saudi
-              Arabia, specializing in branding, design, photography, videography,
-              marketing, social media, and printing.
-            </p>
+            <p className="footer-about">{f.about}</p>
           </div>
 
           <div className="footer-col">
-            <h4>Explore</h4>
+            <h4>{f.exploreHeading}</h4>
             <ul>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#work">Our Work</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#process">Process</a></li>
-              <li><a href="#contact">Contact</a></li>
+              {f.exploreLinks.map((l) => (
+                <li key={l.href}><a href={l.href}>{l.label}</a></li>
+              ))}
             </ul>
           </div>
 
           <div className="footer-col">
-            <h4>Get in Touch</h4>
+            <h4>{f.touchHeading}</h4>
             <ul>
-              <li><a href={`https://wa.me/${CONTACT.whatsappNumber}`} target="_blank" rel="noreferrer">{CONTACT.whatsappDisplay}</a></li>
-              <li><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li>
-              <li><a href={CONTACT.instagramUrl} target="_blank" rel="noreferrer">{CONTACT.instagram}</a></li>
-              <li>{CONTACT.location}</li>
+              <li><a href={`https://wa.me/${CONTACT.whatsappNumber}`} target="_blank" rel="noreferrer" dir="ltr">{CONTACT.whatsappDisplay}</a></li>
+              <li><a href={`mailto:${CONTACT.email}`} dir="ltr">{CONTACT.email}</a></li>
+              <li><a href={CONTACT.instagramUrl} target="_blank" rel="noreferrer" dir="ltr">{CONTACT.instagram}</a></li>
+              <li>{t.contact.locationValue}</li>
             </ul>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <span>© {YEAR} Lavert. Creative by Nature.</span>
+          <span>© {YEAR} {f.rights}</span>
           <div className="footer-socials">
             <a href={CONTACT.instagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram">
               <Instagram width={20} height={20} />

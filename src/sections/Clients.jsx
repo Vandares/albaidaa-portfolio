@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { fadeUp, viewport } from "../lib/motion.js";
+import { useLang } from "../i18n/LangProvider.jsx";
 
 const LOGOS = [
   ["formula1", "Formula 1"],
@@ -40,6 +41,7 @@ function Half({ hidden }) {
 }
 
 export default function Clients() {
+  const { t } = useLang();
   return (
     <section
       className="section"
@@ -55,8 +57,8 @@ export default function Clients() {
           viewport={viewport}
           style={{ marginBottom: "clamp(1.8rem, 4vw, 2.6rem)" }}
         >
-          <span className="eyebrow">Trusted By Brands</span>
-          <h2 className="section-title">Brands we&apos;ve worked with</h2>
+          <span className="eyebrow">{t.clients.eyebrow}</span>
+          <h2 className="section-title">{t.clients.title}</h2>
         </motion.div>
       </div>
 

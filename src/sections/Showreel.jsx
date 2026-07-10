@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { VIDEOS } from "../data/content.jsx";
 import { fadeUp, staggerFast, viewport } from "../lib/motion.js";
 import { Close, Video } from "../lib/icons.jsx";
+import { useLang } from "../i18n/LangProvider.jsx";
 
-function ReelCard({ v, onOpen }) {
+function ReelCard({ v, label, onOpen }) {
   const ref = useRef(null);
 
   const enter = () => {
@@ -27,7 +28,7 @@ function ReelCard({ v, onOpen }) {
       onMouseEnter={enter}
       onMouseLeave={leave}
       onClick={() => onOpen(v)}
-      aria-label={`Play ${v.title}`}
+      aria-label={`${label.play} ${label.title}`}
     >
       <video
         ref={ref}
@@ -44,14 +45,15 @@ function ReelCard({ v, onOpen }) {
         </svg>
       </span>
       <span className="reel-info">
-        <span className="reel-tag">{v.tag}</span>
-        <span className="reel-title">{v.title}</span>
+        <span className="reel-tag">{label.tag}</span>
+        <span className="reel-title">{label.title}</span>
       </span>
     </motion.button>
   );
 }
 
 export default function Showreel() {
+  const { t } = useLang();
   const [active, setActive] = useState(null);
 
   return (
@@ -64,12 +66,9 @@ export default function Showreel() {
           whileInView="show"
           viewport={viewport}
         >
-          <span className="eyebrow">Work in Motion</span>
-          <h2 className="section-title">Our showreel</h2>
-          <p className="lead">
-            A glimpse of our videography — reels, campaigns, and brand
-            storytelling that bring brands to life.
-          </p>
+          <span className="eyebrow">{t.showreel.eyebrow}</span>
+          <h2 className="section-title">{t.showreel.title}</h2>
+          <p className="lead">{t.showreel.lead}</p>
         </motion.div>
 
         <motion.div
@@ -79,8 +78,13 @@ export default function Showreel() {
           whileInView="show"
           viewport={viewport}
         >
-          {VIDEOS.map((v) => (
-            <ReelCard key={v.src} v={v} onOpen={setActive} />
+          {VIDEOS.map((v, i) => (
+            <ReelCard
+              key={v.src}
+              v={v}
+              label={{ ...t.showreel.items[i], play: t.showreel.play }}
+              onOpen={setActive}
+            />
           ))}
         </motion.div>
       </div>

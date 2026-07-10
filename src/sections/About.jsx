@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { fadeUp, scaleIn, viewport } from "../lib/motion.js";
+import { useLang } from "../i18n/LangProvider.jsx";
 
 export default function About() {
+  const { t } = useLang();
+  const a = t.about;
   return (
     <section className="section" id="about">
       <div className="container about-grid">
@@ -15,8 +18,8 @@ export default function About() {
           <div className="about-pattern" />
           <img className="mark" src="/assets/brand/logo-purple.svg" alt="Lavert" />
           <div className="est">
-            2024
-            <span>Established</span>
+            {a.est}
+            <span>{a.estLabel}</span>
           </div>
         </motion.div>
 
@@ -27,33 +30,23 @@ export default function About() {
           whileInView="show"
           viewport={viewport}
         >
-          <span className="eyebrow">Who We Are</span>
+          <span className="eyebrow">{a.eyebrow}</span>
           <h2 className="section-title" style={{ marginBottom: "1.4rem" }}>
-            A creative agency where creativity feels natural
+            {a.title}
           </h2>
 
-          <p className="story-lead">
-            Lavert was created for brands that want more than simple design.
-          </p>
+          <p className="story-lead">{a.storyLead}</p>
 
+          <p>{a.p1}</p>
           <p>
-            We believe every brand has a personality, a feeling, and a story that
-            should be shown clearly. Some brands need a stronger identity. Some
-            need better content. Others need a complete visual direction that
-            makes them look more professional and memorable.
+            {a.p2.a}
+            <strong>{a.p2.strong}</strong>
+            {a.p2.b}
           </p>
           <p>
-            Our name is inspired by <strong>lavender, nature, calmness, and
-            elegance</strong>. This feeling shapes the way we create: balanced,
-            refined, clean, and full of intention. We don&apos;t design randomly —
-            we understand the brand, study the audience, build the direction, and
-            create visuals that support growth.
-          </p>
-          <p>
-            Based in <strong>Jeddah, Saudi Arabia</strong>, we work with
-            businesses that want to improve their image, organize their visual
-            presence, and communicate with their audience in a more professional
-            way.
+            {a.p3.a}
+            <strong>{a.p3.strong}</strong>
+            {a.p3.b}
           </p>
         </motion.div>
       </div>
