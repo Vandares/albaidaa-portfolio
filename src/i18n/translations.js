@@ -29,8 +29,8 @@ const T = {
 
     hero: {
       badge: "Creative Marketing Agency · Jeddah",
-      h1a: "Creative by ",
-      h1em: "Nature",
+      h1a: "We turn imagination into ",
+      h1em: "reality",
       sub: "Lavert is a creative marketing agency that builds brands through strategy, design, photography, videography, and digital content.",
       desc: "We help brands look professional, communicate clearly, and grow with confidence through creative visuals, strong identity, and consistent marketing content.",
       ctaPrimary: "Start a Project",
@@ -286,8 +286,8 @@ const T = {
 
     hero: {
       badge: "وكالة تسويق إبداعية · جدة",
-      h1a: "الإبداع ",
-      h1em: "بطبيعتنا",
+      h1a: "من خيالك نصنع ",
+      h1em: "واقع",
       sub: "لافيرت وكالة تسويق إبداعية تبني العلامات التجارية من خلال الاستراتيجية والتصميم والتصوير الفوتوغرافي وإنتاج الفيديو والمحتوى الرقمي.",
       desc: "نساعد العلامات التجارية على الظهور باحترافية، والتواصل بوضوح، والنمو بثقة من خلال محتوى بصري إبداعي، وهوية قوية، ومحتوى تسويقي متسق.",
       ctaPrimary: "ابدأ مشروعك",

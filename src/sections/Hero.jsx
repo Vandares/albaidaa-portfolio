@@ -26,7 +26,6 @@ export default function Hero() {
           <motion.h1 variants={fadeUp}>
             {t.hero.h1a}
             <em>{t.hero.h1em}</em>
-            <span className="tm">™</span>
           </motion.h1>
 
           <motion.p className="hero-sub" variants={fadeUp}>
