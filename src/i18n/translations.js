@@ -254,7 +254,7 @@ const T = {
         { label: "Contact", href: "#contact" },
       ],
       touchHeading: "Get in Touch",
-      rights: "Lavert. Creative by Nature.",
+      rights: "Lavert. We turn imagination into reality.",
     },
 
     aria: {
@@ -511,7 +511,7 @@ const T = {
         { label: "تواصل معنا", href: "#contact" },
       ],
       touchHeading: "تواصل معنا",
-      rights: "لافيرت. الإبداع بطبيعتنا.",
+      rights: "لافيرت. من خيالك نصنع واقع.",
     },
 
     aria: {
