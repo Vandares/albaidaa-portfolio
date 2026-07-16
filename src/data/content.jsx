@@ -18,6 +18,8 @@ export const CONTACT = {
   location: "Jeddah, Saudi Arabia",
   instagram: "@lavert.sa",
   instagramUrl: "https://instagram.com/lavert.sa",
+  x: "@Lavert_saa",
+  xUrl: "https://x.com/Lavert_saa",
   whatsappDisplay: "+966 55 888 1332",
   whatsappNumber: "966558881332",
   phone: "+966 55 888 1332",

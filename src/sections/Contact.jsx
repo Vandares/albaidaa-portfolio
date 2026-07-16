@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { CONTACT } from "../data/content.jsx";
 import { fadeUp, viewport } from "../lib/motion.js";
-import { Mail, Pin, Instagram, WhatsApp, Phone, Arrow } from "../lib/icons.jsx";
+import { Mail, Pin, Instagram, WhatsApp, Phone, Arrow, XLogo } from "../lib/icons.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
 
 export default function Contact() {
@@ -67,6 +67,15 @@ export default function Contact() {
               <span>
                 <span className="ci-t">{c.channels.instagram}</span>
                 <span className="ci-v" dir="ltr">{CONTACT.instagram}</span>
+              </span>
+            </a>
+            <a href={CONTACT.xUrl} target="_blank" rel="noreferrer">
+              <span className="ci-ic">
+                <XLogo width={19} height={19} />
+              </span>
+              <span>
+                <span className="ci-t">{c.channels.x}</span>
+                <span className="ci-v" dir="ltr">{CONTACT.x}</span>
               </span>
             </a>
             <div className="ci">

@@ -1,6 +1,6 @@
 import Logo from "./Logo.jsx";
 import { CONTACT } from "../data/content.jsx";
-import { Instagram, WhatsApp, Mail } from "../lib/icons.jsx";
+import { Instagram, WhatsApp, Mail, XLogo } from "../lib/icons.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
 
 const YEAR = new Date().getFullYear();
@@ -32,6 +32,7 @@ export default function Footer() {
               <li><a href={`https://wa.me/${CONTACT.whatsappNumber}`} target="_blank" rel="noreferrer" dir="ltr">{CONTACT.whatsappDisplay}</a></li>
               <li><a href={`mailto:${CONTACT.email}`} dir="ltr">{CONTACT.email}</a></li>
               <li><a href={CONTACT.instagramUrl} target="_blank" rel="noreferrer" dir="ltr">{CONTACT.instagram}</a></li>
+              <li><a href={CONTACT.xUrl} target="_blank" rel="noreferrer" dir="ltr">{CONTACT.x}</a></li>
               <li>{t.contact.locationValue}</li>
             </ul>
           </div>
@@ -42,6 +43,9 @@ export default function Footer() {
           <div className="footer-socials">
             <a href={CONTACT.instagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram">
               <Instagram width={20} height={20} />
+            </a>
+            <a href={CONTACT.xUrl} target="_blank" rel="noreferrer" aria-label="X">
+              <XLogo width={18} height={18} />
             </a>
             <a href={`https://wa.me/${CONTACT.whatsappNumber}`} target="_blank" rel="noreferrer" aria-label="WhatsApp">
               <WhatsApp width={20} height={20} />

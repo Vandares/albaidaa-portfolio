@@ -123,6 +123,12 @@ export const WhatsApp = (p) => (
   </svg>
 );
 
+export const XLogo = (p) => (
+  <svg {...p} width={p.width || 24} height={p.height || 24} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z" />
+  </svg>
+);
+
 export const Phone = (p) => (
   <svg {...base} {...p}>
     <path d="M5 4h3l1.5 5-2 1.5a11 11 0 0 0 5 5l1.5-2 5 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
