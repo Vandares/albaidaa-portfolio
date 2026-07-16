@@ -318,8 +318,8 @@ h4 {
   border: 1.5px solid rgba(144, 131, 168, 0.4);
   background: rgba(253, 251, 249, 0.55);
   color: var(--purple-deep);
-  /* Poppins for Latin, Tajawal fallback so "العربية" shapes cleanly */
-  font-family: "Poppins", "Tajawal", system-ui, sans-serif;
+  /* Poppins for Latin, Almarai fallback so "العربية" shapes cleanly */
+  font-family: "Poppins", "Almarai", system-ui, sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
   line-height: 1;
@@ -1480,13 +1480,12 @@ h4 {
 
 /* ============================================================
    ARABIC / RIGHT-TO-LEFT
-   Body text switches to Tajawal (clean Arabic sans); headings
-   keep Amiri — a full Arabic Naskh face, so the wordmark voice
-   carries across languages. letter-spacing is zeroed so Arabic
-   glyphs stay properly joined.
+   All Arabic text uses Almarai — a clean, modern geometric Arabic
+   sans (closest free match to Araboto). letter-spacing is zeroed
+   so Arabic glyphs stay properly joined.
    ============================================================ */
 :root[lang="ar"] {
-  --font-body: "Tajawal", "Amiri", system-ui, sans-serif;
+  --font-body: "Almarai", system-ui, sans-serif;
 }
 
 /* Never letter-space Arabic — it would break the joined letterforms */
@@ -1495,7 +1494,7 @@ h4 {
   word-spacing: normal;
 }
 
-/* Headings: Amiri renders Arabic beautifully; give it room to breathe */
+/* Headings share the same modern Arabic face for a cohesive look */
 :root[lang="ar"] h1,
 :root[lang="ar"] h2,
 :root[lang="ar"] h3,
@@ -1505,8 +1504,8 @@ h4 {
 :root[lang="ar"] .reel-title,
 :root[lang="ar"] .work-overlay .ttl,
 :root[lang="ar"] .deck-label strong {
-  font-family: "Amiri", "Tajawal", Georgia, serif;
-  line-height: 1.32;
+  font-family: "Almarai", system-ui, sans-serif;
+  line-height: 1.35;
 }
 :root[lang="ar"] .hero h1 {
   line-height: 1.22;
