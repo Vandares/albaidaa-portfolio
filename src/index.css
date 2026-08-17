@@ -825,7 +825,7 @@ h4 {
 }
 .reel-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: clamp(0.7rem, 1.5vw, 1.1rem);
 }
 .reel {

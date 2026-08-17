@@ -87,6 +87,7 @@ export const VIDEOS = [
   { src: "/assets/videos/sunset.mp4", poster: "/assets/videos/posters/sunset.jpg", title: "The Sun Sets", tag: "Reel" },
   { src: "/assets/videos/thumb.mp4", poster: "/assets/videos/posters/thumb.jpg", title: "Move Your Thumb", tag: "Reel" },
   { src: "/assets/videos/tkft.mp4", poster: "/assets/videos/posters/tkft.jpg", title: "Match Day", tag: "Campaign" },
+  { src: "/assets/videos/kick.mp4", poster: "/assets/videos/posters/kick.jpg", title: "Kick FC — Penalty Challenge", tag: "Event" },
 ];
 
 // ---- Why Us ----

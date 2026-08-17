@@ -116,6 +116,7 @@ const T = {
         { title: "The Sun Sets", tag: "Reel" },
         { title: "Move Your Thumb", tag: "Reel" },
         { title: "Match Day", tag: "Campaign" },
+        { title: "Kick FC — Penalty Challenge", tag: "Event" },
       ],
     },
 
@@ -374,6 +375,7 @@ const T = {
         { title: "غروب الشمس", tag: "ريل" },
         { title: "حرّك إبهامك", tag: "ريل" },
         { title: "يوم المباراة", tag: "حملة" },
+        { title: "كيك إف سي — تحدي البلنتيات", tag: "تغطية فعالية" },
       ],
     },
 
