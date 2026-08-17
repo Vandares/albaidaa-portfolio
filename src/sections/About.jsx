@@ -15,14 +15,22 @@ export default function About() {
           whileInView="show"
           viewport={viewport}
         >
-          <img
+          {/* Living brand world — seamless loop, decorative. Falls back to
+              the still (set as .about-visual's background) when the visitor
+              prefers reduced motion or video can't play. */}
+          <video
             className="about-photo"
-            src="/assets/brand/world-portrait.jpg"
-            alt=""
             aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-          />
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/assets/brand/world-portrait.jpg"
+          >
+            <source src="/assets/brand/brand-world-portrait.webm" type="video/webm" />
+            <source src="/assets/brand/brand-world-portrait.mp4" type="video/mp4" />
+          </video>
           <div className="about-pattern" />
           <img className="mark" src="/assets/brand/logo-white.svg" alt="Lavert" />
           <div className="est">

@@ -933,7 +933,9 @@ h4 {
   border-radius: var(--radius-lg);
   overflow: hidden;
   aspect-ratio: 4 / 5;
-  background: linear-gradient(160deg, var(--purple-light), var(--sand));
+  /* still frame sits underneath as the reduced-motion / no-video fallback */
+  background: url("/assets/brand/world-portrait.jpg") center / cover no-repeat,
+    linear-gradient(160deg, var(--purple-light), var(--sand));
   box-shadow: var(--shadow-md);
   display: grid;
   place-items: center;
@@ -1502,6 +1504,10 @@ h4 {
   .marquee-track {
     animation: none;
     justify-content: center;
+  }
+  /* Hide the moving brand-world clip; .about-visual keeps the still frame */
+  .about-photo {
+    display: none;
   }
 }
 
