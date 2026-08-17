@@ -8,6 +8,23 @@ export default function Stats() {
   const { t } = useLang();
   return (
     <section className="section stats">
+      {/* Living brand world, colour-graded dark so the white figures keep
+          their contrast. Decorative; hidden under prefers-reduced-motion,
+          where the purple gradient below it remains. */}
+      <video
+        className="stats-video"
+        aria-hidden="true"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/assets/brand/brand-world-dark-poster.jpg"
+      >
+        <source src="/assets/brand/brand-world-dark.webm" type="video/webm" />
+        <source src="/assets/brand/brand-world-dark.mp4" type="video/mp4" />
+      </video>
+      <div className="stats-veil" aria-hidden="true" />
       <div className="stats-pattern" />
       <motion.div
         className="container stats-grid"
