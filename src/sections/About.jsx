@@ -15,8 +15,16 @@ export default function About() {
           whileInView="show"
           viewport={viewport}
         >
+          <img
+            className="about-photo"
+            src="/assets/brand/world-portrait.jpg"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
           <div className="about-pattern" />
-          <img className="mark" src="/assets/brand/logo-purple.svg" alt="Lavert" />
+          <img className="mark" src="/assets/brand/logo-white.svg" alt="Lavert" />
           <div className="est">
             {a.est}
             <span>{a.estLabel}</span>
