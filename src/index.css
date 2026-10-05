@@ -1,3 +1,4 @@
+/* build 2 · macro: Poster Fold · nav N3 · hero H1 · feature F2+F6+F3+F4 · proof P1+P4 · cta C2 · footer Ft4 · mood premium/elegant · palette: LAVERT Brand Guideline v1.0 (fixed, not generated) · contrast: Plum demoted to large-only, all body text >=7:1 on Void · motion: GSAP+ScrollTrigger, single engine */
 /* ============================================================
    LAVERT — Brand Guideline v1.0 (Oct 2026)
    Void ground · moonlight text · one Glow accent.
@@ -279,49 +280,13 @@ ul {
    reveal on this site repeats that gesture.
    ============================================================ */
 .plane {
+  /* hidden state only; GSAP animates it (see lib/motion.js) */
   clip-path: polygon(0% 0%, 0% 0%, -34% 100%, -34% 100%);
   opacity: 0;
-  transition: clip-path var(--d3) var(--ease), opacity var(--d3) var(--ease),
-    transform var(--d3) var(--ease);
-  transform: translateY(14px);
   will-change: clip-path, opacity, transform;
-}
-.plane.is-in {
-  clip-path: polygon(0% 0%, 134% 0%, 100% 100%, -34% 100%);
-  opacity: 1;
-  transform: translateY(0);
 }
 [dir="rtl"] .plane {
   clip-path: polygon(100% 0%, 100% 0%, 134% 100%, 134% 100%);
 }
-[dir="rtl"] .plane.is-in {
-  clip-path: polygon(-34% 0%, 100% 0%, 134% 100%, 0% 100%);
-}
-/* stagger children */
-.plane[data-i="1"] { transition-delay: 60ms; }
-.plane[data-i="2"] { transition-delay: 120ms; }
-.plane[data-i="3"] { transition-delay: 180ms; }
-.plane[data-i="4"] { transition-delay: 240ms; }
-.plane[data-i="5"] { transition-delay: 300ms; }
-.plane[data-i="6"] { transition-delay: 360ms; }
-.plane[data-i="7"] { transition-delay: 420ms; }
 
 /* A hairline that draws itself along the 45° gesture */
-.rule {
-  height: 1px;
-  background: linear-gradient(
-    to var(--rule-dir, right),
-    var(--hairline),
-    transparent
-  );
-  transform: scaleX(0);
-  transform-origin: var(--rule-origin, left) center;
-  transition: transform 600ms var(--ease);
-}
-.rule.is-in {
-  transform: scaleX(1);
-}
-[dir="rtl"] .rule {
-  --rule-dir: left;
-  --rule-origin: right;
-}

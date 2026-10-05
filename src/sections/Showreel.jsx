@@ -1,17 +1,15 @@
-import { useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Section, Lockup } from "../lib/reveal.jsx";
+import { useEffect, useRef, useState } from "react";
+import { Section, Head } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
-import { REELS, SCENES } from "../data/site.js";
+import { REELS } from "../data/site.js";
 import { Close, Play } from "../lib/icons.jsx";
 
-function Reel({ v, label, i, onOpen }) {
+function Reel({ v, label, onOpen }) {
   const ref = useRef(null);
   return (
     <button
       type="button"
       className="reel plane"
-      data-i={(i % 6) + 1}
       onMouseEnter={() => ref.current?.play().catch(() => {})}
       onMouseLeave={() => {
         const el = ref.current;
@@ -24,7 +22,7 @@ function Reel({ v, label, i, onOpen }) {
     >
       <video ref={ref} src={v.src} poster={v.poster} muted loop playsInline preload="none" />
       <span className="reel-play" aria-hidden="true">
-        <Play width={18} height={18} />
+        <Play width={17} height={17} />
       </span>
       <span className="reel-tag">{label.tag}</span>
       <span className="reel-name">{label.name}</span>
@@ -37,61 +35,47 @@ export default function Showreel() {
   const s = t.showreel;
   const [active, setActive] = useState(null);
 
+  useEffect(() => {
+    if (!active) return;
+    const onKey = (e) => e.key === "Escape" && setActive(null);
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [active]);
+
   return (
     <Section id="showreel">
-      <div className="wrap band" style={{ marginBottom: "clamp(40px,6vw,72px)" }}>
-        <div>
-          <Lockup kicker={s.kicker} kickerEn={s.kickerEn} h1={s.h1} h2={s.h2} en={s.en} />
-          <p className="lead plane" data-i="3">
-            {s.lead}
-          </p>
-        </div>
-        <div className="band-art plane" data-i="1">
-          <img src={SCENES.play} alt="" loading="lazy" decoding="async" />
-        </div>
-      </div>
-
       <div className="wrap">
+        <Head kicker={s.kicker} kickerEn={s.kickerEn} h1={s.h1} h2={s.h2} en={s.en} />
+        <p className="lead plane" style={{ marginBottom: "clamp(32px,4vw,48px)" }}>
+          {s.lead}
+        </p>
+
         <div className="reels">
           {REELS.map((v, i) => (
-            <Reel
-              key={v.src}
-              v={v}
-              i={i}
-              label={{ ...s.items[i], play: s.play }}
-              onOpen={setActive}
-            />
+            <Reel key={v.src} v={v} label={{ ...s.items[i], play: s.play }} onOpen={setActive} />
           ))}
         </div>
       </div>
 
-      <AnimatePresence>
-        {active && (
-          <motion.div
-            className="lb"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setActive(null)}
-          >
-            <button className="lb-close" aria-label="Close" onClick={() => setActive(null)}>
-              <Close />
-            </button>
-            <motion.video
-              src={active.src}
-              poster={active.poster}
-              controls
-              autoPlay
-              playsInline
-              initial={{ scale: 0.94, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.94, opacity: 0 }}
-              transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-              onClick={(e) => e.stopPropagation()}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {active && (
+        <div className="lb" role="dialog" aria-modal="true" onClick={() => setActive(null)}>
+          <button className="lb-close" aria-label={s.close} onClick={() => setActive(null)}>
+            <Close width={20} height={20} />
+          </button>
+          <video
+            src={active.src}
+            poster={active.poster}
+            controls
+            autoPlay
+            playsInline
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </Section>
   );
 }

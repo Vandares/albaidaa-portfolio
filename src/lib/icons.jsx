@@ -172,3 +172,10 @@ export const Play = (p) => (
     <path d="M8 5v14l11-7z" />
   </svg>
 );
+
+// The guideline's four-pointed chrome spark, used as the ticker separator
+export const Spark = (p) => (
+  <svg {...p} width={p.width || 14} height={p.height || 14} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 0c.4 6.3 5.3 11.6 12 12-6.7.4-11.6 5.7-12 12-.4-6.3-5.3-11.6-12-12C6.7 11.6 11.6 6.3 12 0Z" />
+  </svg>
+);

@@ -1,19 +1,25 @@
-import { Section, Lockup } from "../lib/reveal.jsx";
+import { Section, Head } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
 import { CLIENT_LOGOS } from "../data/site.js";
 
+/**
+ * P1 · hairline logo wall. No card chips around each mark: the previous build
+ * boxed every logo, which reads as a grid of buttons rather than a client list.
+ * All eighteen are real clients from the portfolio.
+ */
 function Half({ hidden }) {
   return (
-    <div className="mq-half" aria-hidden={hidden || undefined}>
+    <div className="wall-half" aria-hidden={hidden || undefined}>
       {CLIENT_LOGOS.map(([file, name]) => (
-        <div className="chip" key={file}>
-          <img
-            src={`/assets/clients/logos/${file}.png`}
-            alt={hidden ? "" : name}
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
+        <img
+          key={file}
+          src={`/assets/clients/logos/${file}.png`}
+          alt={hidden ? "" : name}
+          loading="lazy"
+          decoding="async"
+          width="140"
+          height="38"
+        />
       ))}
     </div>
   );
@@ -25,22 +31,11 @@ export default function Clients() {
 
   return (
     <Section id="clients">
-      <div
-        className="wrap"
-        style={{ textAlign: "center", marginBottom: "clamp(32px,5vw,56px)" }}
-      >
-        <Lockup
-          kicker={c.kicker}
-          kickerEn={c.kickerEn}
-          h1={c.h1}
-          h2={c.h2}
-          en={c.en}
-          center
-        />
+      <div className="wrap">
+        <Head kicker={c.kicker} kickerEn={c.kickerEn} h1={c.h1} h2={c.h2} en={c.en} center />
       </div>
-
-      <div className="marquee">
-        <div className="marquee-track">
+      <div className="wall">
+        <div className="wall-track">
           <Half />
           <Half hidden />
         </div>

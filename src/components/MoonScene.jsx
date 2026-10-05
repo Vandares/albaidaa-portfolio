@@ -174,8 +174,8 @@ export default function MoonScene() {
       chrome
     );
     moon.geometry.center();
-    moon.scale.setScalar(1.12);
-    moon.position.set(-1.8, 0.3, 0);
+    moon.scale.setScalar(1.75);
+    moon.position.set(-0.1, -5.1, -1.6);
     moon.rotation.z = -0.22;
     group.add(moon);
 
@@ -184,14 +184,14 @@ export default function MoonScene() {
       new THREE.SphereGeometry(0.42, small ? 24 : 48, small ? 24 : 48),
       frosted
     );
-    sphere.position.set(0.15, -1.5, 0.7);
+    sphere.position.set(3.35, 1.35, -0.5);
     group.add(sphere);
 
     const ring = new THREE.Mesh(
       new THREE.TorusGeometry(0.46, 0.17, small ? 12 : 24, small ? 40 : 90),
       chrome
     );
-    ring.position.set(-2.55, -1.75, 0.3);
+    ring.position.set(-3.5, 1.5, -0.6);
     ring.rotation.set(0.9, 0.3, 0);
     group.add(ring);
 
@@ -199,7 +199,7 @@ export default function MoonScene() {
       new THREE.IcosahedronGeometry(0.4, 3),
       frosted
     );
-    pebble.position.set(-2.7, 1.6, -0.3);
+    pebble.position.set(3.6, -1.9, -0.9);
     pebble.scale.set(1.15, 0.9, 1);
     group.add(pebble);
 
@@ -224,11 +224,11 @@ export default function MoonScene() {
 
     const sparks = [];
     const spots = [
-      [-0.55, 1.5, 0.6, 0.55],
-      [-2.3, -0.5, 0.9, 0.38],
-      [0.4, 0.15, -0.5, 0.3],
-      [-1.2, -1.95, 0.4, 0.26],
-      [-3.0, 0.6, 0.2, 0.28],
+      [-2.9, 2.1, 0.4, 0.3],
+      [3.0, 2.3, 0.3, 0.26],
+      [-3.9, -0.6, 0.2, 0.24],
+      [2.6, -2.5, 0.4, 0.26],
+      [-2.0, -2.8, 0.1, 0.2],
     ];
     spots.forEach(([x, y, z, s]) => {
       const m = new THREE.Mesh(sparkGeo, chrome);
@@ -266,7 +266,7 @@ export default function MoonScene() {
     // The composition sits on the start edge; text occupies the other side.
     // The brand composition always keeps the object on the left and the
     // text on the right, in Arabic and English alike.
-    group.position.x = -0.25;
+    group.position.x = 0;
 
     // ---- interaction ----
     const pointer = { x: 0, y: 0 };
@@ -318,13 +318,13 @@ export default function MoonScene() {
       group.rotation.x = pointer.y * 0.16 + Math.cos(t * 0.15) * 0.035;
 
       moon.rotation.z = -0.22 + Math.sin(t * 0.22) * 0.07;
-      moon.position.y = 0.25 + Math.sin(t * 0.4) * 0.09;
+      moon.position.y = -5.1 + Math.sin(t * 0.4) * 0.09;
 
-      sphere.position.y = -1.5 + Math.sin(t * 0.52 + 1) * 0.12;
+      sphere.position.y = 1.35 + Math.sin(t * 0.52 + 1) * 0.12;
       ring.rotation.z += 0.0016;
-      ring.position.y = -1.75 + Math.sin(t * 0.46 + 2) * 0.1;
+      ring.position.y = 1.5 + Math.sin(t * 0.46 + 2) * 0.1;
       pebble.rotation.y += 0.0022;
-      pebble.position.y = 1.6 + Math.sin(t * 0.38 + 0.6) * 0.1;
+      pebble.position.y = -1.9 + Math.sin(t * 0.38 + 0.6) * 0.1;
 
       sparks.forEach((s, i) => {
         s.rotation.z = t * (0.16 + i * 0.045);

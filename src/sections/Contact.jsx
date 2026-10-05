@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Section, Lockup } from "../lib/reveal.jsx";
+import { Section, Head } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
 import { CONTACT } from "../data/site.js";
 import { WhatsApp, Mail, Instagram, XLogo, Globe } from "../lib/icons.jsx";
@@ -40,8 +40,8 @@ export default function Contact() {
       <div className="wrap">
         <div className="contact-grid">
           <div>
-            <Lockup kicker={c.kicker} kickerEn={c.kickerEn} h1={c.h1} h2={c.h2} en={c.en} />
-            <p className="lead plane" data-i="3">
+            <Head kicker={c.kicker} kickerEn={c.kickerEn} h1={c.h1} h2={c.h2} en={c.en} />
+            <p className="lead plane">
               {c.lead}
             </p>
 
@@ -49,7 +49,6 @@ export default function Contact() {
               {channels.map((ch, i) => (
                 <a
                   className="ch plane"
-                  data-i={(i % 6) + 1}
                   key={ch.k + ch.v}
                   href={ch.href}
                   target="_blank"
@@ -67,7 +66,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <form className="plane" data-i="2" onSubmit={submit}>
+          <form className="plane" onSubmit={submit}>
             <div className="form-row">
               <div className="field">
                 <label htmlFor="name">{c.form.name}</label>

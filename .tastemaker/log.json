@@ -1,0 +1,22 @@
+[
+  {
+    "id": "lavert-2026-10-06-b2",
+    "date": "2026-10-06",
+    "project": "lavert",
+    "macrostructure": "12 · Poster Fold",
+    "archetypes": { "nav": "N3", "hero": "H1", "feature": ["F2", "F6", "F3", "F4"], "proof": ["P1", "P4"], "cta": "C2", "footer": "Ft4", "head": "S4" },
+    "mood": "premium/elegant",
+    "note": "rotated off build 1, which was Feature Stack end to end with Ft3 index columns and an N2 bar",
+    "outcome": "pending"
+  },
+  {
+    "id": "lavert-2026-10-05-b1",
+    "date": "2026-10-05",
+    "project": "lavert",
+    "macrostructure": "1 · Feature Stack",
+    "archetypes": { "nav": "N2", "hero": "H2", "feature": ["F1"], "proof": ["P1"], "cta": "C2", "footer": "Ft3" },
+    "mood": "premium/elegant",
+    "note": "client called it too quiet and catalogue-like",
+    "outcome": "rejected"
+  }
+]

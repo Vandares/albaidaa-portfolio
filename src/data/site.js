@@ -90,11 +90,6 @@ const T = {
       cta1: "ابدأ مشروعك",
       cta2: "شوف أعمالنا",
       scroll: "Scroll",
-      stats: [
-        { v: "+50", k: "مشروع إبداعي", en: "Creative projects" },
-        { v: "+20", k: "براند اشتغلنا معه", en: "Brands supported" },
-        { v: "2024", k: "سنة التأسيس", en: "Established" },
-      ],
     },
 
     about: {
@@ -104,9 +99,11 @@ const T = {
       h2: "لافيرت.",
       en: "We are LAVERT",
       body: "وكالة إبداعية من جدة، نبني البراندات بالاستراتيجية والتصميم والتصوير والفيديو والمحتوى الرقمي. نشتغل مع اللي يبون براندهم يطلع بشكل احترافي، يوصل رسالته بوضوح، ويكبر بثقة.",
-      bodyEn:
-        "A creative agency from Jeddah. We build brands through strategy, design, photography, videography and digital content — helping them look professional, communicate clearly and grow with confidence.",
-      ghost: "LAVERT",
+      stats: [
+        { v: "+50", k: "مشروع إبداعي" },
+        { v: "+20", k: "براند اشتغلنا معه" },
+        { v: "2024", k: "سنة التأسيس" },
+      ],
     },
 
     name: {
@@ -200,11 +197,12 @@ const T = {
       en: "Tap to watch",
       lead: "ريلز وحملات وفعاليات. كل فيديو هنا شغل حقيقي سلّمناه لعميل.",
       play: "تشغيل",
+      close: "إغلاق",
       items: [
         { name: "SOL Beach Resort", tag: "Videography" },
-        { name: "سول — بعد الغروب", tag: "Videography" },
+        { name: "سول بعد الغروب", tag: "Videography" },
         { name: "غروب الشمس", tag: "Reel" },
-        { name: "Kick FC — تحدي الضربات", tag: "Event" },
+        { name: "كيك إف سي: تحدي الضربات", tag: "Event" },
         { name: "حرّك إبهامك", tag: "Reel" },
         { name: "Funk Time", tag: "Campaign" },
       ],
@@ -328,7 +326,7 @@ const T = {
 
     footer: {
       about:
-        "وكالة إبداعية من جدة، المملكة العربية السعودية. الهوية والتصميم والتصوير والفيديو والتسويق والسوشال والطباعة والمواقع — تحت سقف واحد.",
+        "وكالة إبداعية من جدة، المملكة العربية السعودية. الهوية والتصميم والتصوير والفيديو والتسويق والسوشال والطباعة والمواقع، تحت سقف واحد.",
       explore: "تصفّح",
       reach: "تواصل",
       links: [
@@ -338,8 +336,10 @@ const T = {
         { label: "طريقتنا", href: "#process" },
         { label: "تواصل معنا", href: "#contact" },
       ],
+      closeA: "للهدوء",
+      closeB: "لغة.",
+      tagline: "Calm has a language",
       rights: "لافيرت. من خيالك نصنع واقع.",
-      tagline: "للهدوء لغة",
     },
 
     aria: { wa: "تواصل عبر واتساب" },
@@ -374,11 +374,6 @@ const T = {
       cta1: "Start a project",
       cta2: "See our work",
       scroll: "Scroll",
-      stats: [
-        { v: "+50", k: "Creative projects", en: "مشروع إبداعي" },
-        { v: "+20", k: "Brands supported", en: "براند اشتغلنا معه" },
-        { v: "2024", k: "Established", en: "سنة التأسيس" },
-      ],
     },
 
     about: {
@@ -388,9 +383,11 @@ const T = {
       h2: "LAVERT.",
       en: "حنا لافيرت",
       body: "A creative agency from Jeddah. We build brands through strategy, design, photography, videography and digital content — helping them look professional, communicate clearly and grow with confidence.",
-      bodyEn:
-        "وكالة إبداعية من جدة، نبني البراندات بالاستراتيجية والتصميم والتصوير والفيديو والمحتوى الرقمي.",
-      ghost: "LAVERT",
+      stats: [
+        { v: "+50", k: "Creative projects" },
+        { v: "+20", k: "Brands supported" },
+        { v: "2024", k: "Established" },
+      ],
     },
 
     name: {
@@ -419,7 +416,7 @@ const T = {
         {
           t: "Photography",
           en: "التصوير",
-          d: "Products, food, spaces and campaigns — shot so the brand looks premium and trusted.",
+          d: "Products, food, spaces and campaigns, shot so the brand looks premium and trusted.",
         },
         {
           t: "Videography",
@@ -484,6 +481,7 @@ const T = {
       en: "اضغط وشوف بنفسك",
       lead: "Reels, campaigns and events. Every video here is real work we delivered.",
       play: "Play",
+      close: "Close",
       items: [
         { name: "SOL Beach Resort", tag: "Videography" },
         { name: "SOL — After Dark", tag: "Videography" },
@@ -516,7 +514,7 @@ const T = {
         {
           t: "Complete creative support",
           en: "دعم إبداعي متكامل",
-          d: "Design, photography, video, marketing, social and printing — all in one place.",
+          d: "Design, photography, video, marketing, social and printing, all in one place.",
         },
         {
           t: "Consistent brand presence",
@@ -612,7 +610,7 @@ const T = {
 
     footer: {
       about:
-        "A creative agency from Jeddah, Saudi Arabia. Identity, design, photography, video, marketing, social, print and web — under one roof.",
+        "A creative agency from Jeddah, Saudi Arabia. Identity, design, photography, video, marketing, social, print and web, under one roof.",
       explore: "Explore",
       reach: "Reach us",
       links: [
@@ -622,8 +620,10 @@ const T = {
         { label: "Process", href: "#process" },
         { label: "Contact", href: "#contact" },
       ],
+      closeA: "Calm has",
+      closeB: "a language.",
+      tagline: "للهدوء لغة",
       rights: "LAVERT. We turn imagination into reality.",
-      tagline: "Calm has a language",
     },
 
     aria: { wa: "Chat on WhatsApp" },

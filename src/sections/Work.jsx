@@ -1,43 +1,29 @@
-import { Section, Lockup } from "../lib/reveal.jsx";
+import { Section, Head } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
-import { SCENES } from "../data/site.js";
 
+/**
+ * F6 · spec sheet. Hairline rules, tabular numbering, editorial restraint —
+ * which is what the portfolio's own work index already is (page 07).
+ *
+ * Four of these eleven have no imagery supplied yet, so the whole index is
+ * presented as a named list rather than a thumbnail grid with gaps in it.
+ */
 export default function Work() {
   const { t } = useLang();
   const w = t.work;
-  const half = Math.ceil(w.items.length / 2);
-  const cols = [w.items.slice(0, half), w.items.slice(half)];
 
   return (
     <Section id="work">
-      <div className="ghost" aria-hidden="true">{w.ghost}</div>
-
-      <div className="wrap band" style={{ marginBottom: "clamp(40px,6vw,72px)" }}>
-        <div>
-          <Lockup kicker={w.kicker} kickerEn={w.kickerEn} h1={w.h1} h2={w.h2} en={w.en} />
-        </div>
-        <div className="band-art plane" data-i="0">
-          <img src={SCENES.portal} alt="" loading="lazy" decoding="async" />
-        </div>
-      </div>
-
       <div className="wrap">
-        <div className="work-cols">
-          {cols.map((col, ci) => (
-            <div key={ci}>
-              {col.map((it, i) => {
-                const n = ci * half + i + 1;
-                return (
-                  <a className="work-row plane" data-i={(i % 6) + 1} key={it.name} href="#showreel">
-                    <span className="t">
-                      <span className="name">{it.name}</span>
-                      <span className="kind">{it.kind}</span>
-                    </span>
-                    <span className="n">{String(n).padStart(2, "0")}</span>
-                  </a>
-                );
-              })}
-            </div>
+        <Head kicker={w.kicker} kickerEn={w.kickerEn} h1={w.h1} h2={w.h2} en={w.en} />
+
+        <div className="sheet-rows">
+          {w.items.map((it, i) => (
+            <a className="row plane" key={it.name} href="#showreel">
+              <span className="n">{String(i + 1).padStart(2, "0")}</span>
+              <span className="name">{it.name}</span>
+              <span className="kind">{it.kind}</span>
+            </a>
           ))}
         </div>
       </div>

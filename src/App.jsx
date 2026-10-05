@@ -1,6 +1,7 @@
 import Nav from "./components/Nav.jsx";
 import Foot from "./components/Foot.jsx";
 import Hero from "./sections/Hero.jsx";
+import Ticker from "./sections/Ticker.jsx";
 import About from "./sections/About.jsx";
 import Services from "./sections/Services.jsx";
 import Work from "./sections/Work.jsx";
@@ -18,9 +19,11 @@ export default function App() {
 
   return (
     <>
+      <div className="sky" aria-hidden="true" />
       <Nav />
       <main>
         <Hero />
+        <Ticker />
         <About />
         <Services />
         <Work />
@@ -39,7 +42,7 @@ export default function App() {
         rel="noreferrer"
         aria-label={t.aria.wa}
       >
-        <WhatsApp width={26} height={26} />
+        <WhatsApp width={25} height={25} />
       </a>
     </>
   );

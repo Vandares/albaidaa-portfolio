@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { useLang } from "../i18n/LangProvider.jsx";
-import { Menu, Close, Globe } from "../lib/icons.jsx";
+import { Menu, Close } from "../lib/icons.jsx";
 
+/** N3 · floating pill. Content-sized, not a rounded full-width bar. */
 export default function Nav() {
-  const { t, toggle } = useLang();
+  const { t, toggle, lang } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 32);
+    const on = () => setScrolled(window.scrollY > 24);
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
@@ -22,27 +22,15 @@ export default function Nav() {
     };
   }, [open]);
 
-  const Lang = (
-    <button className="lang-toggle" onClick={toggle} aria-label={t.switchAria} title={t.switchAria}>
-      <Globe width={16} height={16} />
-      <span>{t.switchTo}</span>
-    </button>
-  );
-
   return (
     <>
-      <motion.header
-        className={`nav ${scrolled ? "scrolled" : ""}`}
-        initial={{ y: -64, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
-      >
-        <div className="wrap nav-in">
-          <a href="#top" className="nav-logo" aria-label="LAVERT">
-            <img src="/assets/brand26/logo-h.png" alt="LAVERT" />
+      <header className={`nav ${scrolled ? "scrolled" : ""}`}>
+        <div className="pill">
+          <a href="#top" className="pill-logo" aria-label="LAVERT">
+            <img src="/assets/brand26/logo-h.png" alt="LAVERT" width="130" height="26" />
           </a>
 
-          <nav className="nav-links" aria-label="Primary">
+          <nav className="pill-links" aria-label={lang === "ar" ? "التنقل" : "Primary"}>
             {t.nav.links.map((l) => (
               <a key={l.href} href={l.href}>
                 {l.label}
@@ -50,49 +38,47 @@ export default function Nav() {
             ))}
           </nav>
 
-          <div className="nav-cta">
-            {Lang}
-            <a href="#contact" className="btn btn-primary">
-              {t.nav.cta}
-            </a>
+          <div className="pill-end">
+            <button
+              className="lang"
+              onClick={toggle}
+              aria-label={t.switchAria}
+              title={t.switchAria}
+            >
+              {t.switchTo}
+            </button>
             <button
               className="burger"
               aria-label={t.nav.open}
               aria-expanded={open}
               onClick={() => setOpen(true)}
             >
-              <Menu />
+              <Menu width={20} height={20} />
             </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="sheet"
-            initial={{ opacity: 0, clipPath: "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)" }}
-            animate={{ opacity: 1, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
-            exit={{ opacity: 0, clipPath: "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)" }}
-            transition={{ duration: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
+      {open && (
+        <div className="sheet" role="dialog" aria-modal="true">
+          <button className="burger sheet-close" aria-label={t.nav.close} onClick={() => setOpen(false)}>
+            <Close width={22} height={22} />
+          </button>
+          {t.nav.links.map((l) => (
+            <a key={l.href} href={l.href} className="sheet-link" onClick={() => setOpen(false)}>
+              {l.label}
+            </a>
+          ))}
+          <a
+            href="#contact"
+            className="btn btn-primary"
+            style={{ marginTop: "28px", alignSelf: "flex-start" }}
+            onClick={() => setOpen(false)}
           >
-            <button className="burger sheet-close" aria-label={t.nav.close} onClick={() => setOpen(false)}>
-              <Close />
-            </button>
-            {t.nav.links.map((l) => (
-              <a key={l.href} href={l.href} className="sheet-link" onClick={() => setOpen(false)}>
-                {l.label}
-              </a>
-            ))}
-            <div className="sheet-actions">
-              <a href="#contact" className="btn btn-primary" onClick={() => setOpen(false)}>
-                {t.nav.cta}
-              </a>
-              {Lang}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {t.nav.cta}
+          </a>
+        </div>
+      )}
     </>
   );
 }
