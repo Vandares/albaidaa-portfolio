@@ -1,48 +1,40 @@
-import { createContext, useContext, useCallback, useEffect, useState } from "react";
-import T from "./translations.js";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import T from "../data/site.js";
 
-const STORAGE_KEY = "lavert-lang";
+const KEY = "lavert-lang";
+const Ctx = createContext(null);
 
-const LangContext = createContext(null);
-
-function getInitialLang() {
-  if (typeof window === "undefined") return "en";
-  const saved = window.localStorage.getItem(STORAGE_KEY);
-  if (saved === "en" || saved === "ar") return saved;
-  // Respect the browser preference on first visit
-  const nav = window.navigator.language || "";
-  return nav.toLowerCase().startsWith("ar") ? "ar" : "en";
+function initial() {
+  if (typeof window === "undefined") return "ar";
+  const saved = window.localStorage.getItem(KEY);
+  if (saved === "ar" || saved === "en") return saved;
+  // Arabic leads — it is the brand's first language.
+  const nav = (window.navigator.language || "").toLowerCase();
+  return nav.startsWith("en") ? "en" : "ar";
 }
 
 export function LangProvider({ children }) {
-  const [lang, setLang] = useState(getInitialLang);
+  const [lang, setLang] = useState(initial);
 
-  // Keep <html lang> + dir in sync so the whole document flows correctly.
   useEffect(() => {
     const html = document.documentElement;
     html.setAttribute("lang", lang);
     html.setAttribute("dir", T[lang].dir);
-    window.localStorage.setItem(STORAGE_KEY, lang);
+    window.localStorage.setItem(KEY, lang);
   }, [lang]);
 
-  const toggle = useCallback(() => {
-    setLang((l) => (l === "en" ? "ar" : "en"));
-  }, []);
+  const toggle = useCallback(() => setLang((l) => (l === "ar" ? "en" : "ar")), []);
 
-  const value = {
-    lang,
-    dir: T[lang].dir,
-    t: T[lang],
-    setLang,
-    toggle,
-  };
-
-  return <LangContext.Provider value={value}>{children}</LangContext.Provider>;
+  return (
+    <Ctx.Provider value={{ lang, dir: T[lang].dir, t: T[lang], setLang, toggle }}>
+      {children}
+    </Ctx.Provider>
+  );
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function useLang() {
-  const ctx = useContext(LangContext);
-  if (!ctx) throw new Error("useLang must be used within <LangProvider>");
-  return ctx;
+  const c = useContext(Ctx);
+  if (!c) throw new Error("useLang must be used within <LangProvider>");
+  return c;
 }

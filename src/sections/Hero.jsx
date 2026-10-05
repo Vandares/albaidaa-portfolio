@@ -1,63 +1,68 @@
-import { motion } from "framer-motion";
-import WorkDeck from "../components/WorkDeck.jsx";
-import { Arrow } from "../lib/icons.jsx";
-import { fadeUp, stagger } from "../lib/motion.js";
+import { lazy, Suspense } from "react";
+
+// three.js is ~670KB; keep it out of the critical path so the headline paints first
+const MoonScene = lazy(() => import("../components/MoonScene.jsx"));
 import { useLang } from "../i18n/LangProvider.jsx";
+import { useReveal } from "../lib/reveal.jsx";
 
 export default function Hero() {
   const { t } = useLang();
+  const h = t.hero;
+  const ref = useReveal({ threshold: 0 });
+
   return (
-    <section className="hero section" id="home">
-      <div className="hero-pattern" />
-      <div className="hero-glow one" />
-      <div className="hero-glow two" />
+    <section className="hero" id="top" ref={ref}>
+      <Suspense fallback={null}>
+        <MoonScene />
+      </Suspense>
+      <div className="hero-dunes" />
 
-      <div className="container hero-inner">
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate="show"
-          className="hero-copy"
-        >
-          <motion.span className="hero-badge" variants={fadeUp}>
-            <span className="dot" /> {t.hero.badge}
-          </motion.span>
+      <div className="wrap hero-in">
+        <div className="hero-copy">
+          <div className="kicker plane" data-i="0">
+            <span className="dot" />
+            <span className="ar">{h.kicker}</span>
+          </div>
 
-          <motion.h1 variants={fadeUp}>
-            {t.hero.h1a}
-            <em>{t.hero.h1em}</em>
-          </motion.h1>
+          <h1>
+            <span className="plane" data-i="1" style={{ display: "block" }}>
+              {h.h1a}
+            </span>
+            <span className="plane glow" data-i="2" style={{ display: "block" }}>
+              {h.h1b}
+            </span>
+          </h1>
 
-          <motion.p className="hero-sub" variants={fadeUp}>
-            {t.hero.sub}
-          </motion.p>
+          <p className="hero-slogan plane" data-i="3">
+            {h.slogan}
+          </p>
+          <p className="hero-en plane" data-i="4">
+            {h.sloganEn}
+          </p>
 
-          <motion.p className="hero-desc" variants={fadeUp}>
-            {t.hero.desc}
-          </motion.p>
-
-          <motion.div className="hero-actions" variants={fadeUp}>
+          <div className="hero-actions plane" data-i="5">
             <a href="#contact" className="btn btn-primary">
-              {t.hero.ctaPrimary} <Arrow className="btn-arrow" width={18} height={18} />
+              {h.cta1}
             </a>
             <a href="#work" className="btn btn-ghost">
-              {t.hero.ctaSecondary}
+              {h.cta2}
             </a>
-          </motion.div>
+          </div>
 
-          <motion.div className="hero-stats" variants={fadeUp}>
-            {t.hero.stats.map((s) => (
-              <div key={s.lbl}>
-                <div className="num">{s.num}</div>
-                <div className="lbl">{s.lbl}</div>
+          <div className="hero-stats plane" data-i="6">
+            {h.stats.map((s) => (
+              <div key={s.k}>
+                <div className="v">{s.v}</div>
+                <div className="k">{s.k}</div>
               </div>
             ))}
-          </motion.div>
-        </motion.div>
-
-        <div className="hero-visual">
-          <WorkDeck />
+          </div>
         </div>
+      </div>
+
+      <div className="scroll-hint" aria-hidden="true">
+        <i />
+        <span>{h.scroll}</span>
       </div>
     </section>
   );

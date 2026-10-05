@@ -166,3 +166,9 @@ export const Globe = (p) => (
     <path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18Z" />
   </svg>
 );
+
+export const Play = (p) => (
+  <svg {...p} width={p.width || 24} height={p.height || 24} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M8 5v14l11-7z" />
+  </svg>
+);

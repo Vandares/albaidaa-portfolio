@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { CONTACT } from "../data/content.jsx";
-import { fadeUp, viewport } from "../lib/motion.js";
-import { Mail, Pin, Instagram, WhatsApp, Phone, Arrow, XLogo } from "../lib/icons.jsx";
+import { Section, Lockup } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
+import { CONTACT } from "../data/site.js";
+import { WhatsApp, Mail, Instagram, XLogo, Globe } from "../lib/icons.jsx";
 
 export default function Contact() {
   const { t } = useLang();
   const c = t.contact;
   const [form, setForm] = useState({ name: "", brand: "", service: "", message: "" });
-
-  const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const up = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const submit = (e) => {
     e.preventDefault();
@@ -21,137 +19,110 @@ export default function Contact() {
       `${w.brand}: ${form.brand || w.empty}\n` +
       `${w.service}: ${form.service || w.empty}\n` +
       `${w.details}: ${form.message || w.empty}`;
-    const url = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(
-      text
-    )}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.open(
+      `https://wa.me/${CONTACT.wa1.number}?text=${encodeURIComponent(text)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
 
+  const channels = [
+    { k: c.ch.wa, v: CONTACT.wa1.display, href: `https://wa.me/${CONTACT.wa1.number}`, I: WhatsApp },
+    { k: c.ch.wa, v: CONTACT.wa2.display, href: `https://wa.me/${CONTACT.wa2.number}`, I: WhatsApp },
+    { k: c.ch.email, v: CONTACT.email, href: `mailto:${CONTACT.email}`, I: Mail },
+    { k: c.ch.instagram, v: CONTACT.instagram, href: CONTACT.instagramUrl, I: Instagram },
+    { k: c.ch.x, v: CONTACT.x, href: CONTACT.xUrl, I: XLogo },
+    { k: c.ch.site, v: CONTACT.site, href: "https://lavert-sa.com", I: Globe },
+  ];
+
   return (
-    <section className="section" id="contact">
-      <div className="container contact-grid">
-        <motion.div
-          className="contact-info"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          <span className="eyebrow">{c.eyebrow}</span>
-          <h2 className="section-title">{c.title}</h2>
-          <p className="lead">{c.lead}</p>
+    <Section id="contact">
+      <div className="wrap">
+        <div className="contact-grid">
+          <div>
+            <Lockup kicker={c.kicker} kickerEn={c.kickerEn} h1={c.h1} h2={c.h2} en={c.en} />
+            <p className="lead plane" data-i="3">
+              {c.lead}
+            </p>
 
-          <div className="contact-list">
-            <a href={`https://wa.me/${CONTACT.whatsappNumber}`} target="_blank" rel="noreferrer">
-              <span className="ci-ic">
-                <WhatsApp width={22} height={22} />
-              </span>
-              <span>
-                <span className="ci-t">{c.channels.whatsapp}</span>
-                <span className="ci-v" dir="ltr">{CONTACT.whatsappDisplay}</span>
-              </span>
-            </a>
-            <a href={`mailto:${CONTACT.email}`}>
-              <span className="ci-ic">
-                <Mail width={22} height={22} />
-              </span>
-              <span>
-                <span className="ci-t">{c.channels.email}</span>
-                <span className="ci-v" dir="ltr">{CONTACT.email}</span>
-              </span>
-            </a>
-            <a href={CONTACT.instagramUrl} target="_blank" rel="noreferrer">
-              <span className="ci-ic">
-                <Instagram width={22} height={22} />
-              </span>
-              <span>
-                <span className="ci-t">{c.channels.instagram}</span>
-                <span className="ci-v" dir="ltr">{CONTACT.instagram}</span>
-              </span>
-            </a>
-            <a href={CONTACT.xUrl} target="_blank" rel="noreferrer">
-              <span className="ci-ic">
-                <XLogo width={19} height={19} />
-              </span>
-              <span>
-                <span className="ci-t">{c.channels.x}</span>
-                <span className="ci-v" dir="ltr">{CONTACT.x}</span>
-              </span>
-            </a>
-            <div className="ci">
-              <span className="ci-ic">
-                <Pin width={22} height={22} />
-              </span>
-              <span>
-                <span className="ci-t">{c.channels.location}</span>
-                <span className="ci-v">{c.locationValue}</span>
-              </span>
+            <div style={{ marginTop: "clamp(28px,4vw,44px)" }}>
+              {channels.map((ch, i) => (
+                <a
+                  className="ch plane"
+                  data-i={(i % 6) + 1}
+                  key={ch.k + ch.v}
+                  href={ch.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="ch-ic">
+                    <ch.I width={18} height={18} />
+                  </span>
+                  <span>
+                    <span className="ch-k">{ch.k}</span>
+                    <span className="ch-v">{ch.v}</span>
+                  </span>
+                </a>
+              ))}
             </div>
           </div>
-        </motion.div>
 
-        <motion.form
-          className="contact-form"
-          onSubmit={submit}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          <div className="form-row">
+          <form className="plane" data-i="2" onSubmit={submit}>
+            <div className="form-row">
+              <div className="field">
+                <label htmlFor="name">{c.form.name}</label>
+                <input
+                  id="name"
+                  name="name"
+                  autoComplete="name"
+                  value={form.name}
+                  onChange={up}
+                  placeholder={c.form.namePh}
+                  required
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="brand">{c.form.brand}</label>
+                <input
+                  id="brand"
+                  name="brand"
+                  autoComplete="organization"
+                  value={form.brand}
+                  onChange={up}
+                  placeholder={c.form.brandPh}
+                />
+              </div>
+            </div>
+
             <div className="field">
-              <label htmlFor="name">{c.form.name}</label>
+              <label htmlFor="service">{c.form.service}</label>
               <input
-                id="name"
-                name="name"
-                autoComplete="name"
-                value={form.name}
-                onChange={update}
-                placeholder={c.form.namePh}
-                required
+                id="service"
+                name="service"
+                value={form.service}
+                onChange={up}
+                placeholder={c.form.servicePh}
               />
             </div>
+
             <div className="field">
-              <label htmlFor="brand">{c.form.brand}</label>
-              <input
-                id="brand"
-                name="brand"
-                autoComplete="organization"
-                value={form.brand}
-                onChange={update}
-                placeholder={c.form.brandPh}
+              <label htmlFor="message">{c.form.msg}</label>
+              <textarea
+                id="message"
+                name="message"
+                value={form.message}
+                onChange={up}
+                placeholder={c.form.msgPh}
               />
             </div>
-          </div>
 
-          <div className="field">
-            <label htmlFor="service">{c.form.service}</label>
-            <input
-              id="service"
-              name="service"
-              value={form.service}
-              onChange={update}
-              placeholder={c.form.servicePh}
-            />
-          </div>
-
-          <div className="field">
-            <label htmlFor="message">{c.form.message}</label>
-            <textarea
-              id="message"
-              name="message"
-              value={form.message}
-              onChange={update}
-              placeholder={c.form.messagePh}
-            />
-          </div>
-
-          <button type="submit" className="btn btn-primary">
-            {c.form.submit} <Arrow className="btn-arrow" width={18} height={18} />
-          </button>
-          <p className="form-note">{c.form.note}</p>
-        </motion.form>
+            <button type="submit" className="btn btn-primary" style={{ width: "100%" }}>
+              {c.form.submit}
+            </button>
+            <p className="form-note">{c.form.note}</p>
+          </form>
+        </div>
       </div>
-    </section>
+    </Section>
   );
 }

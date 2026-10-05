@@ -1,54 +1,34 @@
-import { motion } from "framer-motion";
-import { SERVICES } from "../data/content.jsx";
-import { fadeUp, staggerFast, viewport } from "../lib/motion.js";
+import { Section, Lockup } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
+import { SCENES } from "../data/site.js";
 
 export default function Services() {
   const { t } = useLang();
-  return (
-    <section className="section" id="services">
-      <div className="container">
-        <motion.div
-          className="section-head"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          <span className="eyebrow">{t.services.eyebrow}</span>
-          <h2 className="section-title">{t.services.title}</h2>
-          <p className="lead">{t.services.lead}</p>
-        </motion.div>
+  const s = t.services;
 
-        <motion.div
-          className="services-grid"
-          variants={staggerFast}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          {SERVICES.map((s, i) => {
-            const Icon = s.icon;
-            const item = t.services.items[i];
-            return (
-              <motion.article
-                className="service-card"
-                key={s.title}
-                variants={fadeUp}
-              >
-                <span className="service-num">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="service-icon">
-                  <Icon width={26} height={26} />
-                </div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </motion.article>
-            );
-          })}
-        </motion.div>
+  return (
+    <Section id="services">
+      <div className="wrap band" style={{ marginBottom: "clamp(40px,6vw,72px)" }}>
+        <div>
+          <Lockup kicker={s.kicker} kickerEn={s.kickerEn} h1={s.h1} h2={s.h2} en={s.en} />
+        </div>
+        <div className="band-art plane" data-i="0">
+          <img src={SCENES.objects} alt="" loading="lazy" decoding="async" />
+        </div>
       </div>
-    </section>
+
+      <div className="wrap">
+        <div className="grid-4">
+          {s.items.map((it, i) => (
+            <article className="card plane" data-i={(i % 4) + 1} key={it.en}>
+              <span className="n">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{it.t}</h3>
+              <span className="en-label">{it.en}</span>
+              <p>{it.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </Section>
   );
 }

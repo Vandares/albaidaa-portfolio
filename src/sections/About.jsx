@@ -1,71 +1,59 @@
-import { motion } from "framer-motion";
-import { fadeUp, scaleIn, viewport } from "../lib/motion.js";
+import { Section, Lockup } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
+import { SCENES } from "../data/site.js";
 
 export default function About() {
   const { t } = useLang();
   const a = t.about;
+  const n = t.name;
+
   return (
-    <section className="section" id="about">
-      <div className="container about-grid">
-        <motion.div
-          className="about-visual"
-          variants={scaleIn}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          {/* Living brand world — seamless loop, decorative. Falls back to
-              the still (set as .about-visual's background) when the visitor
-              prefers reduced motion or video can't play. */}
-          <video
-            className="about-photo"
-            aria-hidden="true"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/assets/brand/world-portrait.jpg"
-          >
-            <source src="/assets/brand/brand-world-portrait.webm" type="video/webm" />
-            <source src="/assets/brand/brand-world-portrait.mp4" type="video/mp4" />
-          </video>
-          <div className="about-pattern" />
-          <img className="mark" src="/assets/brand/logo-white.svg" alt="Lavert" />
-          <div className="est">
-            {a.est}
-            <span>{a.estLabel}</span>
+    <>
+      <Section id="about">
+        <div className="ghost" aria-hidden="true">{a.ghost}</div>
+        <div className="wrap band">
+          <div>
+            <Lockup kicker={a.kicker} kickerEn={a.kickerEn} h1={a.h1} h2={a.h2} en={a.en} />
+            <p className="lead plane" data-i="3">{a.body}</p>
+            <div className="hero-stats plane" data-i="4" style={{ marginTop: "var(--s6)" }}>
+              {t.hero.stats.map((s) => (
+                <div key={s.k}>
+                  <div className="v">{s.v}</div>
+                  <div className="k">{s.k}</div>
+                </div>
+              ))}
+            </div>
           </div>
-        </motion.div>
+          <div className="band-art plane" data-i="0">
+            <img src={SCENES.ring} alt="" loading="lazy" decoding="async" />
+          </div>
+        </div>
+      </Section>
 
-        <motion.div
-          className="about-body"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          <span className="eyebrow">{a.eyebrow}</span>
-          <h2 className="section-title" style={{ marginBottom: "1.4rem" }}>
-            {a.title}
-          </h2>
-
-          <p className="story-lead">{a.storyLead}</p>
-
-          <p>{a.p1}</p>
-          <p>
-            {a.p2.a}
-            <strong>{a.p2.strong}</strong>
-            {a.p2.b}
-          </p>
-          <p>
-            {a.p3.a}
-            <strong>{a.p3.strong}</strong>
-            {a.p3.b}
-          </p>
-        </motion.div>
-      </div>
-    </section>
+      <Section id="name">
+        <div className="wrap band">
+          <div>
+            <Lockup kicker={n.kicker} kickerEn={n.kickerEn} h1={n.h1} h2={n.h2} en={n.en} />
+            <p className="lead plane" data-i="3">{n.body}</p>
+            <p
+              className="plane"
+              data-i="4"
+              style={{
+                marginTop: "var(--s5)",
+                fontFamily: "var(--f-display)",
+                fontSize: "clamp(1.05rem,2.4vw,1.45rem)",
+                color: "var(--glow)",
+                lineHeight: 1.6,
+              }}
+            >
+              {n.quote}
+            </p>
+          </div>
+          <div className="band-art plane" data-i="1">
+            <img src={SCENES.lavender} alt="" loading="lazy" decoding="async" />
+          </div>
+        </div>
+      </Section>
+    </>
   );
 }

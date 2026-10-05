@@ -1,37 +1,16 @@
-import { motion } from "framer-motion";
-import { fadeUp, viewport } from "../lib/motion.js";
+import { Section, Lockup } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
-
-const LOGOS = [
-  ["formula1", "Formula 1"],
-  ["isdb", "Islamic Development Bank"],
-  ["sol", "SOL Beach Resort"],
-  ["bna", "BNA"],
-  ["shades", "Shades Beach"],
-  ["adahi", "Adahi"],
-  ["nightshift", "Night Shift"],
-  ["circles", "Circles Gourmet Donuts"],
-  ["padel", "Padel Court"],
-  ["velvet", "Velvet Care Clinics"],
-  ["nova", "Nova"],
-  ["shawarma", "Shawarma Al Taam"],
-  ["mervat", "Mervat"],
-  ["almawj", "Almawj Clinic Group"],
-  ["sky", "Sky Clinic"],
-  ["hosn", "Hosn Al Raeda"],
-  ["abc", "ABC Gourmet Donuts"],
-  ["leos", "Leos"],
-];
+import { CLIENT_LOGOS } from "../data/site.js";
 
 function Half({ hidden }) {
   return (
-    <div className="marquee-half" aria-hidden={hidden || undefined}>
-      {LOGOS.map(([file, name]) => (
-        <div className="logo-chip" key={file}>
+    <div className="mq-half" aria-hidden={hidden || undefined}>
+      {CLIENT_LOGOS.map(([file, name]) => (
+        <div className="chip" key={file}>
           <img
             src={`/assets/clients/logos/${file}.png`}
             alt={hidden ? "" : name}
-            loading="eager"
+            loading="lazy"
             decoding="async"
           />
         </div>
@@ -42,38 +21,30 @@ function Half({ hidden }) {
 
 export default function Clients() {
   const { t } = useLang();
+  const c = t.clients;
+
   return (
-    <section
-      className="section"
-      id="clients"
-      style={{ paddingBlock: "clamp(3rem,7vw,5rem)" }}
-    >
-      <div className="container">
-        <motion.div
-          className="section-head center"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-          style={{ marginBottom: "clamp(1.8rem, 4vw, 2.6rem)" }}
-        >
-          <span className="eyebrow">{t.clients.eyebrow}</span>
-          <h2 className="section-title">{t.clients.title}</h2>
-        </motion.div>
+    <Section id="clients">
+      <div
+        className="wrap"
+        style={{ textAlign: "center", marginBottom: "clamp(32px,5vw,56px)" }}
+      >
+        <Lockup
+          kicker={c.kicker}
+          kickerEn={c.kickerEn}
+          h1={c.h1}
+          h2={c.h2}
+          en={c.en}
+          center
+        />
       </div>
 
-      <motion.div
-        className="marquee"
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewport}
-      >
+      <div className="marquee">
         <div className="marquee-track">
           <Half />
           <Half hidden />
         </div>
-      </motion.div>
-    </section>
+      </div>
+    </Section>
   );
 }
