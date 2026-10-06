@@ -713,8 +713,7 @@
   width: auto;
   flex-shrink: 0;
   object-fit: contain;
-  opacity: 0.5;
-  filter: grayscale(1) brightness(2.9);
+  opacity: 0.62;
   transition: opacity var(--d2) var(--ease);
 }
 .wall-half img:hover {
