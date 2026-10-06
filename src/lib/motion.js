@@ -56,6 +56,30 @@ function whenReady(fn) {
   else fn(alive);
 }
 
+/**
+ * ScrollTrigger measures each trigger once, when it is built. Anything that
+ * changes the page height afterwards (web fonts swapping in, the lazy 3D
+ * chunk mounting, images arriving) leaves those positions stale, and a
+ * section whose start has drifted past the viewport may never fire at all:
+ * its content then sits at opacity 0 for good. Re-measure whenever the page
+ * settles.
+ */
+if (typeof window !== "undefined") {
+  const refresh = () => ScrollTrigger.refresh();
+  window.addEventListener("load", refresh);
+  if (document.fonts?.ready) document.fonts.ready.then(refresh);
+  // images land at their own pace; coalesce into one late refresh
+  let t;
+  document.addEventListener(
+    "load",
+    () => {
+      clearTimeout(t);
+      t = setTimeout(refresh, 200);
+    },
+    true
+  );
+}
+
 const reduced = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -105,6 +129,15 @@ export function revealSection(root) {
         },
         onComplete: () => clearFailsafe(),
       });
+
+      // If the section is already in view once everything has settled, show
+      // it rather than waiting for a scroll that may never come.
+      setTimeout(() => {
+        const r = root.getBoundingClientRect();
+        const onScreen = r.top < window.innerHeight && r.bottom > 0;
+        const stillHidden = getComputedStyle(planes[0]).opacity < 0.9;
+        if (onScreen && stillHidden) gsap.set(planes, VISIBLE);
+      }, 1200);
     }, root);
   });
 
