@@ -40,6 +40,30 @@ export const REELS = [
   { src: "/assets/videos/tkft.mp4", poster: "/assets/videos/posters/tkft.jpg" },
 ];
 
+
+/* Work gallery: real client shots in public/assets/work/web.
+   Orientation matters. The branding frames are 16:9 and everything else is
+   4:5, so the grid gives each its own span rather than cropping to squares. */
+export const WORK_SHOTS = [
+  { id: "branding-1", wide: true, cat: "branding" },
+  { id: "social-1", cat: "social" },
+  { id: "food-1", cat: "food" },
+  { id: "campaign-1", cat: "campaigns" },
+  { id: "branding-2", wide: true, cat: "branding" },
+  { id: "social-2", cat: "social" },
+  { id: "food-2", cat: "food" },
+  { id: "campaign-2", cat: "campaigns" },
+  { id: "branding-3", wide: true, cat: "branding" },
+  { id: "social-3", cat: "social" },
+  { id: "food-3", cat: "food" },
+  { id: "campaign-3", cat: "campaigns" },
+  { id: "social-4", cat: "social" },
+  { id: "food-4", cat: "food" },
+  { id: "social-5", cat: "social" },
+];
+
+export const WORK_CATS = ["all", "branding", "social", "food", "campaigns"];
+
 export const CLIENT_LOGOS = [
   ["formula1", "Formula 1"],
   ["isdb", "Islamic Development Bank"],
@@ -174,6 +198,31 @@ const T = {
       h2: "نفتخر فيه.",
       en: "Work we are proud of",
       ghost: "WORK",
+      gallery: "من المعرض",
+      cats: {
+        all: "الكل",
+        branding: "هوية",
+        social: "سوشال ميديا",
+        food: "طعام",
+        campaigns: "حملات",
+      },
+      shots: {
+        "branding-1": "هوية بصرية",
+        "branding-2": "تطبيقات الهوية",
+        "branding-3": "هوية ميرفت",
+        "social-1": "سيركلز · سوشال",
+        "social-2": "تصميم محتوى",
+        "social-3": "سلسلة منشورات",
+        "social-4": "صفحة العلامة",
+        "social-5": "توجيه الحساب",
+        "food-1": "حملة طعام",
+        "food-2": "تصاميم القوائم",
+        "food-3": "تصوير المنتجات",
+        "food-4": "تشكيلة جورميه",
+        "campaign-1": "منتجع سول بيتش",
+        "campaign-2": "حملة رياضية",
+        "campaign-3": "يوم المباراة",
+      },
       items: [
         { name: "FK Brothers", kind: "هوية بصرية" },
         { name: "Braq", kind: "هوية بودكاست" },
@@ -458,6 +507,31 @@ const T = {
       h2: "are proud of.",
       en: "شغل نفتخر فيه",
       ghost: "WORK",
+      gallery: "From the gallery",
+      cats: {
+        all: "All",
+        branding: "Identity",
+        social: "Social media",
+        food: "Food",
+        campaigns: "Campaigns",
+      },
+      shots: {
+        "branding-1": "Visual identity",
+        "branding-2": "Brand applications",
+        "branding-3": "Mervat identity",
+        "social-1": "Circles · Social",
+        "social-2": "Content design",
+        "social-3": "Post series",
+        "social-4": "Brand page",
+        "social-5": "Feed direction",
+        "food-1": "Food campaign",
+        "food-2": "Menu visuals",
+        "food-3": "Product shots",
+        "food-4": "Gourmet set",
+        "campaign-1": "SOL Beach Resort",
+        "campaign-2": "Sports campaign",
+        "campaign-3": "Match day",
+      },
       items: [
         { name: "FK Brothers", kind: "Brand identity" },
         { name: "Braq", kind: "Podcast identity" },

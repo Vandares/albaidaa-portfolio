@@ -942,3 +942,141 @@
     animation: none;
   }
 }
+
+/* ---------------- work gallery ----------------
+   Real client shots lead the section; the numbered index sits beneath as the
+   caption. Landscape frames take a double span so nothing is cropped square. */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: clamp(20px, 2.6vw, 30px);
+}
+.filter {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: var(--r9);
+  border: 1px solid var(--hairline-soft);
+  color: var(--lilac);
+  font-family: var(--f-body);
+  font-size: 0.86rem;
+  transition: color var(--d2) var(--ease), border-color var(--d2) var(--ease),
+    background-color var(--d2) var(--ease);
+}
+.filter:hover {
+  color: var(--moon);
+  border-color: var(--dusk);
+}
+.filter.on {
+  background: var(--glow);
+  border-color: var(--glow);
+  color: var(--void);
+  font-weight: 600;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(8px, 1.1vw, 14px);
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.shot {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r2);
+  overflow: hidden;
+  background: var(--surface);
+  cursor: pointer;
+  aspect-ratio: 4 / 5;
+  transition: border-color var(--d3) var(--ease), transform var(--d3) var(--ease);
+}
+.shot.wide {
+  grid-column: span 2;
+  aspect-ratio: 16 / 9;
+}
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms var(--ease);
+}
+.shot:hover {
+  border-color: rgba(205, 190, 255, 0.4);
+  transform: translateY(-3px);
+}
+.shot:hover img {
+  transform: scale(1.05);
+}
+.shot-meta {
+  position: absolute;
+  inset-inline: 12px;
+  bottom: 12px;
+  display: grid;
+  gap: 2px;
+  text-align: start;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--d2) var(--ease), transform var(--d2) var(--ease);
+}
+.shot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(11, 8, 19, 0.92) 0%, rgba(11, 8, 19, 0) 52%);
+  opacity: 0;
+  transition: opacity var(--d2) var(--ease);
+}
+.shot:hover::after,
+.shot:focus-visible::after {
+  opacity: 1;
+}
+.shot:hover .shot-meta,
+.shot:focus-visible .shot-meta {
+  opacity: 1;
+  transform: translateY(0);
+}
+.shot-cat {
+  font-family: var(--f-en);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--glow);
+  position: relative;
+  z-index: 2;
+}
+.shot-name {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--moon);
+  position: relative;
+  z-index: 2;
+}
+.index-label {
+  font-family: var(--f-en);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lilac);
+  margin-bottom: 14px;
+}
+.lb-img {
+  max-height: 88vh;
+  max-width: min(94vw, 1100px);
+  width: auto;
+  border-radius: var(--r2);
+  border: 1px solid var(--hairline);
+}
+
+@media (max-width: 900px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .shot.wide { grid-column: span 2; }
+}
+@media (max-width: 480px) {
+  .gallery { grid-template-columns: 1fr; }
+  .shot.wide { grid-column: span 1; }
+}
