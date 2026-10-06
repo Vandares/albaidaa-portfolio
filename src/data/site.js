@@ -42,37 +42,37 @@ export const REELS = [
 
 
 /* Work gallery: real client shots in public/assets/work/web.
-   Orientation matters. The branding frames are 16:9 and everything else is
-   4:5, so the grid gives each its own span rather than cropping to squares. */
+   ratio is the image's own width/height, measured from the file. The gallery
+   solves row heights from these so nothing is ever cropped to fit a tile. */
 export const WORK_SHOTS = [
   // case-study artwork lifted from Portfolio 2026, pages 8-19
-  { id: "fk-mark", cat: "branding" },
-  { id: "fk-family", cat: "branding" },
-  { id: "fk-bands", cat: "branding" },
-  { id: "fk-box", cat: "branding" },
-  { id: "fk-messages", cat: "branding" },
-  { id: "braq-social", cat: "social" },
-  { id: "braq-podcast", cat: "branding" },
-  { id: "selection-identity", cat: "branding" },
-  { id: "selection-system", cat: "branding" },
-  { id: "mervat-box", cat: "branding" },
-  { id: "sol-match", cat: "campaigns" },
-  { id: "sol-menu", cat: "food" },
-  { id: "branding-1", wide: true, cat: "branding" },
-  { id: "social-1", cat: "social" },
-  { id: "food-1", cat: "food" },
-  { id: "campaign-1", cat: "campaigns" },
-  { id: "branding-2", wide: true, cat: "branding" },
-  { id: "social-2", cat: "social" },
-  { id: "food-2", cat: "food" },
-  { id: "campaign-2", cat: "campaigns" },
-  { id: "branding-3", wide: true, cat: "branding" },
-  { id: "social-3", cat: "social" },
-  { id: "food-3", cat: "food" },
-  { id: "campaign-3", cat: "campaigns" },
-  { id: "social-4", cat: "social" },
-  { id: "food-4", cat: "food" },
-  { id: "social-5", cat: "social" },
+  { id: "fk-mark", ratio: 1.217, cat: "branding" },
+  { id: "fk-family", ratio: 1.139, cat: "branding" },
+  { id: "fk-bands", ratio: 1.401, cat: "branding" },
+  { id: "fk-box", ratio: 1.079, cat: "branding" },
+  { id: "fk-messages", ratio: 1.476, cat: "branding" },
+  { id: "braq-social", ratio: 0.764, cat: "social" },
+  { id: "braq-podcast", ratio: 0.882, cat: "branding" },
+  { id: "selection-identity", ratio: 1.777, cat: "branding" },
+  { id: "selection-system", ratio: 0.538, cat: "branding" },
+  { id: "mervat-box", ratio: 1.501, cat: "branding" },
+  { id: "sol-match", ratio: 0.8, cat: "campaigns" },
+  { id: "sol-menu", ratio: 1.696, cat: "food" },
+  { id: "branding-1", ratio: 1.777, cat: "branding" },
+  { id: "social-1", ratio: 0.8, cat: "social" },
+  { id: "food-1", ratio: 0.8, cat: "food" },
+  { id: "campaign-1", ratio: 0.8, cat: "campaigns" },
+  { id: "branding-2", ratio: 1.777, cat: "branding" },
+  { id: "social-2", ratio: 0.8, cat: "social" },
+  { id: "food-2", ratio: 0.8, cat: "food" },
+  { id: "campaign-2", ratio: 0.8, cat: "campaigns" },
+  { id: "branding-3", ratio: 1.777, cat: "branding" },
+  { id: "social-3", ratio: 0.8, cat: "social" },
+  { id: "food-3", ratio: 0.8, cat: "food" },
+  { id: "campaign-3", ratio: 0.8, cat: "campaigns" },
+  { id: "social-4", ratio: 0.8, cat: "social" },
+  { id: "food-4", ratio: 0.8, cat: "food" },
+  { id: "social-5", ratio: 0.8, cat: "social" },
 ];
 
 export const WORK_CATS = ["all", "branding", "social", "food", "campaigns"];

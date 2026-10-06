@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { Section, Head } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
 import { WORK_SHOTS, WORK_CATS } from "../data/site.js";
+import { useJustified } from "../lib/justify.js";
 import { Close } from "../lib/icons.jsx";
-import { useColumns, spans } from "../lib/gridfill.js";
 
 const SRC = (id, small) => `/assets/work/web/${id}${small ? "-sm" : ""}.webp`;
+const GAP = 12;
 
 /**
  * The work section leads with the actual work.
  *
- * An earlier pass replaced this gallery with a text-only index taken from the
- * portfolio's contents page, which left a creative agency's site showing none
- * of its creative work. The real shots are the argument; the numbered index
- * below them is the caption, and it also carries the four projects that have
- * no imagery supplied yet.
+ * Shots keep their own proportions and the row height is solved to span the
+ * container, so every row ends flush at both edges and nothing is cropped.
+ * The earlier uniform 4:5 tile filled rows neatly but cut wide pieces in
+ * half, which made a sheet of band copy unreadable.
  */
 export default function Work() {
   const { t } = useLang();
@@ -23,8 +23,7 @@ export default function Work() {
   const [open, setOpen] = useState(null);
 
   const shots = cat === "all" ? WORK_SHOTS : WORK_SHOTS.filter((s) => s.cat === cat);
-  const cols = useColumns();
-  const span = spans(shots.length, cols);
+  const [ref, rows] = useJustified(shots, GAP);
 
   useEffect(() => {
     if (!open) return;
@@ -56,32 +55,28 @@ export default function Work() {
           ))}
         </div>
 
-        <div className="gallery plane" style={{ "--cols": cols }}>
-          {shots.map((s, i) => (
-            <button
-              key={s.id}
-              type="button"
-              className="shot"
-              style={{ gridColumn: `span ${span[i]}`, aspectRatio: `${4 * span[i]} / 5` }}
-              onClick={() => setOpen(s)}
-              aria-label={w.shots[s.id]}
-            >
-              <img
-                src={SRC(s.id, true)}
-                alt={w.shots[s.id]}
-                loading="lazy"
-                decoding="async"
-                width={s.wide ? 700 : 560}
-                height={s.wide ? 394 : 700}
-              />
-              <span className="shot-meta">
-                <span className="shot-cat">{w.cats[s.cat]}</span>
-                <span className="shot-name">{w.shots[s.id]}</span>
-              </span>
-            </button>
+        <div className="gallery plane" ref={ref} style={{ gap: GAP }}>
+          {rows.map((row, i) => (
+            <div className="g-row" key={i} style={{ height: row.height, gap: GAP }}>
+              {row.items.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  className="shot"
+                  style={{ flex: `${s.ratio} 1 0` }}
+                  onClick={() => setOpen(s)}
+                  aria-label={w.shots[s.id]}
+                >
+                  <img src={SRC(s.id, true)} alt={w.shots[s.id]} loading="lazy" decoding="async" />
+                  <span className="shot-meta">
+                    <span className="shot-cat">{w.cats[s.cat]}</span>
+                    <span className="shot-name">{w.shots[s.id]}</span>
+                  </span>
+                </button>
+              ))}
+            </div>
           ))}
         </div>
-
       </div>
 
       {open && (
