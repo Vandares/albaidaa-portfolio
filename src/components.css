@@ -370,9 +370,9 @@
   overflow: hidden;
   transition: border-color var(--d3) var(--ease), transform var(--d3) var(--ease);
 }
-/* irregular spans: two wide anchors, the rest paired */
-.tile:nth-child(1),
-.tile:nth-child(8) {
+/* Irregular, but every row closes: 6 + (2+2+2) + (3+3) + (3+3) = 24 over a
+   6-column track. An earlier set summed to 27, which stranded a half row. */
+.tile:nth-child(1) {
   grid-column: span 6;
   min-height: 160px;
 }
@@ -914,8 +914,9 @@
   .stack { grid-template-columns: 1fr; }
   .stack-pin { max-width: 420px; aspect-ratio: 16 / 10; }
   .steps { grid-template-columns: repeat(2, 1fr); gap: 34px 20px; }
+  /* five steps over two columns strands a half row; the last one fills it */
+  .step:last-child { grid-column: span 2; }
   .tile:nth-child(n) { grid-column: span 3; }
-  .tile:nth-child(1) { grid-column: span 6; }
 }
 @media (max-width: 860px) {
   .pill-links { display: none; }
@@ -976,7 +977,7 @@
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(var(--cols, 4), 1fr);
   gap: clamp(8px, 1.1vw, 14px);
   margin-bottom: clamp(40px, 5vw, 64px);
 }
@@ -990,17 +991,14 @@
   overflow: hidden;
   background: var(--surface);
   cursor: pointer;
-  aspect-ratio: 4 / 5;
   transition: border-color var(--d3) var(--ease), transform var(--d3) var(--ease);
 }
-.shot.wide {
-  grid-column: span 2;
-  aspect-ratio: 16 / 9;
-}
+
 .shot img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 700ms var(--ease);
 }
 .shot:hover {
@@ -1072,11 +1070,5 @@
   border: 1px solid var(--hairline);
 }
 
-@media (max-width: 900px) {
-  .gallery { grid-template-columns: repeat(2, 1fr); }
-  .shot.wide { grid-column: span 2; }
-}
-@media (max-width: 480px) {
-  .gallery { grid-template-columns: 1fr; }
-  .shot.wide { grid-column: span 1; }
-}
+
+

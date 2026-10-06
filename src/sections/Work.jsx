@@ -3,6 +3,7 @@ import { Section, Head } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
 import { WORK_SHOTS, WORK_CATS } from "../data/site.js";
 import { Close } from "../lib/icons.jsx";
+import { useColumns, spans } from "../lib/gridfill.js";
 
 const SRC = (id, small) => `/assets/work/web/${id}${small ? "-sm" : ""}.webp`;
 
@@ -22,6 +23,8 @@ export default function Work() {
   const [open, setOpen] = useState(null);
 
   const shots = cat === "all" ? WORK_SHOTS : WORK_SHOTS.filter((s) => s.cat === cat);
+  const cols = useColumns();
+  const span = spans(shots.length, cols);
 
   useEffect(() => {
     if (!open) return;
@@ -53,12 +56,13 @@ export default function Work() {
           ))}
         </div>
 
-        <div className="gallery plane">
-          {shots.map((s) => (
+        <div className="gallery plane" style={{ "--cols": cols }}>
+          {shots.map((s, i) => (
             <button
               key={s.id}
               type="button"
-              className={`shot ${s.wide ? "wide" : ""}`}
+              className="shot"
+              style={{ gridColumn: `span ${span[i]}`, aspectRatio: `${4 * span[i]} / 5` }}
               onClick={() => setOpen(s)}
               aria-label={w.shots[s.id]}
             >
@@ -78,17 +82,6 @@ export default function Work() {
           ))}
         </div>
 
-        {/* the full index, including the four projects with no imagery yet */}
-        <p className="index-label plane">{w.gallery}</p>
-        <div className="sheet-rows">
-          {w.items.map((it, i) => (
-            <div className="row plane" key={it.name}>
-              <span className="n">{String(i + 1).padStart(2, "0")}</span>
-              <span className="name">{it.name}</span>
-              <span className="kind">{it.kind}</span>
-            </div>
-          ))}
-        </div>
       </div>
 
       {open && (
