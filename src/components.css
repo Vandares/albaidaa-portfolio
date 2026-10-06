@@ -272,6 +272,12 @@
   align-items: center;
   gap: 26px;
   padding-inline-end: 26px;
+  flex-shrink: 0;
+}
+.ticker-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
 }
 .ticker-item {
   font-family: var(--f-display);
@@ -678,6 +684,10 @@
   line-height: 1;
   direction: ltr;
   unicode-bidi: isolate;
+  text-align: left;
+}
+[dir="rtl"] .stat .v {
+  text-align: right;
 }
 .stat .k {
   margin-top: 10px;
@@ -924,6 +934,36 @@
   .contact-grid { grid-template-columns: 1fr; }
   .reels { grid-template-columns: repeat(2, 1fr); }
 }
+@media (max-width: 760px) {
+  /* services read better swiped than stacked on a phone */
+  .bento {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-inline: var(--gutter);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-bottom: 4px;
+  }
+  .bento::-webkit-scrollbar { display: none; }
+  .tile,
+  .tile:nth-child(n) {
+    grid-column: auto;
+    flex: 0 0 76%;
+    scroll-snap-align: center;
+    min-height: 0;
+  }
+  /* the cue would sit on the lit crescent, and swiping is obvious on a phone */
+  .scroll-cue { display: none; }
+  .ticker { padding-block: 11px; }
+  .ticker-item { font-size: 0.86rem; }
+  .ticker-half,
+  .ticker-cell { gap: 18px; }
+  .ticker-half { padding-inline-end: 18px; }
+}
+
 @media (max-width: 560px) {
   .tile:nth-child(n) { grid-column: span 6; }
   .steps { grid-template-columns: 1fr; }

@@ -268,6 +268,32 @@ export default function MoonScene() {
     // text on the right, in Arabic and English alike.
     group.position.x = 0;
 
+    /* A phone viewport is far narrower than it is tall, so the companions sit
+       well outside the frame and only an oversized moon survives. Rather than
+       shrink the whole arrangement until everything is tiny, narrow screens
+       get their own composition: the moon alone, smaller, rising from the
+       lower edge, with two sparks for company. */
+    let moonBaseY = -5.1;
+    const companions = [sphere, ring, pebble];
+
+    const layout = () => {
+      const narrow = camera.aspect < 0.95;
+      companions.forEach((o) => (o.visible = !narrow));
+      sparks.forEach((m, i) => (m.visible = !narrow || i < 2));
+      if (narrow) {
+        group.scale.setScalar(0.55);
+        moonBaseY = -5.6;
+        sparks[0]?.position.set(-1.9, 2.6, 0.4);
+        sparks[1]?.position.set(2.1, 1.4, 0.3);
+      } else {
+        group.scale.setScalar(1);
+        moonBaseY = -5.1;
+        sparks[0]?.position.set(spots[0][0], spots[0][1], spots[0][2]);
+        sparks[1]?.position.set(spots[1][0], spots[1][1], spots[1][2]);
+      }
+    };
+    layout();
+
     // ---- interaction ----
     const pointer = { x: 0, y: 0 };
     const target = { x: 0, y: 0 };
@@ -290,6 +316,7 @@ export default function MoonScene() {
       camera.aspect = W / H;
       camera.updateProjectionMatrix();
       renderer.setSize(W, H);
+      layout();
     };
     window.addEventListener("resize", onResize);
 
@@ -318,7 +345,7 @@ export default function MoonScene() {
       group.rotation.x = pointer.y * 0.16 + Math.cos(t * 0.15) * 0.035;
 
       moon.rotation.z = -0.22 + Math.sin(t * 0.22) * 0.07;
-      moon.position.y = -5.1 + Math.sin(t * 0.4) * 0.09;
+      moon.position.y = moonBaseY + Math.sin(t * 0.4) * 0.09;
 
       sphere.position.y = 1.35 + Math.sin(t * 0.52 + 1) * 0.12;
       ring.rotation.z += 0.0016;
