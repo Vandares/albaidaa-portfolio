@@ -334,7 +334,9 @@
   color: var(--moon);
   max-width: 18ch;
 }
-.head.center .h-sec {
+.head.center .h-sec,
+.head.center .en-sub {
+  /* max-width alone leaves these hanging off the start edge of the head */
   margin-inline: auto;
 }
 .h-sec .glow {
