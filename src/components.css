@@ -141,13 +141,43 @@
   padding: 150px var(--gutter) 90px;
   overflow: hidden;
   text-align: center;
+  isolation: isolate;
 }
-.hero-canvas {
+
+/* A ruled field, not a texture: the lines are faint enough to read as paper
+   rather than as a pattern, and they fade out before they reach the headline
+   so nothing competes with the type. */
+.hero-grid {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: -2;
   pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(189, 182, 211, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(189, 182, 211, 0.055) 1px, transparent 1px);
+  background-size: clamp(48px, 5vw, 72px) clamp(48px, 5vw, 72px);
+  -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 72%, #000 10%, transparent 78%);
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 72%, #000 10%, transparent 78%);
 }
+
+/* One light source, rising under the headline. The guideline's motion note
+   is "slow and soft, like light appearing", and this is that note held still. */
+.hero-glow {
+  position: absolute;
+  inset-inline: 0;
+  /* The core sits just inside the lower edge. Pushed further down it reads as
+     a dim wash instead of a light source, because the bright centre of the
+     ellipse falls off-screen and only its falloff is left. */
+  bottom: -6%;
+  height: 72%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 44% 72% at 50% 100%, rgba(205, 190, 255, 0.4), transparent 62%),
+    radial-gradient(ellipse 72% 56% at 50% 100%, rgba(146, 133, 168, 0.22), transparent 70%);
+  filter: blur(10px);
+}
+
 .hero-inner {
   position: relative;
   z-index: 2;
@@ -155,39 +185,57 @@
   max-width: 980px;
   margin-inline: auto;
 }
-.hero-eyebrow {
+
+/* The reference carries its eyebrow in a hairline capsule rather than loose
+   on the background, which is what stops it reading as a stray line of text. */
+.hero-badge {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
+  padding: 7px 16px 7px 14px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r9);
+  background: rgba(23, 17, 37, 0.5);
+  backdrop-filter: blur(8px);
   font-family: var(--f-en);
-  font-size: clamp(0.6rem, 1.1vw, 0.72rem);
-  letter-spacing: 0.26em;
+  font-size: clamp(0.58rem, 1.1vw, 0.7rem);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--lilac);
-  margin-bottom: clamp(20px, 3vw, 34px);
+  color: var(--mist);
+  margin-bottom: clamp(22px, 3.4vw, 38px);
 }
-.hero-eyebrow .dot {
+.hero-badge .dot {
   width: 5px;
   height: 5px;
   border-radius: var(--r9);
   background: var(--glow);
   box-shadow: 0 0 10px var(--glow);
+  flex-shrink: 0;
 }
+
 .hero h1 {
   font-family: var(--f-display);
   font-weight: 700;
   font-size: clamp(2.7rem, 8vw, 6.2rem);
-  line-height: 1.14;
+  line-height: 1.08;
   letter-spacing: 0;
   color: var(--moon);
   margin: 0;
 }
-.hero h1 .glow {
-  color: var(--glow);
-}
 .hero h1 span {
   display: block;
 }
+/* The line changes voice on its closing word. In English that is a change of
+   face -- condensed caps to a humanist lowercase -- which only reads because
+   Almarai is a different width class from Bebas, not a lighter cut of it.
+   Arabic has one family, so it makes the same break on weight and colour. */
+.hero h1 .accent {
+  font-family: "Almarai", "Segoe UI", sans-serif;
+  font-weight: 400;
+  color: var(--glow);
+  letter-spacing: -0.01em;
+}
+
 .hero-slogan {
   margin-top: clamp(22px, 3vw, 34px);
   font-family: var(--f-display);

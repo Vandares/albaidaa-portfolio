@@ -169,18 +169,15 @@ export function heroIntro(root) {
   whenReady((ticking) => {
     if (cancelled) return;
     const beats = root.querySelectorAll("[data-beat]");
-    const canvas = root.querySelector(".hero-canvas");
 
     if (!ticking || reduced()) {
       gsap.set(beats, VISIBLE);
-      if (canvas) gsap.set(canvas, { opacity: 1 });
       return;
     }
 
     ctx = gsap.context(() => {
       const id = setTimeout(() => {
         gsap.set(beats, VISIBLE);
-        if (canvas) gsap.set(canvas, { opacity: 1 });
       }, 2000);
 
       const tl = gsap.timeline({
@@ -204,8 +201,7 @@ export function heroIntro(root) {
           },
           0.2
         )
-        .fromTo('[data-beat="3"]', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: D.slow, stagger: 0.07 }, 0.6)
-        .fromTo(".hero-canvas", { opacity: 0 }, { opacity: 1, duration: 1.1 }, 0.15);
+        .fromTo('[data-beat="3"]', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: D.slow, stagger: 0.07 }, 0.6);
     }, root);
   });
 

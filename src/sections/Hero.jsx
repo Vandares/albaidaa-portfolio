@@ -1,17 +1,22 @@
-import { lazy, Suspense, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useLang } from "../i18n/LangProvider.jsx";
 import { heroIntro } from "../lib/motion.js";
-
-// three.js is ~570KB; keep it off the critical path so the promise paints first
-const MoonScene = lazy(() => import("../components/MoonScene.jsx"));
 
 /**
  * H1 · statement fold.
  *
- * The hero guidelines allow one promise, one visual, one action. The stats
- * that sat here in the previous build were a second hero group competing with
- * the promise, so they moved down to the About band where the portfolio
- * itself puts them (page 02).
+ * One promise, one action, and no object competing with either. The WebGL
+ * scene that used to sit here is gone: it put a dozen floating solids behind
+ * the one sentence the page exists to deliver, and carried a full second
+ * scene pass every frame to do it. The light now comes from a single source
+ * rising under the headline, which is also what the brand's own motion note
+ * asks for -- "like light appearing".
+ *
+ * The headline breaks across two faces. English sets the first part in Bebas,
+ * condensed and all-caps, then drops the closing word into Almarai at a
+ * lighter weight so the line changes voice mid-sentence. Arabic has no second
+ * display face and no italic, so it makes the same break with weight and
+ * colour instead -- bold to regular, moonlight to glow.
  */
 export default function Hero() {
   const { t } = useLang();
@@ -22,19 +27,18 @@ export default function Hero() {
 
   return (
     <section className="hero" id="top" ref={ref}>
-      <Suspense fallback={null}>
-        <MoonScene />
-      </Suspense>
+      <div className="hero-grid" aria-hidden="true" />
+      <div className="hero-glow" aria-hidden="true" />
 
       <div className="hero-inner">
-        <p className="hero-eyebrow" data-beat="1">
+        <p className="hero-badge" data-beat="1">
           <span className="dot" aria-hidden="true" />
           {h.kicker}
         </p>
 
         <h1>
           <span data-beat="2">{h.h1a}</span>
-          <span data-beat="2" className="glow">
+          <span data-beat="2" className="accent">
             {h.h1b}
           </span>
         </h1>
