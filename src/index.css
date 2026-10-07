@@ -5,6 +5,39 @@
    Signature motion: two planes at 45°, the logomark's gesture.
    ============================================================ */
 
+/* ============================================================
+   TYPEFACES — Bebas Neue (Latin) + Rakkas (Arabic), self-hosted.
+
+   Both are single-weight display faces, which drives two decisions here.
+
+   Each face is declared over the full 100-900 range. A static font asked for
+   a weight it does not have gets a synthetic bold, and on Arabic that smears
+   the joins between letters until the word stops reading as connected. Taking
+   the whole range means the browser picks this one master for any weight and
+   never synthesises; font-synthesis is switched off as a second guard.
+
+   Bebas Neue carries no Arabic at all (0 glyphs in the block, measured), so
+   Rakkas is listed after it everywhere: Latin takes Bebas, Arabic falls
+   through to Rakkas.
+   ============================================================ */
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("/assets/fonts/BebasNeue-Regular.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rakkas";
+  src: url("/assets/fonts/Rakkas-Regular.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  /* the Arabic block plus the Latin it shares with Bebas */
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+0020-007F, U+00A0-00FF, U+2010-2027, U+2030-205E;
+}
+
 :root {
   /* Palette — exact brand values */
   --void: #0b0813;
@@ -22,10 +55,13 @@
   --hairline: rgba(189, 182, 211, 0.14);
   --hairline-soft: rgba(189, 182, 211, 0.08);
 
-  /* Type */
-  --f-display: "Alexandria", "Segoe UI", sans-serif;
+  /* Type — Bebas leads for Latin, Rakkas picks up the Arabic behind it */
+  --f-display: "Bebas Neue", "Rakkas", "Segoe UI", sans-serif;
+  --f-en: "Bebas Neue", "Rakkas", system-ui, sans-serif;
+  /* Running paragraphs stay on a text face. Rakkas is a display Naskh and
+     Bebas has no true lowercase, so neither holds up at 0.87rem across a
+     line of copy -- they carry every heading, label and control instead. */
   --f-body: "IBM Plex Sans Arabic", "Segoe UI", sans-serif;
-  --f-en: "Montserrat", system-ui, sans-serif;
 
   /* Space scale 4/8/16/24/40/64 */
   --s1: 4px;
@@ -62,6 +98,10 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+}
+/* single-master faces: never let the browser fake a heavier cut */
+h1, h2, h3, h4, .h-sec, .en-sub, .kicker, .en-label, .n, .btn, .pill-links a {
+  font-synthesis-weight: none;
 }
 body {
   background: var(--void);

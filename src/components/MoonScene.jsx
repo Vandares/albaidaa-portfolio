@@ -30,7 +30,9 @@ export default function MoonScene() {
     let renderer;
     try {
       renderer = new THREE.WebGLRenderer({
-        antialias: !small,
+        // MSAA on top of a supersampled buffer is paying twice for the same
+        // edges, so it is only worth it where the device pixel ratio is 1.
+        antialias: !small && window.devicePixelRatio < 1.5,
         alpha: true,
         powerPreference: "high-performance",
       });
@@ -38,7 +40,15 @@ export default function MoonScene() {
       return; // no WebGL — the CSS dune glow still carries the hero
     }
     renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, small ? 1.5 : 1.75));
+    // 1.75 on a canvas this size is 4.4 million pixels for a backdrop. 1.4
+    // drops that by a third and nothing in this scene has an edge sharp
+    // enough to show the difference.
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, small ? 1.25 : 1.4));
+    // The frosted sphere's transmission makes three.js render the whole scene
+    // a second time into a buffer, every frame, at full resolution by default.
+    // The result is sampled through heavy roughness, so a quarter-size buffer
+    // is indistinguishable and costs a quarter of the pass.
+    renderer.transmissionResolutionScale = 0.45;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -304,8 +314,24 @@ export default function MoonScene() {
     if (!reduced && !small) window.addEventListener("pointermove", onMove, { passive: true });
 
     let scrollY = 0;
+    let lastFade = -1;
+    const applyFade = () => {
+      const f = Math.min(scrollY / (window.innerHeight || 800), 1);
+      if (Math.abs(f - lastFade) < 0.004) return; // skip no-op style writes
+      lastFade = f;
+      renderer.domElement.style.opacity = String(1 - f * 0.85);
+    };
+
+    // A scrolling visitor needs the frame budget more than the backdrop does.
+    // The scene is slow ambient drift, so holding its last frame for the
+    // length of a gesture is invisible -- but the fade has to keep tracking
+    // the scroll, and that is a compositor-only property, so it stays live.
+    let scrolling = 0;
     const onScroll = () => {
       scrollY = window.scrollY;
+      applyFade();
+      clearTimeout(scrolling);
+      scrolling = setTimeout(() => { scrolling = 0; }, 90);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -364,14 +390,14 @@ export default function MoonScene() {
       // drift the whole composition away as the hero leaves
       const fade = Math.min(scrollY / (window.innerHeight || 800), 1);
       group.position.y = -fade * 1.6;
-      renderer.domElement.style.opacity = String(1 - fade * 0.85);
+      applyFade();
 
       renderer.render(scene, camera);
     };
 
     const loop = () => {
       raf = requestAnimationFrame(loop);
-      if (!onScreen || document.hidden) return;
+      if (!onScreen || document.hidden || scrolling) return;
       render();
     };
 
@@ -384,6 +410,7 @@ export default function MoonScene() {
     // ---- teardown ----
     return () => {
       cancelAnimationFrame(raf);
+      clearTimeout(scrolling);
       io.disconnect();
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("scroll", onScroll);

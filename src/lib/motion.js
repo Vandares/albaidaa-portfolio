@@ -36,7 +36,10 @@ const SHOWN_LTR = "polygon(0% 0%, 134% 0%, 100% 100%, -34% 100%)";
 const HIDDEN_RTL = "polygon(100% 0%, 100% 0%, 134% 100%, 134% 100%)";
 const SHOWN_RTL = "polygon(-34% 0%, 100% 0%, 134% 100%, 0% 100%)";
 
-const VISIBLE = { clipPath: "none", opacity: 1, y: 0 };
+// willChange is a promise to the compositor, not a decoration: every .plane
+// that keeps it holds its own layer for the life of the page, and this site
+// has 62 of them. Hand it back the moment the reveal lands.
+const VISIBLE = { clipPath: "none", opacity: 1, y: 0, willChange: "auto" };
 const rtl = () => document.documentElement.dir === "rtl";
 
 /* ---- requestAnimationFrame liveness probe ---- */
@@ -133,7 +136,7 @@ export function revealSection(root) {
         },
         onComplete: () => {
           clearFailsafe();
-          gsap.set(planes, { clipPath: "none" });
+          gsap.set(planes, { clipPath: "none", willChange: "auto" });
         },
       });
 
