@@ -77,25 +77,29 @@ export const WORK_SHOTS = [
 
 export const WORK_CATS = ["all", "branding", "social", "food", "campaigns"];
 
+/* [file, name, width at the 38px cap height the CSS tops out at].
+   The intrinsic width matters. Every logo used to declare 140x38, so until the
+   images loaded the browser laid the row out at roughly twice its real width
+   and the marquee sized its repeat count against that phantom. */
 export const CLIENT_LOGOS = [
-  ["formula1", "Formula 1"],
-  ["isdb", "Islamic Development Bank"],
-  ["sol", "SOL Beach Resort"],
-  ["bna", "BNA"],
-  ["shades", "Shades Beach"],
-  ["adahi", "Adahi"],
-  ["nightshift", "Night Shift"],
-  ["circles", "Circles Gourmet Donuts"],
-  ["padel", "Padel Court"],
-  ["velvet", "Velvet Care Clinics"],
-  ["nova", "Nova"],
-  ["shawarma", "Shawarma Al Taam"],
-  ["mervat", "Mervat"],
-  ["almawj", "Almawj Clinic Group"],
-  ["sky", "Sky Clinic"],
-  ["hosn", "Hosn Al Raeda"],
-  ["abc", "ABC Gourmet Donuts"],
-  ["leos", "Leos"],
+  ["formula1", "Formula 1", 87],
+  ["isdb", "Islamic Development Bank", 73],
+  ["sol", "SOL Beach Resort", 27],
+  ["bna", "BNA", 23],
+  ["shades", "Shades Beach", 58],
+  ["adahi", "Adahi", 111],
+  ["nightshift", "Night Shift", 122],
+  ["circles", "Circles Gourmet Donuts", 143],
+  ["padel", "Padel Court", 82],
+  ["velvet", "Velvet Care Clinics", 32],
+  ["nova", "Nova", 36],
+  ["shawarma", "Shawarma Al Taam", 17],
+  ["mervat", "Mervat", 98],
+  ["almawj", "Almawj Clinic Group", 78],
+  ["sky", "Sky Clinic", 42],
+  ["hosn", "Hosn Al Raeda", 76],
+  ["abc", "ABC Gourmet Donuts", 90],
+  ["leos", "Leos", 55],
 ];
 
 const T = {

@@ -8,6 +8,10 @@ import { useSeamlessMarquee } from "../lib/marquee.js";
  * boxed every logo, which read as a grid of buttons rather than a client list.
  * All eighteen are real clients from the portfolio, and the row repeats to
  * cover the viewport so the loop never runs dry on a wide screen.
+ *
+ * Each logo declares its own intrinsic width. They are nowhere near a common
+ * shape (0.46 to 3.76 in aspect), so one shared width/height pair would both
+ * reflow the row on load and hand the marquee a false measurement.
  */
 export default function Clients() {
   const { t } = useLang();
@@ -15,16 +19,15 @@ export default function Clients() {
   const { band, half, repeat, duration } = useSeamlessMarquee({ pxPerSecond: 34 });
 
   const copies = Array.from({ length: repeat }, (_, k) =>
-    CLIENT_LOGOS.map(([file, name]) => (
+    CLIENT_LOGOS.map(([file, name, w]) => (
       <img
         key={k + ":" + file}
         src={`/assets/clients/logos/${file}.png`}
         alt={k === 0 ? name : ""}
         aria-hidden={k === 0 ? undefined : "true"}
-        loading="lazy"
         decoding="async"
-        width="140"
-        height="38"
+        width={w}
+        height={38}
       />
     ))
   );

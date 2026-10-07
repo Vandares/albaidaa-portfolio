@@ -17,7 +17,11 @@ gsap.registerPlugin(ScrollTrigger);
  *    a zero-area clip-path, which IntersectionObserver and ScrollTrigger both
  *    read as zero visible area, so driving one off its own position would
  *    leave it hidden forever.
- * 2. Nothing may depend on an animation finishing in order to be readable.
+ * 2. The clip-path is a wipe, not a resting state. It has to be cleared the
+ *    moment the reveal lands: the shown polygon still spans only 0%-100%
+ *    vertically, so anything a plane deliberately hangs outside its own box
+ *    (the step badges sit at top: -15px) gets sliced in half for good.
+ * 3. Nothing may depend on an animation finishing in order to be readable.
  *    GSAP advances on requestAnimationFrame, and some environments never run
  *    it (a background tab, low power mode, an embedded webview). There the
  *    page would sit frozen with everything at opacity 0, so the ticker is
@@ -127,7 +131,10 @@ export function revealSection(root) {
             clearFailsafe = () => clearTimeout(id);
           },
         },
-        onComplete: () => clearFailsafe(),
+        onComplete: () => {
+          clearFailsafe();
+          gsap.set(planes, { clipPath: "none" });
+        },
       });
 
       // If the section is already in view once everything has settled, show
@@ -175,7 +182,10 @@ export function heroIntro(root) {
 
       const tl = gsap.timeline({
         defaults: { ease: EASE },
-        onComplete: () => clearTimeout(id),
+        onComplete: () => {
+          clearTimeout(id);
+          gsap.set('[data-beat="2"]', { clipPath: "none" });
+        },
       });
 
       tl.fromTo('[data-beat="1"]', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: D.slow }, 0.1)

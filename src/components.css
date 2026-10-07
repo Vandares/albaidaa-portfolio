@@ -248,7 +248,13 @@
   position: relative;
   z-index: 2;
 }
+/* The BAND has to be LTR, not just the track inside it.
+   An over-wide child of an RTL block is pinned to that block's right edge and
+   overflows leftward, so translateX(-50%) drags it clean out of view and the
+   band stays empty for the rest of the loop. Measured on the Arabic page: the
+   logo wall and this service band were both 100% empty mid-cycle. */
 .ticker {
+  direction: ltr;
   position: relative;
   z-index: 2;
   transform: rotate(-2.4deg) scale(1.06);
@@ -531,22 +537,37 @@
 }
 .step {
   position: relative;
-  padding-top: 34px;
-  border-top: 1px solid var(--hairline-soft);
+  /* 15px of headroom for the badge, then the old 34px under the rule */
+  padding-top: 49px;
+}
+/* The rule is drawn inside the box rather than as border-top. The badge used
+   to straddle that border from top: -15px, which put half of it outside the
+   step -- and the step is a .plane, so the reveal's clip-path sliced the
+   numbers clean in half. Nothing overflows now, so no clip can reach them. */
+.step::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 15px;
+  height: 1px;
+  background: var(--hairline-soft);
 }
 .step .n {
   position: absolute;
-  top: -12px;
+  top: 0;
   inset-inline-start: 0;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   border-radius: var(--r9);
   background: var(--void);
   border: 1px solid var(--dusk);
   display: grid;
   place-items: center;
   font-family: var(--f-en);
-  font-size: 0.64rem;
+  /* 0.64rem in a 24px ring rendered as a smudge rather than a numeral */
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1;
   color: var(--glow);
 }
 .step h3 {
@@ -699,6 +720,7 @@
 
 /* ---------------- P1 · hairline logo wall ---------------- */
 .wall {
+  direction: ltr; /* see the note above .ticker */
   overflow: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);

@@ -12,8 +12,12 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
  * together at 1440 and broke on anything wider.
  *
  * So the content is repeated until one half covers the band, measured rather
- * than guessed, and re-measured on resize. The duration scales with the width
- * so the text keeps the same speed on every screen.
+ * than guessed. Both elements are observed, not just the band: the half is
+ * what changes when a web font swaps in or an image finally decodes, and
+ * measuring once on mount meant sizing the loop against unloaded content.
+ *
+ * The band also has to carry `direction: ltr` in CSS. See the note above
+ * `.ticker` in components.css for why an RTL band empties itself.
  */
 export function useSeamlessMarquee({ pxPerSecond = 46, slack = 1.15 } = {}) {
   const band = useRef(null);
@@ -21,6 +25,8 @@ export function useSeamlessMarquee({ pxPerSecond = 46, slack = 1.15 } = {}) {
   const [repeat, setRepeat] = useState(1);
   const [duration, setDuration] = useState(40);
 
+  // measure() reads layout that its own setState can change, so it has to be
+  // idempotent: everything is derived from the width of ONE copy.
   const measure = () => {
     const b = band.current;
     const h = half.current;
@@ -28,12 +34,11 @@ export function useSeamlessMarquee({ pxPerSecond = 46, slack = 1.15 } = {}) {
 
     const bandW = b.getBoundingClientRect().width * slack;
     const halfW = h.getBoundingClientRect().width;
-    if (!halfW) return;
+    if (!halfW || !bandW) return;
 
-    const unitW = halfW / repeat; // width of a single copy
+    const unitW = halfW / repeat;
     const needed = Math.max(1, Math.ceil(bandW / unitW));
     if (needed !== repeat) setRepeat(needed);
-
     setDuration(Math.max(12, (unitW * needed) / pxPerSecond));
   };
 
@@ -42,8 +47,11 @@ export function useSeamlessMarquee({ pxPerSecond = 46, slack = 1.15 } = {}) {
   useEffect(() => {
     const on = () => measure();
     window.addEventListener("resize", on);
+
     const ro = new ResizeObserver(on);
     if (band.current) ro.observe(band.current);
+    if (half.current) ro.observe(half.current);
+
     return () => {
       window.removeEventListener("resize", on);
       ro.disconnect();
