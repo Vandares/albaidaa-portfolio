@@ -23,14 +23,10 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://lavert-sa.com/" />
 
-    <!-- Display faces are self-hosted, so preload them: they set every
-         heading and the page should not render those in a fallback first. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Every face is self-hosted, so there is no Google Fonts hop at all.
+         Preload the three that set type above the fold. -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="/assets/fonts/Almarai-Regular.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin
       href="/assets/fonts/BebasNeue-Regular.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin

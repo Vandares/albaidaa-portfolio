@@ -6,20 +6,35 @@
    ============================================================ */
 
 /* ============================================================
-   TYPEFACES — Bebas Neue (Latin) + Rakkas (Arabic), self-hosted.
+   TYPEFACES — all three self-hosted, nothing fetched from Google.
 
-   Both are single-weight display faces, which drives two decisions here.
+   Almarai sets the running text. It is the only one of the three with real
+   weights, and that matters more here than it would on a Latin-only site: a
+   synthetic bold on Arabic thickens the joins until a word stops reading as
+   connected. The site asks for 400, 500, 600 and 700; Almarai ships 400 and
+   700, so each face claims the range it is the right master for and the
+   browser never has to invent the in-between cuts.
 
-   Each face is declared over the full 100-900 range. A static font asked for
-   a weight it does not have gets a synthetic bold, and on Arabic that smears
-   the joins between letters until the word stops reading as connected. Taking
-   the whole range means the browser picks this one master for any weight and
-   never synthesises; font-synthesis is switched off as a second guard.
-
-   Bebas Neue carries no Arabic at all (0 glyphs in the block, measured), so
-   Rakkas is listed after it everywhere: Latin takes Bebas, Arabic falls
-   through to Rakkas.
+   Bebas Neue carries Latin display, Rakkas carries Arabic display. Bebas has
+   no Arabic whatsoever (0 glyphs in the block, read off its cmap), so listing
+   it first and Rakkas behind it splits the two scripts without a lang switch.
+   Both are single-weight, so each takes the whole 100-900 range for the same
+   no-synthesis reason.
    ============================================================ */
+@font-face {
+  font-family: "Almarai";
+  src: url("/assets/fonts/Almarai-Regular.woff2") format("woff2");
+  font-weight: 100 549;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Almarai";
+  src: url("/assets/fonts/Almarai-Bold.woff2") format("woff2");
+  font-weight: 550 900;
+  font-style: normal;
+  font-display: swap;
+}
 @font-face {
   font-family: "Bebas Neue";
   src: url("/assets/fonts/BebasNeue-Regular.woff2") format("woff2");
@@ -33,7 +48,6 @@
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
-  /* the Arabic block plus the Latin it shares with Bebas */
   unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
     U+0020-007F, U+00A0-00FF, U+2010-2027, U+2030-205E;
 }
@@ -55,13 +69,11 @@
   --hairline: rgba(189, 182, 211, 0.14);
   --hairline-soft: rgba(189, 182, 211, 0.08);
 
-  /* Type — Bebas leads for Latin, Rakkas picks up the Arabic behind it */
+  /* Type — Bebas leads for Latin display, Rakkas picks up Arabic behind it */
   --f-display: "Bebas Neue", "Rakkas", "Segoe UI", sans-serif;
   --f-en: "Bebas Neue", "Rakkas", system-ui, sans-serif;
-  /* Running paragraphs stay on a text face. Rakkas is a display Naskh and
-     Bebas has no true lowercase, so neither holds up at 0.87rem across a
-     line of copy -- they carry every heading, label and control instead. */
-  --f-body: "IBM Plex Sans Arabic", "Segoe UI", sans-serif;
+  /* Almarai reads at paragraph size in both scripts and has the weights */
+  --f-body: "Almarai", "Segoe UI", sans-serif;
 
   /* Space scale 4/8/16/24/40/64 */
   --s1: 4px;
