@@ -48,8 +48,10 @@
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
-    U+0020-007F, U+00A0-00FF, U+2010-2027, U+2030-205E;
+  /* Arabic only. Bebas leads every display stack and Almarai every text one,
+     so Latin is already spoken for -- and keeping it out of this range is
+     what lets Rakkas sit in front of --f-body without taking the Latin too. */
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
 }
 
 :root {
@@ -72,8 +74,10 @@
   /* Type — Bebas leads for Latin display, Rakkas picks up Arabic behind it */
   --f-display: "Bebas Neue", "Rakkas", "Segoe UI", sans-serif;
   --f-en: "Bebas Neue", "Rakkas", system-ui, sans-serif;
-  /* Almarai reads at paragraph size in both scripts and has the weights */
-  --f-body: "Almarai", "Segoe UI", sans-serif;
+  /* Rakkas sets the Arabic, Almarai picks up the Latin behind it. The split
+     is done by the unicode-range above rather than a [dir] override, so a
+     stray English word on the Arabic page still lands in a text face. */
+  --f-body: "Rakkas", "Almarai", "Segoe UI", sans-serif;
 
   /* Space scale 4/8/16/24/40/64 */
   --s1: 4px;
