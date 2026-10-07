@@ -6,20 +6,18 @@
    ============================================================ */
 
 /* ============================================================
-   TYPEFACES — all three self-hosted, nothing fetched from Google.
+   TYPEFACES — Almarai and Bebas Neue, both self-hosted.
 
-   Almarai sets the running text. It is the only one of the three with real
-   weights, and that matters more here than it would on a Latin-only site: a
-   synthetic bold on Arabic thickens the joins until a word stops reading as
-   connected. The site asks for 400, 500, 600 and 700; Almarai ships 400 and
-   700, so each face claims the range it is the right master for and the
-   browser never has to invent the in-between cuts.
+   Almarai sets everything Arabic, headings included, and the Latin in running
+   text. It is the only face here with real weights, and that counts for more
+   than it would on a Latin-only site: a synthetic bold on Arabic thickens the
+   joins until a word stops reading as connected. The site asks for 400, 500,
+   600 and 700 while Almarai ships 400 and 700, so each face claims the range
+   it is the right master for and the browser never invents a cut.
 
-   Bebas Neue carries Latin display, Rakkas carries Arabic display. Bebas has
-   no Arabic whatsoever (0 glyphs in the block, read off its cmap), so listing
-   it first and Rakkas behind it splits the two scripts without a lang switch.
-   Both are single-weight, so each takes the whole 100-900 range for the same
-   no-synthesis reason.
+   Bebas Neue takes Latin display only. It has no Arabic whatsoever (0 glyphs
+   in the block, read off its cmap), so listing it ahead of Almarai in the
+   display stacks splits the two scripts without a lang switch.
    ============================================================ */
 @font-face {
   font-family: "Almarai";
@@ -42,17 +40,6 @@
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: "Rakkas";
-  src: url("/assets/fonts/Rakkas-Regular.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  /* Arabic only. Bebas leads every display stack and Almarai every text one,
-     so Latin is already spoken for -- and keeping it out of this range is
-     what lets Rakkas sit in front of --f-body without taking the Latin too. */
-  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
-}
 
 :root {
   /* Palette — exact brand values */
@@ -71,13 +58,12 @@
   --hairline: rgba(189, 182, 211, 0.14);
   --hairline-soft: rgba(189, 182, 211, 0.08);
 
-  /* Type — Bebas leads for Latin display, Rakkas picks up Arabic behind it */
-  --f-display: "Bebas Neue", "Rakkas", "Segoe UI", sans-serif;
-  --f-en: "Bebas Neue", "Rakkas", system-ui, sans-serif;
-  /* Rakkas sets the Arabic, Almarai picks up the Latin behind it. The split
-     is done by the unicode-range above rather than a [dir] override, so a
-     stray English word on the Arabic page still lands in a text face. */
-  --f-body: "Rakkas", "Almarai", "Segoe UI", sans-serif;
+  /* Bebas leads the display stacks for Latin; Arabic falls through to
+     Almarai Bold, which pairs with Bebas far better than a calligraphic
+     Naskh did -- both are modern and square-shouldered. */
+  --f-display: "Bebas Neue", "Almarai", "Segoe UI", sans-serif;
+  --f-en: "Bebas Neue", "Almarai", system-ui, sans-serif;
+  --f-body: "Almarai", "Segoe UI", sans-serif;
 
   /* Space scale 4/8/16/24/40/64 */
   --s1: 4px;
