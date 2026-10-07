@@ -1192,3 +1192,136 @@
 
 
 
+
+/* ---------------- packages ---------------- */
+.pk-lead {
+  max-width: 54ch;
+  margin: clamp(18px, 2.4vw, 26px) auto 0;
+  text-align: center;
+  color: var(--lilac);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+.pk-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+  margin-top: clamp(40px, 5vw, 64px);
+  /* the three cards carry different numbers of rows; stretching keeps their
+     buttons on one line rather than stepping down the row */
+  align-items: stretch;
+}
+.pk {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(26px, 3vw, 36px) clamp(22px, 2.6vw, 30px);
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r2);
+  background: linear-gradient(180deg, rgba(23, 17, 37, 0.5), rgba(18, 13, 29, 0.25));
+}
+/* The middle tier is the one the team leads with, so it carries the weight. */
+.pk-pick {
+  border-color: rgba(205, 190, 255, 0.34);
+  background: linear-gradient(180deg, rgba(205, 190, 255, 0.07), rgba(18, 13, 29, 0.3));
+}
+.pk-flag {
+  position: absolute;
+  top: 0;
+  inset-inline-start: clamp(22px, 2.6vw, 30px);
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--r9);
+  background: var(--glow);
+  color: var(--void);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.pk h3 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  color: var(--moon);
+  line-height: 1.2;
+}
+.pk .en-label {
+  display: block;
+  margin-top: 4px;
+}
+.pk-who {
+  margin-top: clamp(14px, 1.8vw, 18px);
+  padding-bottom: clamp(16px, 2vw, 22px);
+  border-bottom: 1px solid var(--hairline-soft);
+  color: var(--mist);
+  font-size: 0.88rem;
+  line-height: 1.75;
+}
+.pk-rows {
+  list-style: none;
+  margin: clamp(16px, 2vw, 22px) 0 clamp(24px, 3vw, 32px);
+  padding: 0;
+  display: grid;
+  gap: 11px;
+  /* pushes the button to the card's foot whatever the row count */
+  flex: 1;
+  align-content: start;
+}
+.pk-rows li {
+  position: relative;
+  padding-inline-start: 20px;
+  color: var(--lilac);
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+.pk-rows li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r9);
+  background: var(--glow);
+  opacity: 0.55;
+}
+.pk .btn {
+  width: 100%;
+  justify-content: center;
+}
+.pk-note {
+  margin-top: clamp(22px, 2.6vw, 30px);
+  text-align: center;
+  color: var(--plum);
+  font-size: 0.8rem;
+  line-height: 1.75;
+}
+.pk-aside {
+  margin-top: clamp(34px, 4vw, 48px);
+  padding: clamp(22px, 2.6vw, 30px);
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r2);
+  text-align: center;
+}
+.pk-aside h4 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--moon);
+}
+.pk-aside p {
+  margin-top: 10px;
+  color: var(--lilac);
+  font-size: 0.86rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+  .pk-grid { grid-template-columns: 1fr; gap: 28px; }
+  /* the flag would sit on the card above it once they stack */
+  .pk-pick { margin-top: 10px; }
+}

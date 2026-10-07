@@ -4,6 +4,7 @@ import Hero from "./sections/Hero.jsx";
 import Ticker from "./sections/Ticker.jsx";
 import About from "./sections/About.jsx";
 import Services from "./sections/Services.jsx";
+import Packages from "./sections/Packages.jsx";
 import Work from "./sections/Work.jsx";
 import Showreel from "./sections/Showreel.jsx";
 import Why from "./sections/Why.jsx";
@@ -26,6 +27,7 @@ export default function App() {
         <Ticker />
         <About />
         <Services />
+        <Packages />
         <Work />
         <Showreel />
         <Why />
