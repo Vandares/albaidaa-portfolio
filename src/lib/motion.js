@@ -260,6 +260,87 @@ export function stickyStack(root, pinSelector, itemSelector) {
   };
 }
 
+/**
+ * Run the stat figures up when the band scrolls in.
+ *
+ * The markup already holds the real figure, and this never clears it before
+ * the run actually starts. A dead ticker, reduced motion, an unparseable
+ * value or a ScrollTrigger that never fires all leave the correct number on
+ * screen rather than a zero that stays a zero -- which is the failure mode
+ * that matters, because nobody would notice it was broken.
+ *
+ * A four-digit year does not count from zero. 0, 437 and 1680 are not years,
+ * and at this duration the eye reads the intermediate frames, so a year
+ * starts a quarter century back and every frame on the way is plausible.
+ */
+export function countUp(root) {
+  if (!root) return () => {};
+  const cells = root.querySelectorAll("[data-count]");
+  if (!cells.length) return () => {};
+
+  let ctx;
+  let cancelled = false;
+
+  whenReady((ticking) => {
+    // the figure is already correct in the DOM; leave it alone
+    if (cancelled || !ticking || reduced()) return;
+
+    ctx = gsap.context(() => {
+      cells.forEach((el) => {
+        const final = el.dataset.count;
+        const parts = final.match(/^(\D*)(\d[\d,]*)(\D*)$/);
+        if (!parts) return;
+
+        const [, pre, digits, post] = parts;
+        const end = Number(digits.replace(/,/g, ""));
+        if (!Number.isFinite(end)) return;
+
+        // keep whatever grouping the written figure uses, so the run does not
+        // drop a separator the final value has
+        const grouped = digits.includes(",");
+        const show = (n) => (grouped ? n.toLocaleString("en-US") : String(n));
+
+        const isYear = digits.length === 4 && end > 1900 && end < 2100;
+        const from = isYear ? end - 25 : 0;
+        const o = { n: from };
+        const settle = () => {
+          el.textContent = final;
+        };
+
+        let id;
+        gsap.to(o, {
+          n: end,
+          duration: 1.6,
+          ease: "power2.out",
+          onUpdate: () => {
+            el.textContent = pre + show(Math.round(o.n)) + post;
+          },
+          onComplete: () => {
+            clearTimeout(id);
+            settle();
+          },
+          scrollTrigger: {
+            trigger: root,
+            // primes and runs together, low enough that the swap to the
+            // starting figure happens at the very bottom of the viewport
+            start: "top 92%",
+            once: true,
+            onEnter: () => {
+              el.textContent = pre + show(from) + post;
+              id = setTimeout(settle, 2800);
+            },
+          },
+        });
+      });
+    }, root);
+  });
+
+  return () => {
+    cancelled = true;
+    ctx?.revert();
+  };
+}
+
 /** Ambient drift on a 3D scene image, slow enough to read as texture. */
 export function floatArt(el) {
   if (!el) return () => {};

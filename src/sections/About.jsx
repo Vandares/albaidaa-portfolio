@@ -2,15 +2,18 @@ import { useEffect, useRef } from "react";
 import { Section, Head } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
 import { SCENES } from "../data/site.js";
-import { floatArt } from "../lib/motion.js";
+import { countUp, floatArt } from "../lib/motion.js";
 
 export default function About() {
   const { t } = useLang();
   const a = t.about;
   const n = t.name;
   const art = useRef(null);
+  const stats = useRef(null);
 
   useEffect(() => floatArt(art.current), []);
+  // re-runs on language change: the figures are the same but the nodes are not
+  useEffect(() => countUp(stats.current), [t]);
 
   return (
     <>
@@ -20,10 +23,12 @@ export default function About() {
           <p className="lead plane">{a.body}</p>
 
           {/* P4 · stat strip — real figures from Portfolio 2026 p02 */}
-          <div className="stats plane" style={{ marginTop: "clamp(40px,5vw,64px)" }}>
+          <div className="stats plane" ref={stats} style={{ marginTop: "clamp(40px,5vw,64px)" }}>
             {a.stats.map((s) => (
               <div className="stat" key={s.k}>
-                <div className="v">{s.v}</div>
+                <div className="v" data-count={s.v}>
+                  {s.v}
+                </div>
                 <div className="k">{s.k}</div>
               </div>
             ))}

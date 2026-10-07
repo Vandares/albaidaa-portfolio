@@ -753,6 +753,8 @@
 .stat .v {
   font-family: var(--f-en);
   font-weight: 600;
+  /* every digit the same width, so a figure counting up does not shimmer */
+  font-variant-numeric: tabular-nums;
   font-size: clamp(1.9rem, 4.4vw, 3rem);
   color: var(--moon);
   line-height: 1;
