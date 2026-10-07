@@ -139,9 +139,10 @@
   display: grid;
   place-items: center;
   padding: 150px var(--gutter) 90px;
-  overflow: hidden;
+  /* deliberately not clipped: the glow below is meant to carry past the fold
+     rather than stop dead at it. The grid masks itself, and nothing else
+     here leaves the box. */
   text-align: center;
-  isolation: isolate;
 }
 
 /* A ruled field, not a texture: the lines are faint enough to read as paper
@@ -165,17 +166,16 @@
 .hero-glow {
   position: absolute;
   inset-inline: 0;
-  /* The core sits just inside the lower edge. Pushed further down it reads as
-     a dim wash instead of a light source, because the bright centre of the
-     ellipse falls off-screen and only its falloff is left. */
-  bottom: -6%;
-  height: 72%;
+  /* The core sits near the fold and the falloff runs well past it, so the
+     light thins out across the seam instead of being cut at full strength. */
+  top: 34%;
+  height: 128%;
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 44% 72% at 50% 100%, rgba(205, 190, 255, 0.4), transparent 62%),
-    radial-gradient(ellipse 72% 56% at 50% 100%, rgba(146, 133, 168, 0.22), transparent 70%);
-  filter: blur(10px);
+    radial-gradient(ellipse 42% 34% at 50% 48%, rgba(205, 190, 255, 0.4), transparent 70%),
+    radial-gradient(ellipse 72% 30% at 50% 50%, rgba(146, 133, 168, 0.2), transparent 76%);
+  filter: blur(12px);
 }
 
 .hero-inner {
@@ -295,6 +295,9 @@
   overflow: hidden;
   position: relative;
   z-index: 2;
+  /* the rotation leaves bare corners above and below the band; this keeps
+     them lit rather than letting them fall to flat void */
+  background: radial-gradient(ellipse 60% 150% at 50% 0%, rgba(146, 133, 168, 0.1), transparent 70%);
 }
 /* The BAND has to be LTR, not just the track inside it.
    An over-wide child of an RTL block is pinned to that block's right edge and
