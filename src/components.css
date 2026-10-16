@@ -547,9 +547,6 @@
   position: relative;
   aspect-ratio: 4 / 5;
 }
-.stack-pin img {
-  mix-blend-mode: screen;
-}
 
 /* The card turns in 3D as it passes through the viewport.
    This is driven by animation-timeline, not by a scroll handler: the browser
@@ -564,23 +561,6 @@
       animation-timeline: view();
       animation-range: entry 8% exit 92%;
       will-change: transform;
-    }
-    /* light crossing the surface, which is what sells the turn as a solid */
-    .stack-pin::after {
-      content: "";
-      position: absolute;
-      inset: -20%;
-      pointer-events: none;
-      background: linear-gradient(
-        108deg,
-        transparent 36%,
-        rgba(245, 243, 249, 0.17) 50%,
-        transparent 64%
-      );
-      mix-blend-mode: screen;
-      animation: lav-sheen linear both;
-      animation-timeline: view();
-      animation-range: entry 8% exit 92%;
     }
   }
 
@@ -604,12 +584,6 @@
     transform: perspective(1150px) rotateX(-7deg) rotateY(12deg)
       translate3d(0, -26px, -36px) scale(0.962);
   }
-}
-@keyframes lav-sheen {
-  from { transform: translateX(-62%); opacity: 0; }
-  42%  { opacity: 0.85; }
-  58%  { opacity: 0.85; }
-  to   { transform: translateX(62%); opacity: 0; }
 }
 /* no scroll timeline: a slow turn on a clock instead, same look, no handler */
 @keyframes lav-drift {
