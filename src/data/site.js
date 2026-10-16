@@ -18,9 +18,9 @@ export const CONTACT = {
 
 // Scene renders from the brand system, one role each
 export const SCENES = {
-  moon: "/assets/scenes/moon.webp",
+  moon: "/assets/scenes/moon-light.webp",
   moonDesert: "/assets/scenes/moon-desert.webp",
-  lavender: "/assets/scenes/lavender.webp",
+  lavender: "/assets/scenes/lavender-light.webp",
   objects: "/assets/scenes/objects.webp",
   ring: "/assets/scenes/ring.webp",
   portal: "/assets/scenes/portal.webp",

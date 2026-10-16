@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Section, Head } from "../lib/reveal.jsx";
 import { useLang } from "../i18n/LangProvider.jsx";
 import { SCENES } from "../data/site.js";
-import { countUp, floatArt } from "../lib/motion.js";
+import { countUp } from "../lib/motion.js";
 
 export default function About() {
   const { t } = useLang();
@@ -10,8 +10,6 @@ export default function About() {
   const n = t.name;
   const art = useRef(null);
   const stats = useRef(null);
-
-  useEffect(() => floatArt(art.current), []);
   // re-runs on language change: the figures are the same but the nodes are not
   useEffect(() => countUp(stats.current), [t]);
 

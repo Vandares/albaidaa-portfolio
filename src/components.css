@@ -537,11 +537,84 @@
   gap: clamp(28px, 5vw, 72px);
   align-items: start;
 }
+/* No frame and no backdrop. The render's own background was subtracted
+   off, leaving the subject's light over black, so screen blending drops
+   the black and the flower floats in the page's own night with its glow
+   intact -- which is the point of this section, since the brand is named
+   after it. An alpha matte would have cut that glow off with the
+   background it belongs to. */
 .stack-pin {
-  border-radius: var(--r2);
-  overflow: hidden;
-  border: 1px solid var(--hairline-soft);
+  position: relative;
   aspect-ratio: 4 / 5;
+}
+.stack-pin img {
+  mix-blend-mode: screen;
+}
+
+/* The card turns in 3D as it passes through the viewport.
+   This is driven by animation-timeline, not by a scroll handler: the browser
+   advances it on the compositor from the scroll position itself, so nothing
+   runs on the main thread and there is no handler to fall behind. It also
+   reverses for free on the way back up. Firefox has no scroll timelines yet
+   and falls through to the slow drift below -- still no JavaScript. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .stack-pin {
+      animation: lav-turn linear both;
+      animation-timeline: view();
+      animation-range: entry 8% exit 92%;
+      will-change: transform;
+    }
+    /* light crossing the surface, which is what sells the turn as a solid */
+    .stack-pin::after {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      pointer-events: none;
+      background: linear-gradient(
+        108deg,
+        transparent 36%,
+        rgba(245, 243, 249, 0.17) 50%,
+        transparent 64%
+      );
+      mix-blend-mode: screen;
+      animation: lav-sheen linear both;
+      animation-timeline: view();
+      animation-range: entry 8% exit 92%;
+    }
+  }
+
+  @supports not (animation-timeline: view()) {
+    .stack-pin {
+      animation: lav-drift 11s ease-in-out infinite alternate;
+    }
+  }
+}
+
+@keyframes lav-turn {
+  from {
+    transform: perspective(1150px) rotateX(8deg) rotateY(-13deg)
+      translate3d(0, 26px, -50px) scale(0.95);
+  }
+  50% {
+    transform: perspective(1150px) rotateX(0deg) rotateY(0deg)
+      translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: perspective(1150px) rotateX(-7deg) rotateY(12deg)
+      translate3d(0, -26px, -36px) scale(0.962);
+  }
+}
+@keyframes lav-sheen {
+  from { transform: translateX(-62%); opacity: 0; }
+  42%  { opacity: 0.85; }
+  58%  { opacity: 0.85; }
+  to   { transform: translateX(62%); opacity: 0; }
+}
+/* no scroll timeline: a slow turn on a clock instead, same look, no handler */
+@keyframes lav-drift {
+  from { transform: perspective(1150px) rotateY(-5deg) translateY(-9px); }
+  to   { transform: perspective(1150px) rotateY(5deg) translateY(9px); }
 }
 .stack-pin img {
   width: 100%;
@@ -998,7 +1071,7 @@
 /* ---------------- responsive ---------------- */
 @media (max-width: 1024px) {
   .stack { grid-template-columns: 1fr; }
-  .stack-pin { max-width: 420px; aspect-ratio: 16 / 10; }
+  .stack-pin { max-width: 460px; aspect-ratio: 16 / 10; margin-inline: auto; }
   .steps { grid-template-columns: repeat(2, 1fr); gap: 34px 20px; }
   /* five steps over two columns strands a half row; the last one fills it */
   .step:last-child { grid-column: span 2; }
