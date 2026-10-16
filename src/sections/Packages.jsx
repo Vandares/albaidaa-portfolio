@@ -3,20 +3,49 @@ import { useLang } from "../i18n/LangProvider.jsx";
 import { Spark } from "../lib/icons.jsx";
 
 /**
- * Subscription tiers.
+ * Packages — the monthly social subscription, then website design.
  *
- * Built from the internal packages guide, but only the half of it a client is
- * meant to read. The guide also carries objection scripts, upgrade triggers,
- * the production calendar and management rulings -- none of which belong on a
- * public page, and the document says so on its first line.
+ * Built from the two internal package documents, but only the half a client
+ * is meant to read. Those files also carry objection scripts, upgrade
+ * triggers, the production calendar and management rulings, and the first one
+ * says on its opening line that it is not to be sent to a client.
  *
- * No figure appears here and none is stored in the data either: site.js ships
- * whole to every visitor, so a price kept in it "but hidden" is a price
- * published. They stay in the internal guide.
+ * Nothing here names a figure and nothing stores one: site.js ships whole to
+ * every visitor, so a price kept in it "but hidden" is a price published.
+ * Billing terms are out for the same reason -- a payment schedule is a
+ * negotiation, not a page.
  */
+function Tier({ item, flagged, flagText, cta }) {
+  return (
+    <article className={"pk plane" + (flagged ? " pk-pick" : "")}>
+      {flagged && (
+        <span className="pk-flag">
+          <Spark width={11} height={11} aria-hidden="true" />
+          {flagText}
+        </span>
+      )}
+
+      <h3>{item.t}</h3>
+      <span className="en-label">{item.en}</span>
+      <p className="pk-who">{item.who}</p>
+
+      <ul className="pk-rows">
+        {item.rows.map((r) => (
+          <li key={r}>{r}</li>
+        ))}
+      </ul>
+
+      <a href="#contact" className={"btn " + (flagged ? "btn-primary" : "btn-ghost")}>
+        {cta}
+      </a>
+    </article>
+  );
+}
+
 export default function Packages() {
   const { t } = useLang();
   const p = t.packages;
+  const w = p.web;
 
   return (
     <Section id="packages">
@@ -26,32 +55,26 @@ export default function Packages() {
 
         <div className="pk-grid">
           {p.items.map((it, i) => (
-            <article className={"pk plane" + (i === 1 ? " pk-pick" : "")} key={it.en}>
-              {i === 1 && (
-                <span className="pk-flag">
-                  <Spark width={11} height={11} aria-hidden="true" />
-                  {p.popular}
-                </span>
-              )}
-
-              <h3>{it.t}</h3>
-              <span className="en-label">{it.en}</span>
-              <p className="pk-who">{it.who}</p>
-
-              <ul className="pk-rows">
-                {it.rows.map((r) => (
-                  <li key={r}>{r}</li>
-                ))}
-              </ul>
-
-              <a href="#contact" className={"btn " + (i === 1 ? "btn-primary" : "btn-ghost")}>
-                {p.cta}
-              </a>
-            </article>
+            <Tier key={it.en} item={it} flagged={i === 1} flagText={p.popular} cta={p.cta} />
           ))}
         </div>
-
         <p className="pk-note plane">{p.note}</p>
+
+        {/* second group: the website packages are a different purchase, so they
+            get their own rule and label rather than sharing one long row */}
+        <div className="pk-split plane">
+          <h3>{w.label}</h3>
+          <span className="en-label">{w.labelEn}</span>
+          <p>{w.lead}</p>
+        </div>
+
+        <div className="pk-grid pk-grid-2">
+          {w.items.map((it, i) => (
+            <Tier key={it.en} item={it} flagged={i === 1} flagText={p.popular} cta={p.cta} />
+          ))}
+        </div>
+        <p className="pk-note plane">{w.shared}</p>
+        <p className="pk-note plane">{w.timing}</p>
 
         <div className="pk-aside plane">
           <h4>{p.asideTitle}</h4>

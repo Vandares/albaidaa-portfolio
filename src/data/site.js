@@ -261,9 +261,46 @@ const T = {
           ],
         },
       ],
-      note: "العقد ٣ شهور أو سنة، والدفع شهري. ميزانية الإعلانات الممولة تُدفع للمنصة مباشرة.",
+      web: {
+        label: "وتصميم المواقع",
+        labelEn: "Website design",
+        lead: "موقع يشتغل لك، مو بس يبان حلو. باقتان يفرقان في الحجم لا في الجودة.",
+        items: [
+          {
+            t: "انطلاقة",
+            en: "Launch",
+            who: "صفحة واحدة تعرّف بمشروعك وتوصّل العميل لك.",
+            rows: [
+              "صفحة واحدة طويلة بأقسام: من نحن، الخدمات، الأعمال، تواصل",
+              "عربي وإنجليزي، نسختان كاملتان",
+              "تصميم خاص لبراندك، مو قالب جاهز",
+              "ربط الواتساب ومنصات التواصل وخرائط جوجل",
+              "نموذج تواصل يوصل على إيميلكم",
+              "تهيئة أساسية لمحركات البحث",
+              "٣ جولات تعديل، ودعم شهر بعد الإطلاق",
+            ],
+          },
+          {
+            t: "متكامل",
+            en: "Complete",
+            who: "موقع كامل يكبر معك، بصفحات وتعديلات بلا حد.",
+            rows: [
+              "صفحات وتعديلات بلا حد خلال المشروع",
+              "عربي وإنجليزي، نسختان كاملتان",
+              "تصميم خاص لبراندك، مو قالب جاهز",
+              "لوحة تحكم تحدّثون فيها المحتوى بأنفسكم",
+              "معرض أعمال أو كتالوج منتجات",
+              "تهيئة محركات البحث وربط Google Analytics",
+              "دعم ٣ شهور بعد الإطلاق، وأولوية في التنفيذ",
+            ],
+          },
+        ],
+        shared: "الاثنتان تشملان: تجاوباً مع الجوال وكل الأجهزة، شهادة SSL ونسخاً احتياطية، ودومين سعودي ‎.sa مع الاستضافة سنة كاملة باسمكم وملككم.",
+        timing: "المدة من يوم استلام المحتوى: الانطلاقة ٧ إلى ١٠ أيام عمل، والمتكامل ٣ إلى ٤ أسابيع. نطاق ‎.sa يحتاج سجلاً تجارياً سعودياً أو هوية وطنية، ونسجّله نيابة عنكم.",
+      },
+      note: "الاشتراك يبدأ بـ٣ شهور أو سنة. ميزانية الإعلانات الممولة تذهب للمنصة مباشرة وليست ضمن الباقة.",
       asideTitle: "وخدمات نشتغلها لحالها",
-      aside: "هوية بصرية · تغليف · طباعة · مواقع وأنظمة رقمية · فيديو وحملات — تتسعّر حسب نطاق المشروع.",
+      aside: "متجر إلكتروني · نظام حجوزات ومواعيد · ربط الدفع · مدوّنة · هوية بصرية · تغليف · طباعة · فيديو وحملات · كتابة المحتوى وتصوير المنتجات — كلها تتسعّر حسب نطاق المشروع، ونرسل لك عرضاً واضحاً قبل البداية."
     },
 
     work: {
@@ -638,9 +675,46 @@ const T = {
           ],
         },
       ],
-      note: "Contracts run 3 months or a year, billed monthly. Paid-ads budget goes to the platform directly.",
+      web: {
+        label: "And website design",
+        labelEn: "تصميم المواقع",
+        lead: "A site that works for you, not one that only looks good. Two packages that differ in size, not in quality.",
+        items: [
+          {
+            t: "Launch",
+            en: "انطلاقة",
+            who: "One page that introduces your business and gets the client to you.",
+            rows: [
+              "A single long page in sections: about, services, work, contact",
+              "Arabic and English, two complete versions",
+              "Designed for your brand, not a bought template",
+              "WhatsApp, social accounts and Google Maps connected",
+              "A contact form that lands in your inbox",
+              "Core search-engine setup",
+              "Three revision rounds, and a month of support after launch",
+            ],
+          },
+          {
+            t: "Complete",
+            en: "متكامل",
+            who: "A full site that grows with you, with no cap on pages or revisions.",
+            rows: [
+              "Unlimited pages and revisions through the project",
+              "Arabic and English, two complete versions",
+              "Designed for your brand, not a bought template",
+              "A dashboard you update the content from yourselves",
+              "A work portfolio or a product catalogue",
+              "Search-engine setup with Google Analytics connected",
+              "Three months of support after launch, and priority on delivery",
+            ],
+          },
+        ],
+        shared: "Both include: responsive layouts across phone, tablet and desktop, an SSL certificate and regular backups, and a Saudi .sa domain with a full year of hosting, registered in your name and yours to keep.",
+        timing: "From the day we receive your content: Launch takes 7 to 10 working days, Complete 3 to 4 weeks. A .sa domain needs a Saudi commercial registration or national ID; we register it on your behalf.",
+      },
+      note: "Subscriptions start at 3 months or a year. Paid-ads budget goes to the platform directly and is not part of the package.",
       asideTitle: "And work we take on its own",
-      aside: "Visual identity · packaging · print · websites and digital systems · video and campaigns — priced to the scope of the project.",
+      aside: "Online store · bookings and appointments · payment integration · a blog · visual identity · packaging · print · video and campaigns · copywriting and product photography — each priced to the scope of the project, quoted in writing before we start."
     },
 
     work: {
